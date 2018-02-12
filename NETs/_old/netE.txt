@@ -1,0 +1,11 @@
+<name> net
+<desc> fwd 2H
+
+<laye> 0: IN 10
+<laye> 1: FC 15 0
+<laye> 2: FC 10 0
+
+<topo> 0: 1
+<topo> 1: 1 2
+
+<eond> endOND

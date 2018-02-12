@@ -1,0 +1,15 @@
+<name> net
+<desc> RNN
+
+<laye> 0: IN 33
+<laye> 1: FC 99 2
+<laye> 2: FC 44 2
+<laye> 3: FC 22 2
+<laye> 4: FC 7 0
+
+<topo> 0: 1
+<topo> 1: 1 2
+<topo> 2: 2 3
+<topo> 3: 3 4
+
+<eond> endOND
