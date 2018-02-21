@@ -17,15 +17,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="690.0" prefWidth="1400.0" stylesheets="@TVlook.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trainerVC.TVMainViewController">
+<AnchorPane id="AnchorPane" prefHeight="690.0" prefWidth="1400.0" stylesheets="@TVlook.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trainerVC.TVMainViewController">
     <children>
-      <CheckBox fx:id="udRCB" layoutX="1011.0" layoutY="293.0" mnemonicParsing="false" scaleX="0.8" scaleY="0.8" text="udR" />
-      <Label layoutX="1014.0" layoutY="310.0" text="max solv" textFill="#4a4a4a">
+      <CheckBox fx:id="udRCB" layoutX="1001.0" layoutY="293.0" mnemonicParsing="false" scaleX="0.8" scaleY="0.8" text="udR" />
+      <Label layoutX="1006.0" layoutY="310.0" text="max solv" textFill="#4a4a4a">
          <font>
             <Font size="10.0" />
          </font></Label>
       <Slider fx:id="maxSCSlider" blockIncrement="0.1" layoutX="1041.0" layoutY="297.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="24.0" prefWidth="129.0" scaleX="0.8" scaleY="0.8" showTickLabels="true" snapToTicks="true" value="10.0" />
-      <ToggleButton id="round-red" fx:id="resetGlobButton" layoutX="44.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="reset global" textAlignment="CENTER" />
+      <ToggleButton id="round-red" fx:id="resetGlobButton" layoutX="44.0" layoutY="297.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="reset global" textAlignment="CENTER" />
         <TabPane prefHeight="300.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
               <Tab text="reward">
@@ -262,20 +262,20 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="176.0">
                      <children>
-                        <ChoiceBox fx:id="wInDistCB" layoutX="14.0" layoutY="20.0" prefHeight="20.0" prefWidth="126.0" />
-                        <Button id="round-red" fx:id="resetButton" layoutX="155.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="RESET" />
-                        <Label layoutX="15.0" layoutY="50.0" text="weightScale" textFill="#d02a00">
+                        <ChoiceBox fx:id="wInDistCB" layoutX="14.0" layoutY="20.0" prefHeight="20.0" prefWidth="118.0" />
+                        <Button id="round-red" fx:id="resetButton" layoutX="143.0" layoutY="17.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="RESET" />
+                        <Label layoutX="14.0" layoutY="50.0" text="wghtScale" textFill="#d02a00">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Label fx:id="weightSLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="92.0" layoutY="49.0" minHeight="16" minWidth="30.0" prefHeight="17.0" prefWidth="47.0" text="1" textAlignment="RIGHT" textFill="#d02a00">
+                        <Label fx:id="weightSLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="69.0" layoutY="49.0" minHeight="16" minWidth="30.0" prefHeight="17.0" prefWidth="65.0" text="1.0e+10" textAlignment="RIGHT" textFill="#d02a00">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="weightSSlider" blockIncrement="0.1" layoutX="15.0" layoutY="61.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="125.0" />
-                        <ToggleButton id="round-red" fx:id="tryButton" layoutX="155.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="try" textAlignment="CENTER" />
+                        <Slider fx:id="weightSSlider" blockIncrement="0.1" layoutX="15.0" layoutY="61.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="115.0" />
+                        <ToggleButton id="round-red" fx:id="tryButton" layoutX="162.0" layoutY="52.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="47.0" text="try" textAlignment="CENTER" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -307,11 +307,11 @@
                         <CheckBox fx:id="doSTestCB" layoutX="8.0" layoutY="98.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="sTestEL" textFill="#d02a00" />
                         <Separator layoutX="12.0" layoutY="617.0" prefWidth="200.0" />
                           <CheckBox fx:id="doLearnCB" layoutX="10.0" layoutY="144.0" mnemonicParsing="false" selected="true" text="doLearn" textFill="#00a2c6" />
-                          <Label layoutX="9.0" layoutY="164.0" text="learning rate" textFill="#00a2c6">
+                          <Label layoutX="9.0" layoutY="164.0" text="lrning rate" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font></Label>
-                          <Label fx:id="lrLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="85.0" layoutY="164.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="42.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
+                          <Label fx:id="lrLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="164.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="57.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font></Label>
@@ -342,16 +342,16 @@
                            </font>
                         </Label>
                         <Slider fx:id="mxSlider" blockIncrement="0.01" layoutX="134.0" layoutY="202.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" prefHeight="24.0" prefWidth="80.0" value="0.5" />
-                        <CheckBox fx:id="L2regCB" layoutX="8.0" layoutY="227.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="L2reg" textFill="#00a2c6" />
-                        <Slider fx:id="L2regSlider" blockIncrement="0.25" layoutX="71.0" layoutY="224.0" majorTickUnit="1.0" max="-1.0" min="-20.0" minorTickCount="0" prefHeight="24.0" prefWidth="100.0" value="-20.0" />
-                        <Label fx:id="L2regLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="166.0" layoutY="226.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="42.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
+                        <CheckBox fx:id="L2regCB" layoutX="8.0" layoutY="227.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="L2rg" textFill="#00a2c6" />
+                        <Slider fx:id="L2regSlider" blockIncrement="0.25" layoutX="60.0" layoutY="224.0" majorTickUnit="1.0" max="-1.0" min="-20.0" minorTickCount="0" prefHeight="24.0" prefWidth="100.0" value="-20.0" />
+                        <Label fx:id="L2regLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="153.0" layoutY="226.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="55.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="gradLCB" layoutX="8.0" layoutY="248.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="gradL" textFill="#00a2c6" />
-                        <Slider fx:id="gradLSlider" blockIncrement="0.1" layoutX="71.0" layoutY="245.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="24.0" prefWidth="100.0" value="1.0" />
-                        <Label fx:id="gradLLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="166.0" layoutY="247.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="42.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
+                        <CheckBox fx:id="gradLCB" layoutX="8.0" layoutY="248.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="grdL" textFill="#00a2c6" />
+                        <Slider fx:id="gradLSlider" blockIncrement="0.1" layoutX="60.0" layoutY="245.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="24.0" prefWidth="100.0" value="1.0" />
+                        <Label fx:id="gradLLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="154.0" layoutY="247.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="54.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font>
@@ -362,7 +362,7 @@
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Label fx:id="nnDecayLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="86.0" layoutY="314.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="42.0" text="1,0e-05" textAlignment="RIGHT" textFill="#00a2c6">
+                        <Label fx:id="nnDecayLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="73.0" layoutY="314.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="55.0" text="1,0e-05" textAlignment="RIGHT" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font>
@@ -384,18 +384,18 @@
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Label fx:id="tanhRLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="85.0" layoutY="372.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="42.0" text="1,0e-00" textAlignment="RIGHT" textFill="#00a2c6">
+                        <Label fx:id="tanhRLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="71.0" layoutY="372.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="56.0" text="1,0e-00" textAlignment="RIGHT" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </Label>
                         <Slider fx:id="tanhRSlider" blockIncrement="0.1" layoutX="9.0" layoutY="383.0" majorTickUnit="1.0" max="3.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="123.0" />
-                        <Label layoutX="134.0" layoutY="372.0" text="scl" textFill="#00a2c6">
+                        <Label layoutX="134.0" layoutY="374.0" text="scl" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Label fx:id="tanhVLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="162.0" layoutY="372.0" minHeight="16" minWidth="23.0" prefHeight="17.0" prefWidth="47.0" text="1,0e-00" textAlignment="RIGHT" textFill="#00a2c6">
+                        <Label fx:id="tanhVLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="151.0" layoutY="372.0" minHeight="16" minWidth="23.0" prefHeight="17.0" prefWidth="58.0" text="1,0e+00" textAlignment="RIGHT" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
                            </font>

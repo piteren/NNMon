@@ -222,7 +222,7 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textC.txt"), 1, "NETs/netTXffwd.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textA.txt"), 1, "NETs/netTXrnn.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textA.txt"), 1, "NETs/netTXlstmOLD.txt", new DLlearnParams());
-        myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textB.txt"), 1, "NETs/netTXlstmN2L.txt", new DLlearnParams());
+        myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textA.txt"), 1, "NETs/netTXlstmN2L.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textB.txt"), 1, "NETs/netTXlstmREV3L.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new DLlearnParams());

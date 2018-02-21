@@ -1,17 +1,17 @@
 <name> net
 <desc> LSTM in. mem. out.
 
-<laye> 0: IN 91
-<laye> 1: FC 2580 SIGM
-<laye> 2: FC 2580 SIGM
-<laye> 3: FC 2580 TANH
-<laye> 4: FC 2580 SIGM
-<laye> 5: PW 2580 MUL
-<laye> 6: PW 2580 MUL
-<laye> 7: PW 2580 ADD
-<laye> 8: PW 2580 TNH
-<laye> 9: PW 2580 MUL
-<laye> 10: FC 91 TANH
+<laye> 0: IN 90
+<laye> 1: FC 580 SIGM
+<laye> 2: FC 580 SIGM
+<laye> 3: FC 580 TANH
+<laye> 4: FC 580 SIGM
+<laye> 5: PW 580 MUL
+<laye> 6: PW 580 MUL
+<laye> 7: PW 580 ADD
+<laye> 8: PW 580 TNH
+<laye> 9: PW 580 MUL
+<laye> 10: FC 90 TANH
 
 <topo> 0: 1 2 3 4
 <topo> 1: 5
