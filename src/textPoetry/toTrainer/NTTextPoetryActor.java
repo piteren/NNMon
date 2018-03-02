@@ -27,6 +27,7 @@ public class NTTextPoetryActor extends TextPoetryActor implements NTActor {
     public NetTrainerAISolver getMySolver(){
         return mySolver;
     }
+
     @Override
     public double[] prepSolverIN(){
         Character givenC = myCase.prepCurrentState();
@@ -34,11 +35,13 @@ public class NTTextPoetryActor extends TextPoetryActor implements NTActor {
         binArr[(int)givenC-((NTTextPoetryCase)myCase).stratingCharNum] = 1.0;
         return binArr;
     }
+
     @Override 
     public int intpSolverOUT(double[] solverOUT){
         int aX = UArr.maxVix(solverOUT);
         return aX;
     }
+
     @Override 
     public NTCaseFeedback prepFeedbackToSolver(int decIX){
         Character actCh = (char)( ((NTTextPoetryCase)myCase).stratingCharNum + decIX );

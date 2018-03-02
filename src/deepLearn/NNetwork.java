@@ -85,6 +85,7 @@ public class NNetwork extends DLNetworkedObject{
         String[] line;
         do{
             line = desc.get(lineIX).split(" ");
+             // ?? line = desc.get(lineIX).split("\\s+");
             switch(line[0]){
                 case "<name>": NNname = line[1];                        break;
                 case "<desc>": NNdesc = desc.get(lineIX).substring(7);  break;

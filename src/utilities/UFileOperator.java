@@ -18,11 +18,13 @@ import java.util.List;
  * @author ppp
  */
 public class UFileOperator{
+
     private String path;
     
     public UFileOperator(String p){
         path = p;
     }
+
     //reads file from path and returns as string list (of lines)
     public List<String> readFile(){
         List<String> listS = new ArrayList<>();

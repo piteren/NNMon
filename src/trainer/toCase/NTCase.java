@@ -18,18 +18,23 @@ public interface NTCase extends UTRobject{
     public NTCase duplicate();
     
     //************************************************************************** some informational methods
+
     //returns case specific possible number of actors: 0-any N-specific
     public int caseNumOfActors();
+
     //returns number of classes in case (=width of NNet output)
     public int caseNumOfClasses();
-    //returns information wether actor decision changes state
+
+    //returns information wether actor decision changes future case state
     public boolean actDecisionChangesState();
-    
+
+
     //takes list of solvers from trainer (creates new list of trained_actors, for everyone gives one solver and puts those actors to case)
     public void takeSolvers(LinkedList<NetTrainerAISolver> solvers);
     
     //returns actors list
-    public LinkedList<NTActor> getMyActors();    
+    public LinkedList<NTActor> getMyActors();
+
     //returns <0;1> array marking current_possible_decisions among all classes
     public int[] currentPossibleDecisions();
 

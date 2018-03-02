@@ -5,6 +5,7 @@ package trainer.toCase;
 
 import trainer.NetTrainerAISolver;
 import trainer.NTCaseFeedback;
+import utilities.UArr;
 
 /**
  * trained actor interface
@@ -18,10 +19,21 @@ public interface NTActor {
     
     //returns actor AIsolver
     public NetTrainerAISolver getMySolver();
+
     //prepares solver input data array
     public double[] prepSolverIN();
+
     //interprets solver output array, returns decision index
     public int intpSolverOUT(double[] solverOUT);
+
+    // ??
+    /*
+    default public int intpSolverOUT(double[] solverOUT){
+        int aX = UArr.maxVix(solverOUT);
+        return aX;
+    }
+    */
+
     //prepares complete feedback for solver (for taken decision index)
     public NTCaseFeedback prepFeedbackToSolver(int decIX);
 }

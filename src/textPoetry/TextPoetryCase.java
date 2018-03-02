@@ -11,10 +11,10 @@ import java.util.LinkedList;
  */
 public class TextPoetryCase {
     
-    protected final String text;                                                //text to solve
-    private int strIX = 0;                                                      //current index at text, defines current state    
-    protected TextPoetryActor myActor;                                          //actor of this case
-    private final LinkedList<Character> possDecisions;                          //all possible decisions for this case
+    protected final String                  text;                                   //text to solve
+    private int                             strIX = 0;                              //current index at text, defines current state
+    protected TextPoetryActor               myActor;                                //actor of this case
+    private final LinkedList<Character>     possDecisions;                          //all possible decisions for this case
     
     //constructor
     public TextPoetryCase(String inText){
@@ -31,10 +31,12 @@ public class TextPoetryCase {
     protected String getText(){
         return text;
     }
+
     //prepares and returns current state
     public Character prepCurrentState(){
         return text.charAt(strIX);
     }
+
     //prepares current decision list
     public LinkedList<Character> getPossDecisions(){
         return possDecisions;
@@ -50,7 +52,8 @@ public class TextPoetryCase {
         if( actorChoosenState!=corrC  ) reward = -1.0;     
         
         return new TextPoetryFeedback(reward, corrC);
-    }    
+    }
+
     //moves case to next state
     public void moveToNextState(){
         strIX++;

@@ -9,25 +9,25 @@ import trainer.toCase.NTActor;
 import trainer.toCase.NTCase;
 import utilities.UFileOperator;
 
-/*
+/**
  * trained text poetry case
  */
 public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
 
-    private final String path;
-    private final static int CASE_NUM_OF_ACTORS = 1;
-    protected final int stratingCharNum;                                        //index of char where we start
-    protected final int numOfChars;                                             //number of chars in Envy (width of alphabet ..till last char)
+    private final String        path;                                                   //file with text
+    private final static int    CASE_NUM_OF_ACTORS = 1;
+    protected final int         stratingCharNum;                                        //index of char where we start
+    protected final int         numOfChars;                                             //number of chars in Envy (width of alphabet ..till last char)
     
     //constructor(filepath)
     public NTTextPoetryCase(String pth){
         super( listToString( (new UFileOperator(pth)).readFile() ) );
         path = pth;
-        
+
+        //calculate starting_char and number_of_chars
         int start = (int)text.charAt(0),
             end = start,
             tempVal;
-        //calculate starting_char and number_of_chars
         for(int i=1; i<text.length(); i++){
             tempVal = (int)text.charAt(i);
             if(tempVal<start) start = tempVal;

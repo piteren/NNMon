@@ -1,7 +1,7 @@
 <name> net
 <desc> LSTM in. mem. out.
 
-<laye> 0: IN 90
+<laye> 0: IN 91
 
 <laye> 1: FC 330 SIGM
 <laye> 2: FC 330 SIGM
@@ -23,7 +23,7 @@
 <laye> 17: PW 330 TNH
 <laye> 18: PW 330 MUL
 
-<laye> 19: FC 90 TANH
+<laye> 19: FC 91 TANH
 
 <topo> 0: 1 2 3 4
 
