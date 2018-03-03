@@ -58,9 +58,9 @@ public interface NTCase extends UTRobject{
     // moves case to next state with given actor decision
     public void moveCaseToNextState(int decIX);
     
-    //method that performs sample test of case on actor
+    //method that performs sample test of case on actor (test of performance without learning)
     public void sampleTestRun();
-    
+
     @Override
     public default void runTR(int mIP){
         runCase(mIP);

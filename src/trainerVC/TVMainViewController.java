@@ -34,6 +34,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
 import poker.toTrainer.NTPKTableCase;
+import rowDM.toTrainer.NTRowDMCase;
 import textPoetry.toTrainer.NTTextPoetryCase;
 import trainer.NTSolversManager.SolvOrder;
 import trainer.NetTrainer;
@@ -228,7 +229,7 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new DLlearnParams());
 
-        myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textB.txt"), 1, "NETs/netTXlstmN2L.txt", new DLlearnParams());
+        myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
 
         
         myTrainer.addObserver(this);

@@ -27,11 +27,13 @@ public class NTPKTableCase extends PKTable implements NTCase {
     @Override
     public int caseNumOfActors(){
         return playerPerTableAM;
-    }    
+    }
+
     @Override
     public int caseNumOfClasses(){
         return 7;
     }
+
     @Override
     public boolean actDecisionChangesState(){
         return true;
@@ -47,20 +49,24 @@ public class NTPKTableCase extends PKTable implements NTCase {
     @Override
     public LinkedList<NTActor> getMyActors(){
         return null;
-    }    
+    }
+
     @Override
     public int[] currentPossibleDecisions(){
         return null;
     }
-    @Override
-    public void moveCaseToNextState(int decIX){}
-    
-    @Override
-    public void sampleTestRun(){}
     
     @Override
     public void runCase(int numRuns){
         handsToRunAM=numRuns;
         while(handsToRunAM>0) runHand(0);
+    }
+
+    @Override
+    public void moveCaseToNextState(int decIX){}
+
+    @Override
+    public void sampleTestRun(){
+        // code here!!
     }
 }

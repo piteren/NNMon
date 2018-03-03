@@ -15,7 +15,6 @@ import utilities.UFileOperator;
 public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
 
     private final String        path;                                                   //file with text
-    private final static int    CASE_NUM_OF_ACTORS = 1;
     protected final int         stratingCharNum;                                        //index of char where we start
     protected final int         numOfChars;                                             //number of chars in Envy (width of alphabet ..till last char)
     
@@ -55,12 +54,14 @@ public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
     
     @Override
     public int caseNumOfActors(){
-        return CASE_NUM_OF_ACTORS;
+        return 1;
     }
+
     @Override
     public int caseNumOfClasses(){
         return numOfChars;
     }
+
     @Override
     public boolean actDecisionChangesState(){
         return false;
@@ -77,6 +78,7 @@ public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
         myAct.add( (NTActor)myActor );
         return myAct;
     }
+
     @Override
     public int[] currentPossibleDecisions(){
         int[] cPD = new int[numOfChars];
@@ -87,14 +89,14 @@ public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
     @Override
     public void moveCaseToNextState(int decIX){
         moveToNextState();
-    }       
-    
+    }
+
     @Override
     public void sampleTestRun(){
         int dec = (int)prepCurrentState()-stratingCharNum;
         double[] solverIN = new double[numOfChars];
         double[] solverOUT;
-        
+
         for(int i=0; i<100; i++){
             Arrays.fill(solverIN,0.0);
             solverIN[dec] = 1.0;

@@ -1,9 +1,12 @@
 /*
  * 2018 (c) piteren
  */
+
 package rowDM.toTrainer;
 
 import rowDM.RowDMCase;
+import trainer.NetTrainerAISolver;
+import trainer.toCase.NTActor;
 import trainer.toCase.NTCase;
 
 import java.util.Arrays;
@@ -21,32 +24,35 @@ public class NTRowDMCase extends RowDMCase implements NTCase {
     public NTRowDMCase(String pth){
         super(pth);
         path = pth;
-        // code here
-        // read file, put data to objects
     }
 
     @Override
-    public NTCase duplicate(){
-        // !! how duplicating should work ??
-        return new NTRowDMCase(path);
+    public NTCase duplicate(){ return new NTRowDMCase(path); }
+
+    @Override
+    public int caseNumOfActors(){ return 1; }
+
+    @Override
+    public int caseNumOfClasses(){ return numOfClasses; }
+
+    @Override
+    public boolean actDecisionChangesState(){ return false; }
+
+    @Override
+    public void takeSolvers(LinkedList<NetTrainerAISolver> solvers){
+        myActor = new NTRowDMActor(this, solvers.get(0));
     }
 
     @Override
-    public boolean actDecisionChangesState(){
-        return false;
-    }
-
-    @Override
-    public LinkedList<NTRowDMActor> getMyActors(){
-        // code here
+    public LinkedList<NTActor> getMyActors(){
+        LinkedList<NTActor> myAct = new LinkedList();
+        myAct.add( (NTActor)myActor );
+        return myAct;
     }
 
     @Override
     public int[] currentPossibleDecisions(){
-        int[] cPD = new int[999];
-
-        // code here
-        // int[] cPD = new int[width_of_classification];
+        int[] cPD = new int[numOfClasses];
         Arrays.fill(cPD,1);
         return cPD;
     }
@@ -56,4 +62,8 @@ public class NTRowDMCase extends RowDMCase implements NTCase {
         moveToNextRow();
     }
 
+    @Override
+    public void sampleTestRun(){
+        // code here!!
+    }
 }

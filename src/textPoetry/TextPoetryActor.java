@@ -1,3 +1,7 @@
+/*
+ * 2017 (c) piteren
+ */
+
 package textPoetry;
 
 import java.util.LinkedList;
@@ -10,13 +14,12 @@ import utilities.URand;
  */
 public class TextPoetryActor {
     
-    protected TextPoetryCase myCase;
-    private LinkedList<Double> myRewards;                                       //actor rewards
+    protected TextPoetryCase        myCase;
+    private LinkedList<Double>      myRewards = new LinkedList();               //actor rewards
     
     //constructor
     public TextPoetryActor(TextPoetryCase myC){
         myCase = myC;
-        myRewards = new LinkedList();
     }
   
     //makes decision
@@ -25,6 +28,7 @@ public class TextPoetryActor {
         LinkedList<Character> possD = myCase.getPossDecisions();
         return URand.i(possD.size());
     }
+
     //gets decision feedback from case
     public void takeFeedback(TextPoetryFeedback myFeedback){
         myRewards.add(myFeedback.getReward());                                  //takes only reward, do not takes correct decision for learning

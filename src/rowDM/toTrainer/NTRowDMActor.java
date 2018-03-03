@@ -11,9 +11,12 @@ import trainer.NetTrainerAISolver;
 import trainer.toCase.NTActor;
 import utilities.UArr;
 
+import java.util.LinkedList;
+
 /**
  * trained row data modeling actor
  */
+
 public class NTRowDMActor  extends RowDMActor implements NTActor {
 
     protected final NetTrainerAISolver mySolver;
@@ -30,7 +33,11 @@ public class NTRowDMActor  extends RowDMActor implements NTActor {
 
     @Override
     public double[] prepSolverIN(){
-        // code here : give double array from list from case
+        LinkedList<Double> cState = myCase.prepCurrentState();
+        double[] in = new double[cState.size()];
+        for(int i=0; i<in.length; i++)
+            in[i] = cState.get(i);
+        return in;
     }
 
     @Override
@@ -41,7 +48,9 @@ public class NTRowDMActor  extends RowDMActor implements NTActor {
 
     @Override
     public NTCaseFeedback prepFeedbackToSolver(int decIX){
-        // code here
+        RowMDFeedback caseFeedback = myCase.prepFeedback(decIX);
+        Integer corrCIX = caseFeedback.getCorrectDecision();
+        Double rew = caseFeedback.getReward();
         NTCaseFeedback ntFeedback = new NTCaseFeedback(corrCIX, rew, null);
         return ntFeedback;
     }

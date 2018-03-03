@@ -10,6 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import rowDM.RowDMActor;
+import rowDM.RowDMCase;
+import rowDM.RowDMCharDataCreator;
 
 public class appStarter extends Application {
     
@@ -42,6 +45,19 @@ public class appStarter extends Application {
     }
     
     public static void main(String[] args) {
+
+        // RowDMCharDataCreator test = new RowDMCharDataCreator("RDMdata/rowData.txt");
+
+        /*
+        RowDMCase casTest = new RowDMCase("RDMdata/rowData.txt");
+        RowDMActor actTest = new RowDMActor(casTest);
+        for(int i=0; i<100; i++){
+            int dec = actTest.makeDecision(casTest.prepCurrentState());
+            actTest.takeFeedback(casTest.prepFeedback(dec));
+            casTest.moveToNextRow();
+        }
+        */
+
         appStarter.launch(args);
     }
 }

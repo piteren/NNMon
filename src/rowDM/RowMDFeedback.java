@@ -9,17 +9,13 @@ public class RowMDFeedback {
     private final Double        reward;
     private final int           corrC;
 
-    //constructor(reward, correct class)
+    //constructor(reward, correct_class)
     RowMDFeedback(double rew, int cC){
         reward = rew;
         corrC = cC;
     }
 
-    public final Double getReward(){
-        return reward;
-    }
+    public final Double getReward(){ return reward; }
 
-    public final int getCorrectDecision(){
-        return corrC;
-    }
+    public final int getCorrectDecision(){ return corrC; }
 }
