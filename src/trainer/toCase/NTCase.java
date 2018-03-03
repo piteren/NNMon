@@ -15,31 +15,31 @@ import utilities.threadRun.UTRobject;
 public interface NTCase extends UTRobject{
     
     //duplicates case
-    public NTCase duplicate();
+    NTCase duplicate();
     
     //************************************************************************** some informational methods
 
     //returns case specific possible number of actors: 0-any N-specific
-    public int caseNumOfActors();
+    int caseNumOfActors();
 
     //returns number of classes in case (=width of NNet output)
-    public int caseNumOfClasses();
+    int caseNumOfClasses();
 
     //returns information wether actor decision changes future case state
-    public boolean actDecisionChangesState();
+    boolean actDecisionChangesState();
 
 
     //takes list of solvers from trainer (creates new list of trained_actors, for everyone gives one solver and puts those actors to case)
-    public void takeSolvers(LinkedList<NetTrainerAISolver> solvers);
+    void takeSolvers(LinkedList<NetTrainerAISolver> solvers);
     
     //returns actors list
-    public LinkedList<NTActor> getMyActors();
+    LinkedList<NTActor> getMyActors();
 
     //returns <0;1> array marking current_possible_decisions among all classes
-    public int[] currentPossibleDecisions();
+    int[] currentPossibleDecisions();
 
     //runs case x times, only rewarded runs count (single case run may need many not_rewarded_actor_decisions)
-    public default void runCase(int numRuns){
+    default void runCase(int numRuns){
         // below is generic algorithm - may be overriden in more complex environment
         for(int i=0; i<numRuns; i++){
             int actDec = 0;
@@ -56,13 +56,13 @@ public interface NTCase extends UTRobject{
     }
     
     // moves case to next state with given actor decision
-    public void moveCaseToNextState(int decIX);
+    void moveCaseToNextState(int decIX);
     
     //method that performs sample test of case on actor (test of performance without learning)
-    public void sampleTestRun();
+    void sampleTestRun();
 
     @Override
-    public default void runTR(int mIP){
+    default void runTR(int mIP){
         runCase(mIP);
     }
 }
