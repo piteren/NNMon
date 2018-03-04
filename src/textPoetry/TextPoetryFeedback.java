@@ -1,3 +1,6 @@
+/*
+ * 2017 (c) piteren
+ */
 package textPoetry;
 
 /**

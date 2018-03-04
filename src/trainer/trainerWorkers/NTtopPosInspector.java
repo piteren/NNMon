@@ -1,12 +1,13 @@
 /*
  * 2017 (c) piteren
  */
-package trainer;
+package trainer.trainerWorkers;
 
 import dataUtilities.GData;
-import java.util.LinkedList;
+
 import java.util.List;
 import javafx.scene.paint.Color;
+import trainer.NetTrainerAISolver;
 
 /**
  * controls interval solvers position among list, processes and prepares position data
@@ -22,7 +23,7 @@ public class NTtopPosInspector {
                                 prevtopPosSolvData;                             //previous circle top position data
     
     //constructor
-    NTtopPosInspector(boolean pAct){
+    public NTtopPosInspector(boolean pAct){
         processorActive = pAct;
         topPosSolvData = new GData(1, false, 0, Color.rgb(50,200,50));
         prevtopPosSolvData = null;

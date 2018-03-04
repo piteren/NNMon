@@ -1,12 +1,13 @@
 /*
  * 2017 (c) piteren
  */
-package trainer;
+package trainer.trainerWorkers;
 
 import deepLearn.NNetwork;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleBooleanProperty;
+import trainer.NetTrainerAISolver;
 import utilities.URand;
 
 /**
@@ -19,7 +20,7 @@ public class NTgenXDoctor {
                 genXParRange = 25;                                              //% of sorted solvers to be considered as a parents
     
     //constructor
-    NTgenXDoctor(boolean pAct){
+    public NTgenXDoctor(boolean pAct){
         processorActive.set(pAct);
     }
     

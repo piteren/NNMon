@@ -33,12 +33,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
-import poker.toTrainer.NTPKTableCase;
 import rowDM.toTrainer.NTRowDMCase;
-import textPoetry.toTrainer.NTTextPoetryCase;
-import trainer.NTSolversManager.SolvOrder;
+import trainer.trainerWorkers.NTSolversManager.SolvOrder;
 import trainer.NetTrainer;
-import utilities.UFileOperator;
 import utilities.ULogDoubleProperty;
 import utilities.threadRun.UThreadRun;
 

@@ -11,10 +11,10 @@ import trainer.toCase.NTCaseSpecificFeedback;
  */
 public class NTCaseFeedback {
     
-    private final Integer                   correctClassificationIX;            //correct classification index
-    private final Double                    reward;                             //reward value SHOULD BE 0 MEAN 1 MAX
-    private final NTCaseSpecificFeedback    caseFeedback;                       //feedback in case "language" (class to be implemented on case side ...or "null" object)
-    
+    private final Integer                   correctClassificationIX;            // correct classification index
+    private final Double                    reward;                             // reward value SHOULD BE 0 MEAN 1 MAX
+    private final NTCaseSpecificFeedback    caseFeedback;                       // feedback in case "language"
+                                                                                // ...to be implemented on case side ...or "null" if case has no specific feedback)
     //constructor
     public NTCaseFeedback(  Integer corrC,                      //correct cl index
                             Double rew,                         //reward
@@ -29,10 +29,12 @@ public class NTCaseFeedback {
     public final Integer getCorrectClassificationIX(){
         return correctClassificationIX;
     }
+
     //returnd reward
     public final Double getReward(){
         return reward;
     }
+
     //returnd caseFeedback
     public final NTCaseSpecificFeedback getCaseFeedback(){
         return caseFeedback;

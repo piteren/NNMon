@@ -24,7 +24,7 @@ public class NetTrainerAISolver extends NNetwork implements UTRobject{
                                     iCaseFeedback;                              //case specific feedback (interval), Trainer decides about interval length (resets interval)
     
     //constructor(net_path, learnig parameters)
-    protected NetTrainerAISolver(String path, DLlearnParams myLP){
+    public NetTrainerAISolver(String path, DLlearnParams myLP){
         super(myLP, path);
         myColor = Color.rgb(URand.i(200),URand.i(200),URand.i(200));
         

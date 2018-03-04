@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trainer;
+package trainer.trainerWorkers;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import trainer.NetTrainerAISolver;
 import utilities.URand;
 
 /**
@@ -22,7 +24,7 @@ public class NTwinHSolvPromotor {
     private int numWPlayersToAdd = 2;                                           //number of previous loops winning solvers to add
     
     //constructor
-    NTwinHSolvPromotor(boolean pAct){
+    public NTwinHSolvPromotor(boolean pAct){
         processorActive = pAct;
         wSolvers = new LinkedList();
     }

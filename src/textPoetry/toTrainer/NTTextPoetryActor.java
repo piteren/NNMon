@@ -3,7 +3,6 @@
  */
 package textPoetry.toTrainer;
 
-import java.util.Arrays;
 import textPoetry.TextPoetryActor;
 import textPoetry.TextPoetryFeedback;
 import trainer.NetTrainerAISolver;
@@ -32,21 +31,15 @@ public class NTTextPoetryActor extends TextPoetryActor implements NTActor {
     public double[] prepSolverIN(){
         Character givenC = myCase.prepCurrentState();
         double[] binArr = new double[((NTTextPoetryCase)myCase).numOfChars];
-        binArr[(int)givenC-((NTTextPoetryCase)myCase).stratingCharNum] = 1.0;
+        binArr[(int)givenC-((NTTextPoetryCase)myCase).startingCharNum] = 1.0;
         return binArr;
     }
 
     @Override 
-    public int intpSolverOUT(double[] solverOUT){
-        int aX = UArr.maxVix(solverOUT);
-        return aX;
-    }
-
-    @Override 
     public NTCaseFeedback prepFeedbackToSolver(int decIX){
-        Character actCh = (char)( ((NTTextPoetryCase)myCase).stratingCharNum + decIX );
+        Character actCh = (char)( ((NTTextPoetryCase)myCase).startingCharNum + decIX );
         TextPoetryFeedback caseFeedback = myCase.prepFeedback(actCh);
-        Integer corrCIX = (int)caseFeedback.getCorrectDecision()-((NTTextPoetryCase)myCase).stratingCharNum;
+        Integer corrCIX = (int)caseFeedback.getCorrectDecision()-((NTTextPoetryCase)myCase).startingCharNum;
         Double rew = caseFeedback.getReward();
         NTCaseFeedback ntFeedback = new NTCaseFeedback(corrCIX, rew, null);
         return ntFeedback;
