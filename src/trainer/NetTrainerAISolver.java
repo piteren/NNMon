@@ -72,7 +72,7 @@ public class NetTrainerAISolver extends NNetwork implements UTRobject{
         else gCaseFeedback.merge(myFeedback.getCaseFeedback());
         */
         
-        Integer corrCIX = myFeedback.getCorrectClassificationIX();
+        Integer corrCIX = myFeedback.getCorrClassfIX();
         Double rewVal = myFeedback.getReward();
         //add index of correct classification to list of net and calculated error value to error list
         if(corrCIX!=null){

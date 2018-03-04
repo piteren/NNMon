@@ -5,13 +5,14 @@
 package clapri;
 
 /**
- * Classification Problem Feedback class
+ * Classification Problem Feedback interface
+ * holds reward, correct_classification_index and eventually additional_case_specific_information
  */
 public interface CPFeedback {
 
     Double getReward();
 
-    Integer getCorrClassf();
+    Integer getCorrClassfIX();
 
-    Object getCPSpecFeedback();
+    CPcsfInfo getMyCPcsfInfo();
 }

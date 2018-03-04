@@ -7,7 +7,7 @@ package clapri;
 import java.util.LinkedList;
 
 /**
- * Classification Problem Case class
+ * Classification Problem Case interface
  */
 public interface CPCase {
 
@@ -19,7 +19,7 @@ public interface CPCase {
     CPState getCurrentState();
 
     // sets new state for case with given classification_index
-    // in case when future state do not depends form classification classIX is omitted by method body
+    // in case when future state do not depends form classification classIX is omitted
     void setNewState(int classIX);
 
     // prepares feedback for given decision

@@ -26,7 +26,7 @@ public class NTCaseFeedback {
     }
     
     //returns correct classification array
-    public final Integer getCorrectClassificationIX(){
+    public final Integer getCorrClassfIX(){
         return correctClassificationIX;
     }
 

@@ -30,5 +30,5 @@ public interface NTActor {
     }
 
     //prepares complete feedback for solver (for taken decision index)
-    public NTCaseFeedback prepFeedbackToSolver(int decIX);
+    NTCaseFeedback prepFeedbackToSolver(int decIX);
 }

@@ -4,7 +4,7 @@
 package trainer.toCase;
 
 /**
- * interface of case_specific_feedback object
+ * interface of case_specific_feedback class
  * it keeps information about solver performance in case_specific_language
  * used for statistics and visualization
  * enables basic operations to perform by trainer/solver (merge, flush, toString)
