@@ -1,4 +1,4 @@
-NNMon (javaFX application)
+NNMon (javaFX application) Ⓒ 2018 Piotr Niewinski me@piotrniewinski.com
 
 neural network design and monitoring tool
 
