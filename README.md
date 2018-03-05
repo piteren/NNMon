@@ -1,7 +1,7 @@
 NNMon (javaFX application)
 
 neural network design and monitoring tool
-implemented many widely known deep learning features and optimization algorithm and some new and experimantal
+implemented many widely known deep learning features, optimization algorithms and some new or experimantal
 
 typical workflow:
 
