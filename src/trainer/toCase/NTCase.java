@@ -14,33 +14,34 @@ import utilities.threadRun.UTRobject;
  */
 public interface NTCase extends UTRobject{
     
-    //duplicates case
+    // duplicates case
     NTCase duplicate();
     
-    //************************************************************************** some informational methods
+    // ************************************************************************************** some informational methods
 
-    //returns case specific possible number of actors: 0-any N-specific
+    // returns case specific possible number of actors: 0-any N-specific
     int caseNumOfActors();
 
-    //returns number of classes in case (=width of NNet output)
+    // returns number of classes in case (=width of NNet output)
     int caseNumOfClasses();
 
-    //returns information wether actor decision changes future case state
+    // returns information whether actor decision changes future case state
     boolean actDecisionChangesState();
 
 
-    //takes list of solvers from trainer (creates new list of trained_actors, for everyone gives one solver and puts those actors to case)
+    // takes list of solvers from trainer
+    // >> creates new list of NTactors, for each gives one AIsolver and puts those NTactors to case
     void takeSolvers(LinkedList<NetTrainerAISolver> solvers);
     
-    //returns actors list
+    // returns NTactors list
     LinkedList<NTActor> getMyActors();
 
-    //returns <0;1> array marking current_possible_decisions among all classes
+    // returns <0;1> array marking current_possible_decisions among all classes
     int[] currentPossibleDecisions();
 
-    //runs case x times, only rewarded runs count (single case run may need many not_rewarded_actor_decisions)
+    // runs case x times, only rewarded runs count (single case run may need many not_rewarded_actor_decisions)
+    // ...below is generic algorithm - may be overridden in more complex case
     default void runCase(int numRuns){
-        // below is generic algorithm - may be overriden in more complex environment
         for(int i=0; i<numRuns; i++){
             int actDec = 0;
             for(NTActor act: getMyActors()){

@@ -5,6 +5,7 @@ package trainer;
 
 import dataUtilities.GData;
 import trainer.toCase.NTCase;
+import trainer.trainerWorkers.*;
 import utilities.ULogDoubleProperty;
 import deepLearn.DLlearnParams;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import java.util.Observable;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import trainer.NTSolversManager.SolvOrder;
+import trainer.trainerWorkers.NTSolversManager.SolvOrder;
 import utilities.threadRun.UTRobject;
 import utilities.threadRun.UThreadRun;
 
@@ -27,11 +28,11 @@ public class NetTrainer extends Observable implements UTRobject{
     private List<NTCase>                myCases = new LinkedList();;                            //trainer cases list
     private final SimpleIntegerProperty caseRepeatNum = new SimpleIntegerProperty();            //number of internal case runs
     
-    private final NTSolversManager      mySolvMan;                                              //solvers manager
-    private final NTSolvPreProcessor    mySolvPrePro = new NTSolvPreProcessor();                //solvers preprocesor
-    private final NTtopPosInspector     myTopPosInsp;                                           //top position inspector
-    private final NTgenXDoctor          myGenXDr;                                               //genX doctor
-    private final NTwinHSolvPromotor    myWinHSPromotor;                                        //historical winning solvers promotor
+    private final NTSolversManager mySolvMan;                                              //solvers manager
+    private final NTSolvPreProcessor mySolvPrePro = new NTSolvPreProcessor();                //solvers preprocesor
+    private final NTtopPosInspector myTopPosInsp;                                           //top position inspector
+    private final NTgenXDoctor myGenXDr;                                               //genX doctor
+    private final NTwinHSolvPromotor myWinHSPromotor;                                        //historical winning solvers promotor
 
     //************************************************************************** loops & circle
     private final SimpleIntegerProperty loopAM = new SimpleIntegerProperty(),                   //amount of loops in one circle

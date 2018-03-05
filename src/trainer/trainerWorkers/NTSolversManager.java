@@ -1,11 +1,13 @@
 /*
  * 2017 (c) piteren
  */
-package trainer;
+package trainer.trainerWorkers;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import trainer.NetTrainerAISolver;
 import utilities.URand;
 
 /**
@@ -24,16 +26,17 @@ public class NTSolversManager {
     }
     
     //constuctor
-    NTSolversManager(List<NetTrainerAISolver> solv){
+    public NTSolversManager(List<NetTrainerAISolver> solv){
         tSolvers.addAll(solv);
     }
     
     //return unmodifaiable list of solvers (read only) in order not specified (does not matter)
-    protected List<NetTrainerAISolver> getSolvers(){
+    public List<NetTrainerAISolver> getSolvers(){
         return Collections.unmodifiableList(tSolvers);
     }
+
     //return unmodifaiable list of solvers (read only) in order given by argument
-    protected List<NetTrainerAISolver> getSolvers(SolvOrder ord){
+    public List<NetTrainerAISolver> getSolvers(SolvOrder ord){
         switch( ord ){
             case MODIFIED:
                 break;
@@ -48,7 +51,7 @@ public class NTSolversManager {
     }
     
     //replaces worst performing solvers
-    protected void replaceWorstSolvers(List<NetTrainerAISolver> repSolv){
+    public void replaceWorstSolvers(List<NetTrainerAISolver> repSolv){
         sortSolvers();
         for(NetTrainerAISolver rs: repSolv) 
             if(!tSolvers.contains(rs))
@@ -60,7 +63,7 @@ public class NTSolversManager {
     }
     
     //returns number of kept solvers
-    protected int solvNum(){
+    public int solvNum(){
         return tSolvers.size();
     }
     

@@ -14,9 +14,9 @@ import utilities.UFileOperator;
  */
 public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
 
-    private final String        path;                                                   //file with text
-    protected final int         stratingCharNum;                                        //index of char where we start
-    protected final int         numOfChars;                                             //number of chars in Envy (width of alphabet ..till last char)
+    private final String        path;                       //file with text
+    protected final int         startingCharNum;            //index of char where we start
+    protected final int         numOfChars;                 //number of chars in Envy (index diff from first to last)
     
     //constructor(filepath)
     public NTTextPoetryCase(String pth){
@@ -32,7 +32,7 @@ public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
             if(tempVal<start) start = tempVal;
             if(tempVal>end) end = tempVal;
         }
-        stratingCharNum = start;
+        startingCharNum = start;
         numOfChars = end-start+1;
         System.out.println("Num of chars: "+numOfChars);
     }
@@ -93,7 +93,7 @@ public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
 
     @Override
     public void sampleTestRun(){
-        int dec = (int)prepCurrentState()-stratingCharNum;
+        int dec = (int)prepCurrentState()- startingCharNum;
         double[] solverIN = new double[numOfChars];
         double[] solverOUT;
 
@@ -102,7 +102,7 @@ public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
             solverIN[dec] = 1.0;
             solverOUT = ((NTActor)myActor).getMySolver().runFWD(solverIN);
             dec = ((NTActor)myActor).intpSolverOUT(solverOUT);
-            System.out.print( (char)( stratingCharNum + dec ) );
+            System.out.print( (char)( startingCharNum + dec ) );
         }
         System.out.println();
     }

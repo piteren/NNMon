@@ -148,8 +148,10 @@ public class NTPKPlayer extends PKPlayer {
         
         return dNNchoosen;
     }
-    
-    //interprets solver output data 7 decisions old version
+
+    /*
+    // OLD VERSION with 7 classes
+    // interprets solver output data 7 decisions old version
     public PKDecision interpretSolverOUT_7(double[] solverOUT){
         PKDecision dNNchoosen=null;
         int selAtype;                                                           //choose decision (by NN)
@@ -192,11 +194,13 @@ public class NTPKPlayer extends PKPlayer {
         
         return dNNchoosen;
     }
+    */
     
     @Override
     public PKDecision makeDecision(){                                           
         return interpretSolverOUT(mySolver.runFWD(prepareSolverIN()));
     }
+
     @Override
     protected void addHandStats(PKPlayerStats handStats){
         //prepare reward

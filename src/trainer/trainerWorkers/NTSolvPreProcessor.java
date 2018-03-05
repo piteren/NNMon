@@ -1,11 +1,13 @@
 /*
  * 2017 (c) piteren
  */
-package trainer;
+package trainer.trainerWorkers;
 
 import deepLearn.DLlearnParams;
 import java.util.LinkedList;
 import java.util.List;
+
+import trainer.NetTrainerAISolver;
 import utilities.ULogDoubleProperty;
 
 /**
@@ -13,7 +15,7 @@ import utilities.ULogDoubleProperty;
  */
 public class NTSolvPreProcessor {
     
-    protected LinkedList<NetTrainerAISolver> makeSolvers(int sNum, String netPath, DLlearnParams tLearParams){
+    public LinkedList<NetTrainerAISolver> makeSolvers(int sNum, String netPath, DLlearnParams tLearParams){
         LinkedList<NetTrainerAISolver> tSolvers = new LinkedList();
         while(tSolvers.size() < sNum){
             NetTrainerAISolver newSol = new NetTrainerAISolver(netPath, tLearParams);

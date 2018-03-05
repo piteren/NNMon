@@ -9,6 +9,7 @@ public class NTPKGameCaseSpecFeedback extends PKPlayerStats implements NTCaseSpe
     public void merge(NTCaseSpecificFeedback feedbackToAdd){
         super.merge((PKPlayerStats)feedbackToAdd);
     }
+
     @Override
     public String toString(){
         return super.toString();

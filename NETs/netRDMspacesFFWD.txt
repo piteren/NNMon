@@ -1,0 +1,15 @@
+<name> net
+<desc> FFWD
+
+<laye> 0: IN 2
+<laye> 1: FC 90 TANH
+<laye> 2: FC 40 TANH
+<laye> 3: FC 20 TANH
+<laye> 4: FC 2 TANH
+
+<topo> 0: 1
+<topo> 1: 2
+<topo> 2: 3
+<topo> 3: 4
+
+<eond>

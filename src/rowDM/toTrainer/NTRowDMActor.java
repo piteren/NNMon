@@ -41,12 +41,6 @@ public class NTRowDMActor  extends RowDMActor implements NTActor {
     }
 
     @Override
-    public int intpSolverOUT(double[] solverOUT){
-        int aX = UArr.maxVix(solverOUT);
-        return aX;
-    }
-
-    @Override
     public NTCaseFeedback prepFeedbackToSolver(int decIX){
         RowMDFeedback caseFeedback = myCase.prepFeedback(decIX);
         Integer corrCIX = caseFeedback.getCorrectDecision();

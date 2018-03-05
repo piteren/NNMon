@@ -12,7 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ChoiceBox;
-import trainer.NTSolversManager.SolvOrder;
+import trainer.trainerWorkers.NTSolversManager.SolvOrder;
 import trainer.NetTrainer;
 import trainer.NetTrainerAISolver;
 import utilities.ULogDoubleProperty;

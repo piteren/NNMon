@@ -33,12 +33,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
-import poker.toTrainer.NTPKTableCase;
 import rowDM.toTrainer.NTRowDMCase;
-import textPoetry.toTrainer.NTTextPoetryCase;
-import trainer.NTSolversManager.SolvOrder;
+import trainer.trainerWorkers.NTSolversManager.SolvOrder;
 import trainer.NetTrainer;
-import utilities.UFileOperator;
 import utilities.ULogDoubleProperty;
 import utilities.threadRun.UThreadRun;
 
@@ -230,6 +227,7 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new DLlearnParams());
 
         myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
+        //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
 
         
         myTrainer.addObserver(this);
