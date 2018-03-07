@@ -1,5 +1,5 @@
 /**
- * CLA siification PR oblem I nterfaces
+ * CLA ssification PR oblem I nterfaces
  * Interfaces of objects building environment for solving classification problems
  * It contains:
  *      CPCase - case that holds state, takes actor decisions and prepares feedback
