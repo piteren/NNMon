@@ -66,7 +66,7 @@ public class NetTrainerAISolver extends NNetwork implements UTRobject{
         if(iCaseFeedback==null) iCaseFeedback = myFeedback.getCaseFeedback();
         else iCaseFeedback.merge(myFeedback.getCaseFeedback());
         
-        //!! turned off gFeedback to limit memory consumtion (?)
+        //!! turned off gFeedback to limit memory consumption (?)
         /*
         if(gCaseFeedback==null) gCaseFeedback = myFeedback.getCaseFeedback();
         else gCaseFeedback.merge(myFeedback.getCaseFeedback());
