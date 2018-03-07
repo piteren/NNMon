@@ -26,15 +26,15 @@ public class TVChartGDataController implements Observer {
                                         myDrawnSeries = new LinkedList(),       //list of data series actually drawn
                                         mySnapSeries = new LinkedList();        //list of snapData series
                                     
-    private final boolean               snap;                                   //snapshot_when_reset_update flag
+    private final boolean               snapshot;                               //snapshot_when_reset_update flag
     
     //constructor
-    TVChartGDataController(LineChart myCh, boolean sn){
+    TVChartGDataController(LineChart myCh, boolean snap){
         myChart = myCh;
-        snap = sn;
-        //create list of 10 series (snap & drawn) and add them to chart
+        snapshot = snap;
+        //create list of 10 series (snapshot & drawn) and add them to chart
         Platform.runLater(() -> {
-            if(snap)
+            if(snapshot)
                 for(int i=0; i<10; i++){
                     XYChart.Series<Integer,Double> newSer = new Series();
                     mySnapSeries.add( newSer );
@@ -59,7 +59,7 @@ public class TVChartGDataController implements Observer {
             myObGDlist.add(gd);
             numAlreadyDS.add(0);
             gd.addObserver(this);
-        } 
+        }
         //set new color of drawn series
         Platform.runLater(() -> {
             for(int i=0; i<myObGDlist.size(); i++)    
@@ -69,17 +69,20 @@ public class TVChartGDataController implements Observer {
         for(int i=0; i<myObGDlist.size(); i++)
             addDataToChart(i, myObGDlist.get(i).getData());
     }
+
+    //sets one observable GData, removes all previous
     public void setObservables(GData newObs){
         LinkedList<GData> obsDL = new LinkedList();
         obsDL.add(newObs);
         setObservables(obsDL);
     }
-    //removes all observables and copies drawn to snap
+
+    //removes all observables and copies drawn to snapshot
     public void removeAllObservables(){
         if(!myObGDlist.isEmpty()){
             Platform.runLater(() -> {
                 for(int i=0; i<10; i++){
-                    if(snap){
+                    if(snapshot){
                         mySnapSeries.get(i).getData().clear();
                         mySnapSeries.get(i).getData().addAll( myDrawnSeries.get(i).getData() );
                     }
@@ -112,7 +115,7 @@ public class TVChartGDataController implements Observer {
         if( ((LinkedList<Double>)obj).size()==0 ){
             numAlreadyDS.set(obIX, 0);
             Platform.runLater(() -> {
-                if(snap){
+                if(snapshot){
                     mySnapSeries.get(obIX).getData().clear();
                     mySnapSeries.get(obIX).getData().addAll( myDrawnSeries.get(obIX).getData() );
                 }

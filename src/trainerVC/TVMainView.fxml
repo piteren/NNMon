@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -17,68 +23,49 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="690.0" prefWidth="1400.0" stylesheets="@TVlook.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trainerVC.TVMainViewController">
+<AnchorPane id="AnchorPane" prefHeight="690.0" prefWidth="1400.0" stylesheets="@TVlook.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trainerVC.TVMainViewController">
     <children>
+      <ChoiceBox fx:id="leftChartCB" layoutX="44.0" layoutY="10.0" prefHeight="20.0" prefWidth="130.0" />
+      <ChoiceBox fx:id="rightChartCB" layoutX="634.0" layoutY="10.0" prefHeight="20.0" prefWidth="130.0" />
       <CheckBox fx:id="udRCB" layoutX="1001.0" layoutY="293.0" mnemonicParsing="false" scaleX="0.8" scaleY="0.8" text="udR" />
       <Label layoutX="1006.0" layoutY="310.0" text="max solv" textFill="#4a4a4a">
          <font>
             <Font size="10.0" />
          </font></Label>
       <Slider fx:id="maxSCSlider" blockIncrement="0.1" layoutX="1041.0" layoutY="297.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="24.0" prefWidth="129.0" scaleX="0.8" scaleY="0.8" showTickLabels="true" snapToTicks="true" value="10.0" />
-      <ToggleButton id="round-red" fx:id="resetGlobButton" layoutX="44.0" layoutY="297.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="reset global" textAlignment="CENTER" />
-        <TabPane prefHeight="300.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-              <Tab text="reward">
-                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="291.0" prefWidth="1175.0">
-                         <children>
-                            <LineChart fx:id="globPerChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" legendVisible="false" prefHeight="275.0" prefWidth="585.0" title="global rewards" verticalGridLinesVisible="false">
-                               <xAxis>
-                                  <NumberAxis minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
-                               </xAxis>
-                               <yAxis>
-                                  <NumberAxis side="LEFT" />
-                               </yAxis>
-                            </LineChart>
-                            <LineChart fx:id="intPerChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutX="585.0" legendVisible="false" prefHeight="275.0" prefWidth="585.0" title="interval rewards" verticalGridLinesVisible="false">
-                               <xAxis>
-                                  <NumberAxis fx:id="iPCxAxis" minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
-                               </xAxis>
-                               <yAxis>
-                                  <NumberAxis side="LEFT" />
-                               </yAxis>
-                            </LineChart>
-
-                         </children>
-                      </AnchorPane>
-                </content>
-              </Tab>
-            <Tab text="loss">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                              <LineChart fx:id="globErrChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" legendVisible="false" prefHeight="275.0" prefWidth="590.0" title="global loss" verticalGridLinesVisible="false">
-                                  <xAxis>
-                                      <NumberAxis minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
-                                  </xAxis>
-                                  <yAxis>
-                                      <NumberAxis side="LEFT" />
-                                  </yAxis>
-                              </LineChart>
-                            <LineChart fx:id="intErrChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutX="590.0" legendVisible="false" prefHeight="275.0" prefWidth="590.0" title="interval loss" verticalGridLinesVisible="false">
-                               <xAxis>
-                                  <NumberAxis fx:id="iECxAxis" minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
-                               </xAxis>
-                               <yAxis>
-                                  <NumberAxis side="LEFT" />
-                               </yAxis>
-                            </LineChart>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            </tabs>
-          </TabPane>
+      <ToggleButton id="round-red" fx:id="resetGlobButton" layoutX="899.0" layoutY="295.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="reset global" textAlignment="CENTER" />
+            <LineChart fx:id="globErrChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="590.0" verticalGridLinesVisible="false">
+                <xAxis>
+                    <NumberAxis minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" />
+                </yAxis>
+            </LineChart>
+          <LineChart fx:id="intErrChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="590.0" verticalGridLinesVisible="false" visible="false">
+             <xAxis>
+                <NumberAxis fx:id="iECxAxis" minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+             </xAxis>
+             <yAxis>
+                <NumberAxis side="LEFT" />
+             </yAxis>
+          </LineChart>
+          <LineChart fx:id="globPerChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutX="590.0" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="585.0" verticalGridLinesVisible="false">
+             <xAxis>
+                <NumberAxis minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+             </xAxis>
+             <yAxis>
+                <NumberAxis side="LEFT" />
+             </yAxis>
+          </LineChart>
+          <LineChart fx:id="intPerChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutX="590.0" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="585.0" verticalGridLinesVisible="false" visible="false">
+             <xAxis>
+                <NumberAxis fx:id="iPCxAxis" minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+             </xAxis>
+             <yAxis>
+                <NumberAxis side="LEFT" />
+             </yAxis>
+          </LineChart>
       <TabPane layoutY="330.0" prefHeight="360.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab text="range">
@@ -306,7 +293,7 @@
                           <Slider fx:id="eRSlider" blockIncrement="0.1" layoutX="134.0" layoutY="75.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="24.0" prefWidth="80.0" value="1.0" />
                         <CheckBox fx:id="doSTestCB" layoutX="8.0" layoutY="98.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="sTestEL" textFill="#d02a00" />
                         <Separator layoutX="12.0" layoutY="617.0" prefWidth="200.0" />
-                          <CheckBox fx:id="doLearnCB" layoutX="10.0" layoutY="144.0" mnemonicParsing="false" selected="true" text="doLearn" textFill="#00a2c6" />
+                          <CheckBox fx:id="doLearnCB" layoutX="8.0" layoutY="144.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="doLearn" textFill="#00a2c6" />
                           <Label layoutX="9.0" layoutY="164.0" text="lrning rate" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />
@@ -356,7 +343,7 @@
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="nnormCB" layoutX="7.0" layoutY="295.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="nodeNorm" textFill="#00a2c6" />
+                        <CheckBox fx:id="nnormCB" layoutX="8.0" layoutY="295.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="nodeNorm" textFill="#00a2c6" />
                         <Label layoutX="9.0" layoutY="314.0" text="decay" textFill="#00a2c6">
                            <font>
                               <Font size="11.0" />

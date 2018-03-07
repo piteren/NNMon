@@ -120,7 +120,9 @@ public class TVMainViewController implements Initializable, Observer {
                                     nnormCB,
                                     genXCB;  
     @FXML
-    private ChoiceBox               wInDistCB,
+    private ChoiceBox               leftChartCB,
+                                    rightChartCB,
+                                    wInDistCB,
                                     wUpdMethCB,
                                     cLLayCB,        cS0LCB, cS1LCB, cS2LCB, cS3LCB, cS4LCB, cS5LCB, cS6LCB, cS7LCB, cS8LCB, cS9LCB,
                                     cLWhatCB,       cS0WCB, cS1WCB, cS2WCB, cS3WCB, cS4WCB, cS5WCB, cS6WCB, cS7WCB, cS8WCB, cS9WCB, 
@@ -171,6 +173,32 @@ public class TVMainViewController implements Initializable, Observer {
         for(int i=0; i<numDSolv; i++) obsD.add( myTrainer.getSolvers(SolvOrder.SORTED).get( myTrainer.getSolvers().size()-1-i ).getIErrData() );
         iEChartController.setObservables(obsD);
     }
+
+    // updates line charts layout (pos and visibility) according to line_charts_choice_boxes_selection
+    private void updatePChartsLay(){
+        LinkedList<LineChart>   chL = new LinkedList(),
+                chR = new LinkedList();
+        chL.add(globErrChart);
+        chL.add(intErrChart);
+        chL.add(globPerChart);
+        chL.add(intPerChart);
+        chR.add(globErrChart);
+        chR.add(intErrChart);
+        chR.add(globPerChart);
+        chR.add(intPerChart);
+        for(LineChart lc: chL)
+            lc.setVisible(false);
+        for(LineChart lc: chR)
+            lc.setVisible(false);
+        if(leftChartCB.getSelectionModel().selectedIndexProperty().getValue() > 0){
+            chL.get(leftChartCB.getSelectionModel().selectedIndexProperty().getValue()-1).setLayoutX(0);
+            chL.get(leftChartCB.getSelectionModel().selectedIndexProperty().getValue()-1).setVisible(true);
+        }
+        if(rightChartCB.getSelectionModel().selectedIndexProperty().getValue() > 0) {
+            chR.get(rightChartCB.getSelectionModel().selectedIndexProperty().getValue() - 1).setLayoutX(590);
+            chR.get(rightChartCB.getSelectionModel().selectedIndexProperty().getValue() - 1).setVisible(true);
+        }
+    }
     
     private void startTrainerThread(int mTP){
         if(myTrainerThread==null || myTrainerThread.isTerminated()){
@@ -178,6 +206,7 @@ public class TVMainViewController implements Initializable, Observer {
             myTrainerThread = new UThreadRun(myTrainer, mTP);                          
         }
     }
+
     private void stopTrainerThread() throws InterruptedException{
         if(myTrainerThread!=null){
             myTrainer.getDoLoops().setValue(false);
@@ -374,6 +403,7 @@ public class TVMainViewController implements Initializable, Observer {
         gXrSlider.valueProperty().setValue(15);
         
         //init graph controllers for performance data
+        //globErrChart.setVisible(false);
         gRChartController = new TVChartGDataController(globPerChart,false);
         iRChartController = new TVChartGDataController(intPerChart, true);
         gEChartController = new TVChartGDataController(globErrChart,false);
@@ -385,6 +415,36 @@ public class TVMainViewController implements Initializable, Observer {
         //init graph controller for parents data and set observable
         gXChartController = new TVChartGDataController(genXChart, true);
         gXChartController.setObservables( myTrainer.getTopPosSData() );
+
+        leftChartCB.getItems().add("OFF");
+        leftChartCB.getItems().add("GLOBAL LOSS");
+        leftChartCB.getItems().add("INTERVAL LOSS");
+        leftChartCB.getItems().add("GLOBAL REWARD");
+        leftChartCB.getItems().add("INTERVAL REWARD");
+        leftChartCB.setValue("GLOBAL LOSS");
+        rightChartCB.getItems().add("OFF");
+        rightChartCB.getItems().add("GLOBAL LOSS");
+        rightChartCB.getItems().add("INTERVAL LOSS");
+        rightChartCB.getItems().add("GLOBAL REWARD");
+        rightChartCB.getItems().add("INTERVAL REWARD");
+        rightChartCB.setValue("GLOBAL REWARD");
+
+        leftChartCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue ov, Number pVal, Number nVal){
+                if(rightChartCB.getSelectionModel().selectedIndexProperty().getValue()==(int)nVal)
+                    rightChartCB.setValue("OFF");
+                updatePChartsLay();
+            }
+        });
+        rightChartCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue ov, Number pVal, Number nVal){
+                if(leftChartCB.getSelectionModel().selectedIndexProperty().getValue()==(int)nVal)
+                    leftChartCB.setValue("OFF");
+                updatePChartsLay();
+            }
+        });
         
         initCandleConroller();
         initLogSliderLabelProperty(updCSlider,      updCLabel,      Histogram.getNotfDelayMs(),           2);
