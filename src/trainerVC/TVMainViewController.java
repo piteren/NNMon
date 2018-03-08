@@ -255,8 +255,8 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new DLlearnParams());
 
-        myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
-        //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
+        //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
+        myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
 
         
         myTrainer.addObserver(this);
@@ -402,8 +402,7 @@ public class TVMainViewController implements Initializable, Observer {
         });
         gXrSlider.valueProperty().setValue(15);
         
-        //init graph controllers for performance data
-        //globErrChart.setVisible(false);
+        // init graph controllers for performance data
         gRChartController = new TVChartGDataController(globPerChart,false);
         iRChartController = new TVChartGDataController(intPerChart, true);
         gEChartController = new TVChartGDataController(globErrChart,false);
@@ -416,19 +415,17 @@ public class TVMainViewController implements Initializable, Observer {
         gXChartController = new TVChartGDataController(genXChart, true);
         gXChartController.setObservables( myTrainer.getTopPosSData() );
 
+        // set graph switch options and listeners
         leftChartCB.getItems().add("OFF");
         leftChartCB.getItems().add("GLOBAL LOSS");
         leftChartCB.getItems().add("INTERVAL LOSS");
         leftChartCB.getItems().add("GLOBAL REWARD");
         leftChartCB.getItems().add("INTERVAL REWARD");
-        leftChartCB.setValue("GLOBAL LOSS");
         rightChartCB.getItems().add("OFF");
         rightChartCB.getItems().add("GLOBAL LOSS");
         rightChartCB.getItems().add("INTERVAL LOSS");
         rightChartCB.getItems().add("GLOBAL REWARD");
         rightChartCB.getItems().add("INTERVAL REWARD");
-        rightChartCB.setValue("GLOBAL REWARD");
-
         leftChartCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
             @Override
             public void changed(ObservableValue ov, Number pVal, Number nVal){
@@ -445,6 +442,8 @@ public class TVMainViewController implements Initializable, Observer {
                 updatePChartsLay();
             }
         });
+        leftChartCB.setValue("GLOBAL LOSS");
+        rightChartCB.setValue("INTERVAL REWARD");
         
         initCandleConroller();
         initLogSliderLabelProperty(updCSlider,      updCLabel,      Histogram.getNotfDelayMs(),           2);

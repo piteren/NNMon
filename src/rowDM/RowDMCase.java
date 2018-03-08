@@ -58,7 +58,6 @@ public class RowDMCase {
 
     //returns current state
     public LinkedList<Double> prepCurrentState(){
-
         return myRowData.get(rowIX).getInFeats();
     }
 

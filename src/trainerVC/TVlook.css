@@ -3,6 +3,7 @@
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: white;
+    -fx-font-size: 12px;
 }
 #round-red:hover {
     -fx-background-color: linear-gradient(#ff7733, #ff5400);
@@ -14,18 +15,28 @@
     -fx-background-color: linear-gradient(#801300, #be1d00);
 }
 
-
 .chart-series-line {    
     -fx-stroke-width: 1px;
     -fx-effect: null;
 }
+
+.choice-box {
+  /*
+  -fx-background-color: black;
+  -fx-mark-color: orange;
+  */
+  -fx-min-width: 10px;
+  -fx-min-height: 10px;
+
+  -fx-font-size: 10px;
+}
+
+/*
 .chart-title {
   -fx-text-fill: #800000;
   -fx-font-size: 1em;
 }
 
-
-/*
 .choice-box .context-menu { 
     -fx-background-color: black;
 }
@@ -40,13 +51,3 @@
 
 .choice-box > .label { -fx-text-fill: white; }
 */
-.choice-box {
-  /*  
-  -fx-background-color: black;
-  -fx-mark-color: orange; 
-  */
-  -fx-min-width: 10px;
-  -fx-min-height: 10px;
-
-  -fx-font-size: 10px;
-}
