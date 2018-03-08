@@ -5,25 +5,24 @@ package textPoetry.toTrainer;
 
 import textPoetry.TextPoetryActor;
 import textPoetry.TextPoetryFeedback;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.NTCaseFeedback;
 import trainer.toCase.NTActor;
-import utilities.UArr;
 
 /**
  * trained text poetry actor
  */
 public class NTTextPoetryActor extends TextPoetryActor implements NTActor {
     
-    protected final NetTrainerAISolver mySolver;
+    protected final NTaiSolver mySolver;
     
-    NTTextPoetryActor(NTTextPoetryCase myC, NetTrainerAISolver mSolv){
+    NTTextPoetryActor(NTTextPoetryCase myC, NTaiSolver mSolv){
         super(myC);
         mySolver = mSolv;
     }
     
     @Override
-    public NetTrainerAISolver getMySolver(){
+    public NTaiSolver getMySolver(){
         return mySolver;
     }
 

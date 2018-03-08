@@ -7,24 +7,23 @@ import deepLearn.DLlearnParams;
 import java.util.LinkedList;
 import java.util.List;
 
-import trainer.NetTrainerAISolver;
-import utilities.ULogDoubleProperty;
+import trainer.NTaiSolver;
 
 /**
  * performs solvers initialization and preprocessing tasks
  */
 public class NTSolvPreProcessor {
     
-    public LinkedList<NetTrainerAISolver> makeSolvers(int sNum, String netPath, DLlearnParams tLearParams){
-        LinkedList<NetTrainerAISolver> tSolvers = new LinkedList();
+    public LinkedList<NTaiSolver> makeSolvers(int sNum, String netPath, DLlearnParams tLearParams){
+        LinkedList<NTaiSolver> tSolvers = new LinkedList();
         while(tSolvers.size() < sNum){
-            NetTrainerAISolver newSol = new NetTrainerAISolver(netPath, tLearParams);
+            NTaiSolver newSol = new NTaiSolver(netPath, tLearParams);
             tSolvers.add(newSol);
         }
         return tSolvers;
     }
     
-    public void reinitSolverWeights( List<NetTrainerAISolver> solvToReinit ){
-        for(NetTrainerAISolver sol: solvToReinit) sol.initWeights();
+    public void reinitSolverWeights( List<NTaiSolver> solvToReinit ){
+        for(NTaiSolver sol: solvToReinit) sol.initWeights();
     }
 }

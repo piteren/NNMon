@@ -3,21 +3,19 @@
  */
 package poker.toTrainer;
 
-import java.util.Arrays;
 import poker.PKDecision;
 import poker.PKPlayer;
 import poker.PKPlayerStats;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.NTCaseFeedback;
 import utilities.UArr;
-import utilities.URand;
 
 public class NTPKPlayer extends PKPlayer {
     
-    NetTrainerAISolver mySolver;                                                //aiSolver that decides for this player
+    NTaiSolver mySolver;                                                //aiSolver that decides for this player
     
     //constructor
-    public NTPKPlayer(NetTrainerAISolver solver){
+    public NTPKPlayer(NTaiSolver solver){
         mySolver = solver;
     }
     

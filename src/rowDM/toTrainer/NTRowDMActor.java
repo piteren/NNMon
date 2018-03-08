@@ -7,9 +7,8 @@ package rowDM.toTrainer;
 import rowDM.RowDMActor;
 import rowDM.RowMDFeedback;
 import trainer.NTCaseFeedback;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.toCase.NTActor;
-import utilities.UArr;
 
 import java.util.LinkedList;
 
@@ -19,15 +18,15 @@ import java.util.LinkedList;
 
 public class NTRowDMActor  extends RowDMActor implements NTActor {
 
-    protected final NetTrainerAISolver mySolver;
+    protected final NTaiSolver mySolver;
 
-    NTRowDMActor(NTRowDMCase myC, NetTrainerAISolver mSolv){
+    NTRowDMActor(NTRowDMCase myC, NTaiSolver mSolv){
         super(myC);
         mySolver = mSolv;
     }
 
     @Override
-    public NetTrainerAISolver getMySolver(){
+    public NTaiSolver getMySolver(){
         return mySolver;
     }
 

@@ -3,7 +3,7 @@ package poker.toTrainer;
 import java.util.LinkedList;
 
 import poker.PKTable;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.toCase.NTCase;
 import trainer.toCase.NTActor;
 
@@ -40,9 +40,9 @@ public class NTPKTableCase extends PKTable implements NTCase {
     }
     
     @Override
-    public void takeSolvers(LinkedList<NetTrainerAISolver> sol){
+    public void takeSolvers(LinkedList<NTaiSolver> sol){
         removeAllPlayers();
-        for(NetTrainerAISolver solv: sol)
+        for(NTaiSolver solv: sol)
             addPlayer(new NTPKPlayer(solv));
     }
     

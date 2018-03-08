@@ -51,7 +51,8 @@ public class DSdataSocket {
     public void setD(int h, double[] aVal){
         makeDataReady(h);
         dataArrList.set(h, aVal);
-    }    
+    }
+
     //returns data array from history h
     public double[] getD(int h){
         return dataArrList.get(h).clone();

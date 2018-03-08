@@ -17,35 +17,38 @@ import java.util.List;
  */
 public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenXinterface, HistoFace {
     
-    protected DLlayType             lType;                                      //enum layer type
-    protected DLlearnParams         myDLParams;                                 //learnig parameters
+    protected DLlayType             lType;                                      // enum layer type
+    protected DLlearnParams         myDLParams;                                 // learning parameters
     
-    protected DSdataSocket          vIN,                                        //object input FWD data
-                                    vOUT,                                       //object output FWD data
-                                    dIN,                                        //object input BWD data    
-                                    dOUT;                                       //object output BWD data
-    protected double[][]            vWeights,                                   //weights array
-                                    dWeights;                                   //weights gradient array
-    protected double[][]            lmpM,lmpV;                                  //weights update memory parameters
+    protected DSdataSocket          vIN,                                        // object input FWD data
+                                    vOUT,                                       // object output FWD data
+                                    dIN,                                        // object input BWD data
+                                    dOUT;                                       // object output BWD data
+    protected double[][]            vWeights,                                   // weights array
+                                    dWeights;                                   // weights gradient array
+    protected double[][]            lmpM,lmpV;                                  // weights update memory parameters
     
-    protected NFtype                myNFtype;                                   //layer acivation function type
+    protected NFtype                myNFtype;                                   // layer activation function type
     
-    protected NNnodeNormalizer[]    nodeNorm;                                   //node normalization objects
+    protected NNnodeNormalizer[]    nodeNorm;                                   // node normalization objects
     
-    protected List<Histogram>       myLHistograms = new LinkedList();           //list of histograms
+    protected List<Histogram>       myLHistograms = new LinkedList();           // list of histograms
                                 
-    protected int                   maxMemRecurrency = 0;                       //stores (writen durring build) maximal level of memory recurency for this object (max vOUT history level teken from this object durring runFWD, for RRN typicaly ==1)
+    protected int                   maxMemRecurrency = 0;                       // stores (written during build) maximal level of memory recurency for this object (max vOUT history level teken from this object durring runFWD, for RRN typicaly ==1)
     protected LinkedList<DLNetworkedObject> 
-                                    prevNetObjects = new LinkedList(),          //list of objects networked PREV to this object
-                                    nextNetObjects = new LinkedList();          //list of objects networked NEXT to this object
-    protected int[]                 prevTimeOffConnection,                      //time offest of prev (incoming) connection
-                                    nextTimeOffConnection;                      //time offest of next (outgoing) connection
+                                    prevNetObjects = new LinkedList(),          // list of objects networked PREV to this object
+                                    nextNetObjects = new LinkedList();          // list of objects networked NEXT to this object
+    protected int[]                 prevTimeOffConnection,                      // time offset of prev (incoming) connection
+                                    nextTimeOffConnection;                      // time offset of next (outgoing) connection
     
+    // layer type
     public enum DLlayType {
         FC,
         PW,
         NET
     }
+
+    // node activation function type
     public enum NFtype {
         LIN,
         SIGM,
@@ -89,8 +92,10 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
                     for(int j=nextTimeOffConnection[i]; j>0; j--)
                         vOUT.setD(j-1, new double[vOUT.getWidth()]);                        //initialize vOUT @prev_history_state_to_offset_value with 0;     
     }
+
     //inits weights
     protected abstract void initWeights();
+
     //adds next_connection_object to network
     protected void addNextOC(DLNetworkedObject nO, int tOff){
         nextNetObjects.add(nO);
@@ -109,6 +114,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         if(tOff > maxMemRecurrency) maxMemRecurrency = tOff;
     }
     //adds prev_connection_object to network
+
     protected void addPrevOC(DLNetworkedObject pO, int tOff){
         prevNetObjects.add(pO);
         int[] ptOA;
@@ -124,14 +130,18 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         }
         prevTimeOffConnection = ptOA;
     }
+
     //restarts (sets to initial values) parameteres of learn method
     public abstract void restartLrnMethodParams();
     
     //************************************************************************** methods of running FWD & BWD
+
     //calculates vOUT_fwd
     abstract protected void calcVout();
+
     //calculates dIN_bwd
     abstract protected void calcDin(int h);
+
     @Override
     public void runFWD(){
         if(vIN.isDataReadReady(0)){    
@@ -147,6 +157,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
                     nextNetObjects.get(i).runFWD();                                             
         }
     }
+
     @Override
     public void runBWD(int h){
         if(dOUT.isDataReadReady(h)){
@@ -160,6 +171,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
                     prevNetObjects.get(i).runBWD(h);                                            
         }
     }
+
     //returns max abs value of weight gradient
     public double maxdW(){
         double maxD = 0;
@@ -170,7 +182,8 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         }
         return maxD;
     }
-    //multiplies weight gradients with scl factor 
+
+    //multiplies weight gradients with scl factor
     public void scaledW(double scl){
         if(dWeights!=null){
             for(int i=0; i<dWeights.length; i++)
@@ -178,6 +191,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
                     dWeights[i][j] = dWeights[i][j] / scl;
         }
     }
+
     //calculates node function (based on aF type) for given input
     protected static double nodeFunc(double inV, NFtype nft){
         double out = inV;                                                       //default val for some cases
@@ -190,6 +204,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         }
         return out;
     }
+
     //calculates node function derivative (based on aF type) for given output of function
     protected static double nodeDFunc(double oV, NFtype nft){
         double locGrad = 1;                                                     //default val for some cases
@@ -202,6 +217,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         }        
         return locGrad;        
     }
+
     //initializes node normalization objects
     protected void initNNorm(int oW){
         nodeNorm = new NNnodeNormalizer[oW];
@@ -210,15 +226,19 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
     }
     
     //************************************************************************** methods returning some iformation about object
+
     public DLlayType getLayType(){
         return lType;
     }
+
     //returns object number of nodes (nodes are are common features for most object implementations, so such method makes sense)
     abstract public int nNodes();
+
     //returns object number of learnable parameters (usually lernable object has paramters to learn, this method returns number of them)
     abstract public int nParam();
 
     //************************************************************************** HistoFace methods implementation
+
     @Override
     public final void initHistograms() {
         /*
@@ -235,10 +255,12 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         for(int i=0; i<9; i++)
             myLHistograms.add( new Histogram() );
     }
+
     @Override
     public List<Histogram> getHistograms() {
         return myLHistograms;
     }
+
     @Override
     public void killHistograms() {
         for(Histogram h: myLHistograms) h.deleteObservers();

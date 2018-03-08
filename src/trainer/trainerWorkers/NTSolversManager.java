@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import utilities.URand;
 
 /**
@@ -16,7 +16,7 @@ import utilities.URand;
  */
 public class NTSolversManager {
 
-    private LinkedList<NetTrainerAISolver>  tSolvers = new LinkedList();        //manager solvers
+    private LinkedList<NTaiSolver>  tSolvers = new LinkedList();        //manager solvers
     private SolvOrder                       solverLOState;                      //state (sort) of solvers list
 
     public enum SolvOrder{
@@ -26,17 +26,17 @@ public class NTSolversManager {
     }
     
     //constuctor
-    public NTSolversManager(List<NetTrainerAISolver> solv){
+    public NTSolversManager(List<NTaiSolver> solv){
         tSolvers.addAll(solv);
     }
     
     //return unmodifaiable list of solvers (read only) in order not specified (does not matter)
-    public List<NetTrainerAISolver> getSolvers(){
+    public List<NTaiSolver> getSolvers(){
         return Collections.unmodifiableList(tSolvers);
     }
 
     //return unmodifaiable list of solvers (read only) in order given by argument
-    public List<NetTrainerAISolver> getSolvers(SolvOrder ord){
+    public List<NTaiSolver> getSolvers(SolvOrder ord){
         switch( ord ){
             case MODIFIED:
                 break;
@@ -51,12 +51,12 @@ public class NTSolversManager {
     }
     
     //replaces worst performing solvers
-    public void replaceWorstSolvers(List<NetTrainerAISolver> repSolv){
+    public void replaceWorstSolvers(List<NTaiSolver> repSolv){
         sortSolvers();
-        for(NetTrainerAISolver rs: repSolv) 
+        for(NTaiSolver rs: repSolv)
             if(!tSolvers.contains(rs))
                 tSolvers.removeLast();
-        for(NetTrainerAISolver rs: repSolv) 
+        for(NTaiSolver rs: repSolv)
             if(!tSolvers.contains(rs))
                 tSolvers.add(rs);
         solverLOState = SolvOrder.MODIFIED;
@@ -70,7 +70,7 @@ public class NTSolversManager {
     //sort solvers by interval_reward_total (best first)
     private void sortSolvers(){
         if(solverLOState != SolvOrder.SORTED){
-            LinkedList<NetTrainerAISolver> unsortedSolvers = new LinkedList();
+            LinkedList<NTaiSolver> unsortedSolvers = new LinkedList();
             unsortedSolvers.addAll(tSolvers);
             tSolvers.clear();
 
@@ -93,7 +93,7 @@ public class NTSolversManager {
     
     //randomizes solvers order in list
     private void randomizeSolvers(){
-        LinkedList<NetTrainerAISolver> unrandomizedSolvers = new LinkedList();
+        LinkedList<NTaiSolver> unrandomizedSolvers = new LinkedList();
         unrandomizedSolvers.addAll(tSolvers);
         tSolvers.clear();
 

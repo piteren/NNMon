@@ -8,7 +8,7 @@ package trainer.trainerWorkers;
 import java.util.LinkedList;
 import java.util.List;
 
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import utilities.URand;
 
 /**
@@ -17,7 +17,7 @@ import utilities.URand;
 public class NTwinHSolvPromotor {
     
     private boolean processorActive;                                            //marker for winning solvers promotion option
-    private LinkedList<NetTrainerAISolver> wSolvers;                            //list of winnig solvers
+    private LinkedList<NTaiSolver> wSolvers;                            //list of winnig solvers
     
     private int minSizeOfWSolversToStart=10;                                    //minimal size of winning solver list to start promotion procedure
     private int maxNumWSolvers=100;                                             //maximal number of previous looops winning solvers to keep
@@ -38,17 +38,17 @@ public class NTwinHSolvPromotor {
     }
     
     //promotes some historical winning solvers
-    public List<NetTrainerAISolver> promotedHWinningsolvers(List<NetTrainerAISolver> sourceSolv){
+    public List<NTaiSolver> promotedHWinningsolvers(List<NTaiSolver> sourceSolv){
         //manage winning solvers list, keep their max size add current best solver
         if(wSolvers.size()==maxNumWSolvers) wSolvers.remove(URand.i(maxNumWSolvers));
         wSolvers.add(sourceSolv.get(0));
 
         //create list with some historical winning solvers
-        List<NetTrainerAISolver> proSolvers = new LinkedList();
+        List<NTaiSolver> proSolvers = new LinkedList();
         if(wSolvers.size() > minSizeOfWSolversToStart){
             int i = numWPlayersToAdd;
             while(i>0){
-                NetTrainerAISolver oldPl = wSolvers.get(URand.i(wSolvers.size()-10 ) );
+                NTaiSolver oldPl = wSolvers.get(URand.i(wSolvers.size()-10 ) );
                 if(!sourceSolv.contains(oldPl))
                     proSolvers.add(oldPl);
                 i--;

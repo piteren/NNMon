@@ -5,7 +5,7 @@
 package rowDM.toTrainer;
 
 import rowDM.RowDMCase;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.toCase.NTActor;
 import trainer.toCase.NTCase;
 
@@ -39,7 +39,7 @@ public class NTRowDMCase extends RowDMCase implements NTCase {
     public boolean actDecisionChangesState(){ return false; }
 
     @Override
-    public void takeSolvers(LinkedList<NetTrainerAISolver> solvers){
+    public void takeSolvers(LinkedList<NTaiSolver> solvers){
         myActor = new NTRowDMActor(this, solvers.get(0));
     }
 

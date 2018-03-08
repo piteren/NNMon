@@ -28,11 +28,11 @@ public class NetTrainer extends Observable implements UTRobject{
     private List<NTCase>                myCases = new LinkedList();;                            //trainer cases list
     private final SimpleIntegerProperty caseRepeatNum = new SimpleIntegerProperty();            //number of internal case runs
     
-    private final NTSolversManager mySolvMan;                                              //solvers manager
-    private final NTSolvPreProcessor mySolvPrePro = new NTSolvPreProcessor();                //solvers preprocesor
-    private final NTtopPosInspector myTopPosInsp;                                           //top position inspector
-    private final NTgenXDoctor myGenXDr;                                               //genX doctor
-    private final NTwinHSolvPromotor myWinHSPromotor;                                        //historical winning solvers promotor
+    private final NTSolversManager      mySolvMan;                                              //solvers manager
+    private final NTSolvPreProcessor    mySolvPrePro = new NTSolvPreProcessor();                //solvers preprocesor
+    private final NTtopPosInspector     myTopPosInsp;                                           //top position inspector
+    private final NTgenXDoctor          myGenXDr;                                               //genX doctor
+    private final NTwinHSolvPromotor    myWinHSPromotor;                                        //historical winning solvers promotor
 
     //************************************************************************** loops & circle
     private final SimpleIntegerProperty loopAM = new SimpleIntegerProperty(),                   //amount of loops in one circle
@@ -126,16 +126,16 @@ public class NetTrainer extends Observable implements UTRobject{
     public void setWIDist(DLlearnParams.WInitDist wID){
         trainerLearnParams.wIDist = wID;
     }
-    public void setLearnMeth(DLlearnParams.LearnMeth lM){
-        trainerLearnParams.lMeth = lM;
-        for(NetTrainerAISolver sol: getSolvers())
+    public void setLearnMeth(DLlearnParams.WUpdAlgorithm lM){
+        trainerLearnParams.myWUpAlg = lM;
+        for(NTaiSolver sol: getSolvers())
             sol.restartLrnMethodParams();
     }
     
-    public List<NetTrainerAISolver> getSolvers(){
+    public List<NTaiSolver> getSolvers(){
         return mySolvMan.getSolvers();
     }
-    public List<NetTrainerAISolver> getSolvers(SolvOrder ord){
+    public List<NTaiSolver> getSolvers(SolvOrder ord){
         return mySolvMan.getSolvers(ord);
     }
     
@@ -159,7 +159,7 @@ public class NetTrainer extends Observable implements UTRobject{
     }
     
     public void resetGlobalSats(){
-        for(NetTrainerAISolver sol: getSolvers())
+        for(NTaiSolver sol: getSolvers())
             sol.resetGData();
     }
     
@@ -173,7 +173,7 @@ public class NetTrainer extends Observable implements UTRobject{
         double avgNN=0;
         double avgNC=0;
         double avgNL=0;
-        for(NetTrainerAISolver sol: mySolvMan.getSolvers()){
+        for(NTaiSolver sol: mySolvMan.getSolvers()){
             avgNN+=sol.nNodes();
             avgNC+=sol.nParam();
             avgNL+=sol.nLays();
@@ -188,7 +188,7 @@ public class NetTrainer extends Observable implements UTRobject{
         if(trainerLearnParams.doGradL.getValue()){
             long scNum = 0;
             double scAm = 0;
-            for(NetTrainerAISolver sol: mySolvMan.getSolvers()){
+            for(NTaiSolver sol: mySolvMan.getSolvers()){
                 scNum += sol.getSclCount();
                 scAm += sol.getSclAmnt();
                 sol.resetScaleFacts();
@@ -214,12 +214,13 @@ public class NetTrainer extends Observable implements UTRobject{
     }
 
     //************************************************************************** training circle main logic methods
+
     //puts all solvers to cases (random_swich)
-    private void putSolversToCases(List<NetTrainerAISolver> allSolv){        
+    private void putSolversToCases(List<NTaiSolver> allSolv){
         int solCounter = 0;
         for(int i=0; i<myCases.size(); i++){
             //prepare case solvers list
-            LinkedList<NetTrainerAISolver> caseSolvers = new LinkedList();
+            LinkedList<NTaiSolver> caseSolvers = new LinkedList();
             for(int j=0; j<myCases.get(i).caseNumOfActors(); j++)
                 caseSolvers.add( allSolv.get(solCounter++) );
             myCases.get(i).takeSolvers(caseSolvers);
@@ -238,11 +239,12 @@ public class NetTrainer extends Observable implements UTRobject{
         for(int i=0; i<threadRunners.size(); i++)
             threadRunners.get(i).join();
     }
+
     //runs all solvers backprop
     private void runThSolversBackprop() throws InterruptedException{
         LinkedList<UThreadRun> threadRunners = new LinkedList();
         //start backprop threads
-        for(NetTrainerAISolver solv:  mySolvMan.getSolvers()){
+        for(NTaiSolver solv:  mySolvMan.getSolvers()){
             UThreadRun backpropRunner = new UThreadRun(solv);
             threadRunners.add(backpropRunner);
         }
@@ -259,7 +261,7 @@ public class NetTrainer extends Observable implements UTRobject{
             setChanged();
             notifyObservers(TrainerMessage.NEW_CIRCLE_STARTED);
             
-            for(NetTrainerAISolver solv: getSolvers()) 
+            for(NTaiSolver solv: getSolvers())
                 solv.resetIntervalERData( igdSolvScale.getValue() );
             
             myTopPosInsp.resetPosData(getSolvers());
@@ -290,13 +292,14 @@ public class NetTrainer extends Observable implements UTRobject{
             notifyObservers(TrainerMessage.CIRCLE_FINISHED);
         }
     }
+
     //post circle solvers revision (genX, etc...), reports...
     private void doPostCircleProcess(){
         
         //tAvgWinRateOfCycle=cycleAvgWinR(numT);
         reportCycleStatsAndBestPl(maxReportSolvAmount);
 
-        List<NetTrainerAISolver> newSolvers = new LinkedList();
+        List<NTaiSolver> newSolvers = new LinkedList();
         if(myWinHSPromotor.isPromotorActive())
             newSolvers.addAll( myWinHSPromotor.promotedHWinningsolvers( getSolvers( SolvOrder.SORTED ) ) );
 

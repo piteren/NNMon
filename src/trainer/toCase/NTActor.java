@@ -3,7 +3,7 @@
  */
 package trainer.toCase;
 
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.NTCaseFeedback;
 import utilities.UArr;
 
@@ -18,7 +18,7 @@ import utilities.UArr;
 public interface NTActor {
     
     //returns actor AIsolver
-    NetTrainerAISolver getMySolver();
+    NTaiSolver getMySolver();
 
     //prepares solver input data array
     double[] prepSolverIN();

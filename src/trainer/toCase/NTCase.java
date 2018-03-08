@@ -4,7 +4,7 @@
 package trainer.toCase;
 
 import java.util.LinkedList;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.NTCaseFeedback;
 import utilities.threadRun.UTRobject;
 
@@ -31,7 +31,7 @@ public interface NTCase extends UTRobject{
 
     // takes list of solvers from trainer
     // >> creates new list of NTactors, for each gives one AIsolver and puts those NTactors to case
-    void takeSolvers(LinkedList<NetTrainerAISolver> solvers);
+    void takeSolvers(LinkedList<NTaiSolver> solvers);
     
     // returns NTactors list
     LinkedList<NTActor> getMyActors();

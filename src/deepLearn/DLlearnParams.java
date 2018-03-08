@@ -13,14 +13,14 @@ import utilities.ULogDoubleProperty.TSform;
  */
 public class DLlearnParams {
     
-    public WInitDist                wIDist = WInitDist.UNIFORM;                             //weights init distribution
-    public ULogDoubleProperty       wIScale = new ULogDoubleProperty(TSform.DBL,0);         //weights init scale
+    public WInitDist                wIDist = WInitDist.UNIFORM;                                     //weights init distribution
+    public ULogDoubleProperty       wIScale = new ULogDoubleProperty(TSform.DBL,0);             //weights init scale
     
-    public SimpleBooleanProperty    doBackprop = new SimpleBooleanProperty(true);           //marker for larning activity (classic backprop or reinforcement)
+    public SimpleBooleanProperty    doBackprop = new SimpleBooleanProperty(true);           //marker for learning activity (classic backprop or reinforcement)
     public ULogDoubleProperty       learningRate = new ULogDoubleProperty(TSform.DBL,-6);   //learning rate        
     public ULogDoubleProperty       batchSize = new ULogDoubleProperty(TSform.INT,0);       //batch size (number of samples in one batch)
     
-    public LearnMeth                lMeth = LearnMeth.MMNTM;                                //default learning method
+    public WUpdAlgorithm            myWUpAlg = WUpdAlgorithm.MMNTM;                                //default learning method
     public SimpleDoubleProperty     mmx = new SimpleDoubleProperty(0.1);                    //momentum factor
     public double                   adamBeta1 = 0.9,                                        //adam parameters
                                     adamBeta2 = 0.999,
@@ -40,13 +40,15 @@ public class DLlearnParams {
     public SimpleBooleanProperty    doNodeNorm = new SimpleBooleanProperty(true);           //marker for node normalization activity
     public SimpleDoubleProperty     nodeNormSDScale = new SimpleDoubleProperty(0.2);        //node normalization ~sdev scale
     public ULogDoubleProperty       nodeNormUDecay = new ULogDoubleProperty(TSform.DBL,-6); //node normalization update decay param
-    
+
+    // weight initialization distribution
     public enum WInitDist{
         UNIFORM,
         GAUSSIAN
     }
-    
-    public enum LearnMeth {
+
+    // weight update algorithm
+    public enum WUpdAlgorithm {
         MMNTM,
         ADAM
     }

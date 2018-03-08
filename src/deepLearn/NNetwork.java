@@ -318,15 +318,17 @@ public class NNetwork extends DLNetworkedObject{
     }
     
     //************************************************************************** net error methods
-    //returns decision error of net
+
+    //returns decision error of net, SVM version by now
     public double decisionError(double[] out, int cCix){
         return totValLossSVM(out, cCix);
     }
+
     //returns decision error of net, overloaded
-    public double decisionError(double[] out, double[] corrC){
-        return decisionError(out, UArr.maxVix(corrC));
-    }
+    public double decisionError(double[] out, double[] corrC){ return decisionError(out, UArr.maxVix(corrC)); }
+
     //************************************************************************** SVM
+
     //creates loss array 4 SVM loss
     private double[] arrLossSVM(double[] out, int cCix){
         double[] loss = new double[out.length];
@@ -337,6 +339,7 @@ public class NNetwork extends DLNetworkedObject{
                     loss[i] = out[i] - corrSC + myDLParams.offsetSVM;
         return loss;
     }
+
     //creates grad array 4 SVM loss
     private double[] gradSVM(double[] out, int cCix, int numFRuns){
         double[] loss = arrLossSVM(out, cCix);

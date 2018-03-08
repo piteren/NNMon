@@ -21,7 +21,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Slider;
 
 import deepLearn.DLlearnParams;
-import deepLearn.DLlearnParams.LearnMeth;
+import deepLearn.DLlearnParams.WUpdAlgorithm;
 import deepLearn.DLlearnParams.WInitDist;
 import java.util.LinkedList;
 import javafx.beans.value.ChangeListener;
@@ -255,8 +255,8 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new DLlearnParams());
 
-        //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
-        myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
+        myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
+        //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
 
         
         myTrainer.addObserver(this);
@@ -362,9 +362,9 @@ public class TVMainViewController implements Initializable, Observer {
             @Override
             public void changed(ObservableValue ov, Number pVal, Number nVal){
                 switch((int)nVal){
-                    case 0: myTrainer.setLearnMeth(LearnMeth.MMNTM);            //MOMENTUM
+                    case 0: myTrainer.setLearnMeth(WUpdAlgorithm.MMNTM);            //MOMENTUM
                             break;
-                    case 1: myTrainer.setLearnMeth(LearnMeth.ADAM);             //ADAM
+                    case 1: myTrainer.setLearnMeth(WUpdAlgorithm.ADAM);             //ADAM
                             break;
                 }
             }

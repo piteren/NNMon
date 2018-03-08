@@ -7,7 +7,7 @@ import dataUtilities.GData;
 
 import java.util.List;
 import javafx.scene.paint.Color;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 
 /**
  * controls interval solvers position among list, processes and prepares position data
@@ -42,7 +42,7 @@ public class NTtopPosInspector {
     //checks solvers positions and updates pos data
     public void parentsCheck(int loopNum, NTSolversManager solvMan){
         if(processorActive && loopNum%everyNLoopTP==0){
-            List<NetTrainerAISolver> sol = solvMan.getSolvers(NTSolversManager.SolvOrder.SORTED);
+            List<NTaiSolver> sol = solvMan.getSolvers(NTSolversManager.SolvOrder.SORTED);
             int drawNum = numSolvCC;
             if(drawNum > sol.size()) drawNum = sol.size();
 
@@ -69,9 +69,9 @@ public class NTtopPosInspector {
     
     
     //writes current PD to previous, clears PosData 4 all solvers and current 4 trainer
-    public void resetPosData(List<NetTrainerAISolver> sol){
+    public void resetPosData(List<NTaiSolver> sol){
         if(processorActive){
-            for(NetTrainerAISolver pl: sol) pl.getIPosData().flush();
+            for(NTaiSolver pl: sol) pl.getIPosData().flush();
             //prevtopPosSolvData = topPosSolvData.smooth(10);
             topPosSolvData.flush();
         }

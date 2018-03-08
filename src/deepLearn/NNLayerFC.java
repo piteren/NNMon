@@ -146,7 +146,7 @@ public class NNLayerFC extends DLNetworkedObject {
         double L2regS = 0;
         if(myDLParams.doL2reg.getValue()) L2regS = myDLParams.L2regSize.getLinDoubleValue();
 
-        switch(myDLParams.lMeth){
+        switch(myDLParams.myWUpAlg){
             case MMNTM:
                 for(int i=0; i<dWeights.length; i++)
                     for(int o=0; o<dWeights[0].length; o++){

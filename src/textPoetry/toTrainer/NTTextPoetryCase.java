@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import textPoetry.TextPoetryCase;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import trainer.toCase.NTActor;
 import trainer.toCase.NTCase;
 import utilities.UFileOperator;
@@ -68,7 +68,7 @@ public class NTTextPoetryCase extends TextPoetryCase implements NTCase {
     }
     
     @Override
-    public void takeSolvers(LinkedList<NetTrainerAISolver> solvers){
+    public void takeSolvers(LinkedList<NTaiSolver> solvers){
         myActor = new NTTextPoetryActor(this, solvers.get(0));
     }
     

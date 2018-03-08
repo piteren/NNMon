@@ -22,8 +22,9 @@ public class NNnodeNormalizer {
         nnScl = 1;
     }
  
-    //tekes new sample of data ad updates nnOff & nnScl
-    protected double processSample(double smpl){
+    // takes new sample of data and updates nnOff & nnScl
+    // returns value offsetted and scaled
+    protected double processSample(double sample){
             
         //update parameters
         if(myDLParams.doNodeNorm.getValue()){
@@ -31,10 +32,10 @@ public class NNnodeNormalizer {
                     targetSDS = myDLParams.nodeNormSDScale.getValue(),
                     upd;
 
-            upd = smpl * decay;
+            upd = sample * decay;
             nnOff = (1-decay) * nnOff + upd;
 
-            upd = Math.abs(smpl - nnOff) * decay;
+            upd = Math.abs(sample - nnOff) * decay;
             actSDS = (1-decay) * actSDS + upd;
             
             if(actSDS * nnScl > targetSDS || nnScl>100) nnScl = (1-decay) * nnScl;
@@ -42,12 +43,13 @@ public class NNnodeNormalizer {
             
         }
         
-        return (smpl - nnOff) * nnScl;
+        return (sample - nnOff) * nnScl;
     }
     
     protected double getNNoff(){
         return nnOff;
     }
+
     protected double getNNscl(){
         return nnScl;
     }

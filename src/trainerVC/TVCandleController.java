@@ -14,7 +14,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ChoiceBox;
 import trainer.trainerWorkers.NTSolversManager.SolvOrder;
 import trainer.NetTrainer;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import utilities.ULogDoubleProperty;
 
 /**
@@ -26,7 +26,7 @@ import utilities.ULogDoubleProperty;
 public class TVCandleController {
     
     private final NetTrainer                myTrainer;
-    private List<NetTrainerAISolver>        myDispSolvers = new LinkedList();   //list of solvers to display
+    private List<NTaiSolver>        myDispSolvers = new LinkedList();   //list of solvers to display
                      
     private final int                       colCNum = 10,                       //number of candle columns
                                             rowCNum = 10;                       //number of candle rows
@@ -173,7 +173,7 @@ public class TVCandleController {
         
         //prepare list of solvers to display
         myDispSolvers.clear();
-        List<NetTrainerAISolver> myTrSolvers = myTrainer.getSolvers(SolvOrder.SORTED);
+        List<NTaiSolver> myTrSolvers = myTrainer.getSolvers(SolvOrder.SORTED);
         int numFromBack = 0;
         if(tbSolvOrder) numFromBack = numObsSolv/2;
         //add from the top

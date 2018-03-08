@@ -7,7 +7,7 @@ import deepLearn.NNetwork;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleBooleanProperty;
-import trainer.NetTrainerAISolver;
+import trainer.NTaiSolver;
 import utilities.URand;
 
 /**
@@ -34,7 +34,7 @@ public class NTgenXDoctor {
     }
     
     //generates genX_solvers for given list of solvers (should be sorted from top)
-    public void genXop(List<NetTrainerAISolver> sourceSolv){
+    public void genXop(List<NTaiSolver> sourceSolv){
         if(processorActive.getValue()){
             System.out.println("...genX injection");
             int numChilds = sourceSolv.size()*genXChildsRange/100; 
