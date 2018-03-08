@@ -109,10 +109,10 @@ public class NetTrainer extends Observable implements UTRobject{
         return trainerLearnParams.doNodeNorm;
     }
     public ULogDoubleProperty getNNormUDecay(){
-        return trainerLearnParams.nodeNormUDecay;
+        return trainerLearnParams.nodeNormUPDecay;
     }
     public SimpleDoubleProperty getNNormSDScale(){
-        return trainerLearnParams.nodeNormSDScale;
+        return trainerLearnParams.nodeNormABScale;
     }
     public ULogDoubleProperty getTanhRanger(){
         return trainerLearnParams.tanhRanger;

@@ -38,8 +38,8 @@ public class DLlearnParams {
     public double                   offsetSVM = 0.1;                                        //SVM offset parameter
     
     public SimpleBooleanProperty    doNodeNorm = new SimpleBooleanProperty(true);           //marker for node normalization activity
-    public SimpleDoubleProperty     nodeNormSDScale = new SimpleDoubleProperty(0.2);        //node normalization ~sdev scale
-    public ULogDoubleProperty       nodeNormUDecay = new ULogDoubleProperty(TSform.DBL,-6); //node normalization update decay param
+    public SimpleDoubleProperty     nodeNormABScale = new SimpleDoubleProperty(0.2);        //node normalization abs scale (average of abs)
+    public ULogDoubleProperty       nodeNormUPDecay = new ULogDoubleProperty(TSform.DBL,-6); //node normalization update decay param
 
     // weight initialization distribution
     public enum WInitDist{
