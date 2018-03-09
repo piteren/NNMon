@@ -12,6 +12,7 @@ import utilities.URand;
 
 /**
  * manages solvers list
+ * works like solvers HR
  * sorts, randomizes, adds etc.
  */
 public class NTSolversManager {

@@ -31,7 +31,7 @@ public class NTPKTableCase extends PKTable implements NTCase {
 
     @Override
     public int caseNumOfClasses(){
-        return 7;
+        return 4;
     }
 
     @Override

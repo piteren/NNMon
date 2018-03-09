@@ -27,9 +27,12 @@ public class NNetwork extends DLNetworkedObject{
                                         ALLsubLayers = new LinkedList();        //all internal layers of this net
     private SupportingIOlay             FIOlay,                                 //first IO supporting net layer
                                         LIOlay;                                 //last  IO supporting net layer
-    
-    protected LinkedList<Integer>       corrCix = new LinkedList();             //correct classification index (if known) for backpropagation lerning
+
+    // ************************************************************************** Lists below (corrCix,rewardVal) are indexed backward - index 0 = current history level, index 1 = previous...
+    //                                                                            similar to all datasockets of DLNetworkedObject
+    protected LinkedList<Integer>       corrCix = new LinkedList();             //correct classification index (if known) for backprop learning
     protected LinkedList<Double>        rewardVal = new LinkedList();           //reward values for reinforcement learning (when correct classification index is unknown), this list accepts null (reward not known)
+
     
     private int                         runFWDcounter = 0;                      //counter of FWD runs since last backprop, incremented only when backprop is enabled
     
@@ -140,10 +143,12 @@ public class NNetwork extends DLNetworkedObject{
         finalizeBuild();
         initWeights();
     }
+
     @Override
     public void initWeights(){
         for(DLNetworkedObject lay: ALLsubLayers) lay.initWeights();
     }
+
     @Override
     protected void finalizeBuild(){
         //finalize first IO layer
@@ -187,6 +192,7 @@ public class NNetwork extends DLNetworkedObject{
             LIOlay.dOUT = new DSmultiDataSocket(dOUT,DSmultiDataSocket.MDStype.PAR,0);  //initialize with net_dOUT
         else ((DSmultiDataSocket)LIOlay.dOUT).addDS(dOUT,0);                            //or add net_dOUT
     }
+
     @Override
     public void restartLrnMethodParams(){
         for(DLNetworkedObject lay: getALLsubLayers())
@@ -198,6 +204,7 @@ public class NNetwork extends DLNetworkedObject{
     }
     
     //************************************************************************** main running methods of net
+
     @Override
     protected void calcVout(){
         FIOlay.vOUT.moveDataTSF();
@@ -205,10 +212,10 @@ public class NNetwork extends DLNetworkedObject{
         LIOlay.vOUT.moveDataTSF();
         FIOlay.runFWD();                                                     //run FWD subnet
     }
+
     @Override
-    protected void calcDin(int h){
-        LIOlay.runBWD(h);                                                     //run BWD subnet
-    }
+    protected void calcDin(int h){ LIOlay.runBWD(h); }                       //run BWD subnet
+
     //runs net forward with given input data array (nnetwork is top layer = self runnable), returns vOUT
     public double[] runFWD(double[] inV){
         vIN.moveDataTSF();
@@ -230,6 +237,7 @@ public class NNetwork extends DLNetworkedObject{
         } 
         return outArr;
     }
+
     //runs net backward, sets gradients and preforms parameters update with given learning rate (nnetwork is top layer = self runnable)
     public void runBWD(){        
         dOUTset();
@@ -252,6 +260,7 @@ public class NNetwork extends DLNetworkedObject{
         LIOlay.vOUT.resetFrom(maxMemRecurrency);
         dOUT.resetFrom(0);
     }
+
     //sets dOUT of net for given by runFWDcounter history range
     private void dOUTset(){
         //set dOUT with correct classification information
@@ -263,9 +272,18 @@ public class NNetwork extends DLNetworkedObject{
         }
         //set dOUT with reinforcement rewards
         else{
+            // calc all rewards (replace null with values)
             double val = 0;
             for(int i=rewardVal.size()-1; i>-1; i--){
-                if(rewardVal.get(i)!=null) val = rewardVal.get(i);
+                if(rewardVal.get(i)!=null){                     //got value
+                    int num = 1;
+                    int j = i -1;
+                    while(j>-1 && rewardVal.get(j)==null){      //count num of null rewards
+                        num++;
+                        j--;
+                    }
+                    val = rewardVal.get(i)/num;
+                }
                 else rewardVal.set(i,val);
             }
             for(int i=0; i<runFWDcounter; i++)
@@ -273,10 +291,12 @@ public class NNetwork extends DLNetworkedObject{
             rewardVal.clear();
         }
     }
-    //calculates tanh scaled value with range and scale parameters
+
+    //calculates tanh scaled value with range and scale parameters, used to scale initial gradients
     private double valTanhScld(double val){
         return Math.tanh(val * myDLParams.tanhRanger.getLinDoubleValue() ) * 1.3130352 * myDLParams.tanhScaler.getLinDoubleValue();
     }
+
     @Override
     public void updateLearnableParams(){
         if(myDLParams.doGradL.getValue()){
@@ -305,12 +325,11 @@ public class NNetwork extends DLNetworkedObject{
         if(sclCounter>0) System.out.print(" with avg scale "+sclAmount/sclCounter);
         System.out.println();
     }
-    public long getSclCount(){
-        return sclCounter;
-    }
-    public double getSclAmnt(){
-        return sclAmount;
-    }
+
+    public long getSclCount(){ return sclCounter; }
+
+    public double getSclAmnt(){ return sclAmount; }
+
     //resets scale counters
     public void resetScaleFacts(){
         sclCounter = 0;
@@ -353,6 +372,7 @@ public class NNetwork extends DLNetworkedObject{
         }
         return gradL;
     }
+
     //calculates SVM loss error value
     private double totValLossSVM(double[] out, int cCix){        
         double totNetLoss = 0;
@@ -363,6 +383,7 @@ public class NNetwork extends DLNetworkedObject{
     }
 
     //************************************************************************** reinforcement gradient
+
     //creates grad array 4 reinforcement case
     private double[] gradReinforcement(double[] out, double reward, int numFRuns){
         int width = out.length;
@@ -377,6 +398,7 @@ public class NNetwork extends DLNetworkedObject{
     }
     
     //************************************************************************** methods of GXgenXinterface
+
     @Override
     public void genX(GXgenXinterface parA, GXgenXinterface parB){
         NNetwork    netA = (NNetwork)parA,
@@ -386,10 +408,10 @@ public class NNetwork extends DLNetworkedObject{
     }
     
     //************************************************************************** methods returning some information about net
+
     //returns net number of layers (only end layers, grouping not counted)
-    public int nLays(){
-        return this.ALLsubLayers.size();
-    }
+    public int nLays(){ return this.ALLsubLayers.size(); }
+
     @Override
     public int nParam(){
         int num=0;
@@ -397,6 +419,7 @@ public class NNetwork extends DLNetworkedObject{
         return num;
     }
     @Override
+
     public int nNodes(){
         int num=0;
         for(DLNetworkedObject lay: ALLsubLayers) num += lay.nNodes();

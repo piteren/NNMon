@@ -5,14 +5,14 @@
 package clapri;
 
 /**
- * Classification Problem case specific feedback Information
- * holds actor performance in case_specific_language
+ * Classification Problem case specific feedback additional Information
+ * holds actor performance information in case_specific_language
  * implements basic operations like merge, flush, toString
  */
-interface CPcsfInfo{
+interface CPcsfaInfo {
 
     // merges given info to this
-    void merge(CPcsfInfo csfIToMrg);
+    void merge(CPcsfaInfo csfIToMrg);
 
     // flushes (clears) information
     void flush();

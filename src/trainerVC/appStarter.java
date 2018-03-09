@@ -4,15 +4,10 @@
 //implement file chooser window
 package trainerVC;
 
-import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import rowDM.RowDMActor;
-import rowDM.RowDMCase;
-import rowDM.RowDMCharDataCreator;
 
 public class appStarter extends Application {
     

@@ -6,7 +6,7 @@ package clapri;
 
 /**
  * Classification Problem Feedback interface
- * holds reward, correct_classification_index and eventually additional_case_specific_information
+ * holds reward, correct_classification_index and eventually case_specific_additional_information
  */
 public interface CPFeedback {
 
@@ -14,5 +14,5 @@ public interface CPFeedback {
 
     Integer getCorrClassfIX();
 
-    CPcsfInfo getMyCPcsfInfo();
+    CPcsfaInfo getMyCPcsfInfo();
 }

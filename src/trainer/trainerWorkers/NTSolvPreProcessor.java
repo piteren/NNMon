@@ -13,7 +13,8 @@ import trainer.NTaiSolver;
  * performs solvers initialization and preprocessing tasks
  */
 public class NTSolvPreProcessor {
-    
+
+    // creates list of solvers with given number, path to net_conf_file and learnig_parameteres
     public LinkedList<NTaiSolver> makeSolvers(int sNum, String netPath, DLlearnParams tLearParams){
         LinkedList<NTaiSolver> tSolvers = new LinkedList();
         while(tSolvers.size() < sNum){

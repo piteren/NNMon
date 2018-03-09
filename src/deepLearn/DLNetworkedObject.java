@@ -24,17 +24,18 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
                                     vOUT,                                       // object output FWD data
                                     dIN,                                        // object input BWD data
                                     dOUT;                                       // object output BWD data
+
     protected double[][]            vWeights,                                   // weights array
                                     dWeights;                                   // weights gradient array
-    protected double[][]            lmpM,lmpV;                                  // weights update memory parameters
+    protected double[][]                        lmpM,lmpV;                                  // weights update memory parameters
     
-    protected NFtype                myNFtype;                                   // layer activation function type
+    protected NFtype                            myNFtype;                                   // layer activation function type
     
-    protected NNnodeNormalizer[]    nodeNorm;                                   // node normalization objects
+    protected NNnodeNormalizer[]                nodeNorm;                                   // node normalization objects
     
-    protected List<Histogram>       myLHistograms = new LinkedList();           // list of histograms
+    protected List<Histogram>                   myLHistograms = new LinkedList();           // list of histograms
                                 
-    protected int                   maxMemRecurrency = 0;                       // stores (written during build) maximal level of memory recurency for this object (max vOUT history level teken from this object durring runFWD, for RRN typicaly ==1)
+    protected int                               maxMemRecurrency = 0;                       // stores (written during build) maximal level of memory recurency for this object (max vOUT history level teken from this object durring runFWD, for RRN typicaly ==1)
     protected LinkedList<DLNetworkedObject> 
                                     prevNetObjects = new LinkedList(),          // list of objects networked PREV to this object
                                     nextNetObjects = new LinkedList();          // list of objects networked NEXT to this object

@@ -23,6 +23,7 @@ import javafx.scene.control.Slider;
 import deepLearn.DLlearnParams;
 import deepLearn.DLlearnParams.WUpdAlgorithm;
 import deepLearn.DLlearnParams.WInitDist;
+
 import java.util.LinkedList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -33,11 +34,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
-import rowDM.toTrainer.NTRowDMCase;
+
+import poker.toTrainer.NTPKTableCase;
 import trainer.trainerWorkers.NTSolversManager.SolvOrder;
 import trainer.NetTrainer;
+
 import utilities.ULogDoubleProperty;
 import utilities.threadRun.UThreadRun;
+
+import rowDM.toTrainer.NTRowDMCase;
 
 public class TVMainViewController implements Initializable, Observer {
     
@@ -255,8 +260,8 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new DLlearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new DLlearnParams());
 
-        myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
-        //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
+        //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
+        myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
 
         
         myTrainer.addObserver(this);
@@ -456,23 +461,23 @@ public class TVMainViewController implements Initializable, Observer {
         
         switch( (NetTrainer.TrainerMessage)arg ){
             case NEW_CIRCLE_STARTED:
-                //prepare loopAM & caseRep values for trainer new circle
+                // prepare loopAM & caseRep values for trainer new circle
                 int newLoopAM = (int)Math.pow(10, lAMSlider.valueProperty().getValue() );
                 int newCaseRe = (int)Math.pow(10, eRSlider.valueProperty().getValue() );
                 myTrainer.getLoopAM().setValue( newLoopAM );
                 myTrainer.getCaseRepeat().setValue( newCaseRe );
-                //calc new scale of iGD for solvers and axis bound for iCharts
+                // calc new scale of iGD for solvers and axis bound for iCharts
                 int scl = (newLoopAM*newCaseRe-1)/1000 +1;
                 int iChartBound = newLoopAM*newCaseRe/scl + 1;
-                myTrainer.getIgdSolvScale().setValue(scl);
+                myTrainer.getIGDSolvScale().setValue(scl);
                 iPCxAxis.setUpperBound(iChartBound);
                 iECxAxis.setUpperBound(iChartBound);
-                //new bound for performance bar
+                // new bound for performance bar
                 loopsPBman.setMyBound( myTrainer.getLoopAM().getValue() );
                 
-                //reset global performance data
+                // reset global GD (performance data)
                 if(resetGlobButton.isSelected()){
-                    myTrainer.resetGlobalSats();
+                    myTrainer.resetAllSolvGlobalGData();
                     resetGlobButton.setSelected(false);
                 }
                 

@@ -23,7 +23,7 @@ public class RowDMActor {
     }
 
     //gets decision feedback from case
-    public void takeFeedback(RowMDFeedback myFeedback){
+    public void takeFeedback(RowDMFeedback myFeedback){
         System.out.println(myFeedback.getReward());
         myRewards.add(myFeedback.getReward());                                  //takes only reward, do not takes correct decision for learning
     }

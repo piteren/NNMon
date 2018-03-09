@@ -62,13 +62,13 @@ public class RowDMCase {
     }
 
     //prepares feedback with reward and correct decision for given actor decision
-    public RowMDFeedback prepFeedback(int actorChoosenClass){
+    public RowDMFeedback prepFeedback(int actorChoosenClass){
 
         int corrC = myRowData.get(rowIX).getCClass();
         Double reward = 1.0;
         if( actorChoosenClass!=corrC ) reward = -1.0;
 
-        return new RowMDFeedback(reward, corrC);
+        return new RowDMFeedback(reward, corrC);
     }
 
     //moves case to next state

@@ -2,7 +2,7 @@
  * 2018 (c) piteren
  */
 
-package rowDM;
+package rowDM.oneHotDataCreator;
 
 import utilities.UFileOperator;
 
@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * creator of row data for compress test
+ * creator of one_hot row data for compress test
  */
 
 public class RowDMCharDataCreator {

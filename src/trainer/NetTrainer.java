@@ -3,21 +3,25 @@
  */
 package trainer;
 
-import dataUtilities.GData;
 import trainer.toCase.NTCase;
 import trainer.trainerWorkers.*;
-import utilities.ULogDoubleProperty;
+import trainer.trainerWorkers.NTSolversManager.SolvOrder;
+
+import dataUtilities.GData;
 import deepLearn.DLlearnParams;
+
 import java.util.LinkedList;
 import java.util.List;
-
 import java.util.Observable;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import trainer.trainerWorkers.NTSolversManager.SolvOrder;
+
 import utilities.threadRun.UTRobject;
 import utilities.threadRun.UThreadRun;
+import utilities.ULogDoubleProperty;
+
+import static trainer.trainerWorkers.NTSolversManager.SolvOrder.SORTED;
 
 /*
  * initializes traing_groups of solvers with training parameters, starts traning of groups in Envy, manages solvers with rewards
@@ -25,20 +29,23 @@ import utilities.threadRun.UThreadRun;
 public class NetTrainer extends Observable implements UTRobject{
 
     //************************************************************************** trainer base
+
     private List<NTCase>                myCases = new LinkedList();;                            //trainer cases list
     private final SimpleIntegerProperty caseRepeatNum = new SimpleIntegerProperty();            //number of internal case runs
     
     private final NTSolversManager      mySolvMan;                                              //solvers manager
     private final NTSolvPreProcessor    mySolvPrePro = new NTSolvPreProcessor();                //solvers preprocesor
-    private final NTtopPosInspector     myTopPosInsp;                                           //top position inspector
-    private final NTgenXDoctor          myGenXDr;                                               //genX doctor
-    private final NTwinHSolvPromotor    myWinHSPromotor;                                        //historical winning solvers promotor
+    private final NTtopPosInspector     myTopPosInsp = new NTtopPosInspector(false);       //top position inspector
+    private final NTgenXDoctor          myGenXDr = new NTgenXDoctor(true);                 //genX doctor
+    private final NTwinHSolvPromotor    myWinHSPromotor = new NTwinHSolvPromotor(false);   //historical winning solvers promotor
 
-    //************************************************************************** loops & circle
+    //************************************************************************* loops & circle
+
     private final SimpleIntegerProperty loopAM = new SimpleIntegerProperty(),                   //amount of loops in one circle
-                                        trLoopCounter = new SimpleIntegerProperty(0);           //counter of performed training loops (up to loopAM)
+                                        trLoopCounter = new SimpleIntegerProperty(0); //counter of performed training loops (up to loopAM)
     private final SimpleBooleanProperty doLoops = new SimpleBooleanProperty();                  //flag for doing loops (thread breaker)
-    private final SimpleIntegerProperty igdSolvScale = new SimpleIntegerProperty(1);            //interval solvers GData scale
+
+    private final SimpleIntegerProperty iGDSolvScale = new SimpleIntegerProperty(1);  //interval solvers GData scale
     
     private int                         trainingCircleCounter = 0;                              //counter of performed training circles (one circle == loopAM loops)
     private long                        startCircleTimeMS,                                      //last circle time start in ms
@@ -48,23 +55,21 @@ public class NetTrainer extends Observable implements UTRobject{
     
     private double                      tAvgWinRateOfCycle = 0;                                 //trainer average winrate of last cycle
         
-    //************************************************************************** backpropagation params
-    private DLlearnParams               trainerLearnParams;                                     //object with learning parameters managed by this trainer (and shared with solvers)
+    //************************************************************************ backprop params
+
+    private final DLlearnParams         trainerLearnParams;                                     //object with learning parameters managed by this trainer (and shared with solvers)
     
     public enum TrainerMessage{         CIRCLE_FINISHED,                                        //trainer messages for observers
                                         CIRCLE_HALTED,
                                         NEW_CIRCLE_STARTED;}
     
-    //constructor(case, numCases, NNlearnParams)
+    //constructor(case, numCases, nnlearnParams)
     public NetTrainer(NTCase mCs, int casesNum, String pth, DLlearnParams tLP){
         for(int i=0; i<casesNum; i++) myCases.add(mCs.duplicate());
         trainerLearnParams = tLP;
-        
-        mySolvMan = new NTSolversManager( mySolvPrePro.makeSolvers( mCs.caseNumOfActors()*casesNum, pth, trainerLearnParams ) );
-        
-        myTopPosInsp = new NTtopPosInspector(true);
-        myGenXDr = new NTgenXDoctor(true);
-        myWinHSPromotor = new NTwinHSolvPromotor(false);       
+        // create solvers and put to the manager
+        List<NTaiSolver> trSolvers = mySolvPrePro.makeSolvers( mCs.caseNumOfActors()*casesNum, pth, trainerLearnParams );
+        mySolvMan = new NTSolversManager( trSolvers );
     }
     
     public SimpleIntegerProperty getCaseRepeat(){
@@ -80,8 +85,8 @@ public class NetTrainer extends Observable implements UTRobject{
     public SimpleIntegerProperty getTrainingLoopCounter(){
         return trLoopCounter;
     }
-    public SimpleIntegerProperty getIgdSolvScale(){
-        return igdSolvScale;
+    public SimpleIntegerProperty getIGDSolvScale(){
+        return iGDSolvScale;
     }
     
     public SimpleBooleanProperty getDoBackpropLearning(){
@@ -157,8 +162,9 @@ public class NetTrainer extends Observable implements UTRobject{
     public void setGenXChildsRange(int newGXCrang){
         myGenXDr.setGenXChildsRange(newGXCrang);
     }
-    
-    public void resetGlobalSats(){
+
+    // resets all solvers global GData
+    public void resetAllSolvGlobalGData(){
         for(NTaiSolver sol: getSolvers())
             sol.resetGData();
     }
@@ -201,7 +207,7 @@ public class NetTrainer extends Observable implements UTRobject{
         int prepNum = num;
         if(prepNum > mySolvMan.solvNum()) prepNum = mySolvMan.solvNum();
         for(int i=0; i<prepNum; i++){
-            System.out.println(mySolvMan.getSolvers(SolvOrder.SORTED).get(i).myIntervalPerformance());
+            System.out.println(mySolvMan.getSolvers(SORTED).get(i).myIntervalPerformance());
         }
     }
 
@@ -262,7 +268,7 @@ public class NetTrainer extends Observable implements UTRobject{
             notifyObservers(TrainerMessage.NEW_CIRCLE_STARTED);
             
             for(NTaiSolver solv: getSolvers())
-                solv.resetIntervalERData( igdSolvScale.getValue() );
+                solv.resetIData( iGDSolvScale.getValue() );
             
             myTopPosInsp.resetPosData(getSolvers());
         }
@@ -278,7 +284,7 @@ public class NetTrainer extends Observable implements UTRobject{
                 runThSolversBackprop();                                             
        
         //parents check
-        myTopPosInsp.parentsCheck(trLoopCounter.getValue(), mySolvMan);
+        myTopPosInsp.parentsCheck(trLoopCounter.getValue(), getSolvers(SORTED));
         
         //time for post circle revision >> last loop in circle
         if(trLoopCounter.getValue()%loopAM.getValue()==0){
@@ -301,9 +307,9 @@ public class NetTrainer extends Observable implements UTRobject{
 
         List<NTaiSolver> newSolvers = new LinkedList();
         if(myWinHSPromotor.isPromotorActive())
-            newSolvers.addAll( myWinHSPromotor.promotedHWinningsolvers( getSolvers( SolvOrder.SORTED ) ) );
+            newSolvers.addAll( myWinHSPromotor.promotedHWinningsolvers( getSolvers(SORTED)) );
 
-        myGenXDr.genXop( getSolvers( SolvOrder.SORTED ) );
+        myGenXDr.genXop( getSolvers( SORTED ) );
         
         mySolvMan.replaceWorstSolvers(newSolvers);
     }

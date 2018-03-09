@@ -11,18 +11,18 @@ import java.util.Observable;
  * keeps step data, supports additive mode (cumulative), scaling, smoothing
  */
 public class GData extends Observable {
-    private int                 scale;                      //scale factor, number of data samples scaled to one OUT_sample
-    private final boolean       addMode;                    //cummulative data flag
-    private int                 maxWidth = 0;               //max size of data, if==0 then unlimited, must be even
-    private double              buffer;                     //data bufor (used when scale > 1)
-    private int                 bufferSize;                 //number of samples taken to the buffer
+    private int                 scale;                      // scale factor, number of data samples scaled to one OUT_sample
+    private final boolean       addMode;                    // cumulative data flag
+    private int                 maxWidth = 0;               // max size of data, if==0 then unlimited, must be even
+    private double              buffer;                     // data buffer (used when scale > 1)
+    private int                 bufferSize;                 // number of samples taken to the buffer
     
-    private int                 numASncNotf = 0;            //counter of samples added since last notification
-    private long                lastUpdMs = 0;              //last update time
-    private static long         notfDelayMs = 50;           //min dalay between observables notification
+    private int                 numASncNotf = 0;            // counter of samples added since last notification
+    private long                lastUpdMs = 0;              // last update time
+    private static long         notfDelayMs = 50;           // min delay between observables notification
     
-    private final Color         color;                      //GD color
-    private LinkedList<Double>  data = new LinkedList();    //stored data samples
+    private final Color         color;                      // GD color
+    private LinkedList<Double>  data = new LinkedList();    // stored data samples
     
     //constructor
     public GData(   int scl,                                                    //initial scale
@@ -61,6 +61,7 @@ public class GData extends Observable {
             }
         }
     }
+
     //scales data down (scale*2)
     public void scaleDown(){
         LinkedList<Double> newData = new LinkedList();
@@ -78,6 +79,7 @@ public class GData extends Observable {
         notifyObservers( getData(0) );
         numASncNotf = data.size();
     }
+
     //clears stored data
     public void flush(){
         data = new LinkedList();
@@ -88,11 +90,13 @@ public class GData extends Observable {
         notifyObservers( getData(0) );
         numASncNotf = 0;
     }
+
     //clears stored data and sets new scale
     public void flush(int newScale){
         scale = newScale;
         flush();
     }
+
     //returns smoothed GData with width using linear method
     public GData smooth(int sW){
         GData nGD = new GData(scale,addMode,maxWidth,color);
@@ -129,12 +133,22 @@ public class GData extends Observable {
             else weightsNvalues[1][weightsNvalues[1].length-1]=data.get(i+sWidth);
         }
         return nGD;
-    }    
-    
+    }
+
+    public Color getColor(){
+        return color;
+    }
+
+    //returns size of GData (number of samples)
+    public int getSize(){
+        return data.size();
+    }
+
     //returns data list
     public LinkedList<Double> getData(){
         return data;
     }
+
     //returns data list of n samples from the end
     public LinkedList<Double> getData(int numFromEnd){
         LinkedList<Double> endData = new LinkedList();
@@ -143,26 +157,20 @@ public class GData extends Observable {
             endData.add(data.get( startIX+i ));
         return endData;
     }
+
     //returns last value in data or 0 if empty
     public double getLastV(){
         if(data.isEmpty()) return 0;
         return data.getLast();
     }
-    
-    public Color getColor(){
-        return color;
-    }
-    
-    //returns size of GData (number of samples)
-    public int getSize(){
-        return data.size();
-    }
+
     //returns sum of all data samples
     public double calcSumV(){
         double val=0;
         for(int i=0; i<data.size(); i++) val+=data.get(i);
         return val;
     }
+
     //returns sum of last n data samples
     public double calcSumV(int n){
         double val=0;
@@ -171,6 +179,7 @@ public class GData extends Observable {
         for(int i=from; i<data.size(); i++) val+=data.get(i);
         return val;
     }
+
     //returns avg of all data samples
     public double calcAvgV(){
         double val=0;

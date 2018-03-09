@@ -5,7 +5,7 @@
 package rowDM.toTrainer;
 
 import rowDM.RowDMActor;
-import rowDM.RowMDFeedback;
+import rowDM.RowDMFeedback;
 import trainer.NTCaseFeedback;
 import trainer.NTaiSolver;
 import trainer.toCase.NTActor;
@@ -41,7 +41,7 @@ public class NTRowDMActor  extends RowDMActor implements NTActor {
 
     @Override
     public NTCaseFeedback prepFeedbackToSolver(int decIX){
-        RowMDFeedback caseFeedback = myCase.prepFeedback(decIX);
+        RowDMFeedback caseFeedback = myCase.prepFeedback(decIX);
         Integer corrCIX = caseFeedback.getCorrectDecision();
         Double rew = caseFeedback.getReward();
         NTCaseFeedback ntFeedback = new NTCaseFeedback(corrCIX, rew, null);
