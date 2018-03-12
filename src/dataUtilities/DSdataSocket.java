@@ -1,8 +1,10 @@
-/*
+/**
  * 2017 (c) piteren
  */
+
 package dataUtilities;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -12,22 +14,21 @@ import java.util.LinkedList;
  */
 public class DSdataSocket {
     
-    protected int                       width;                                  //width of data (width of array)
-    private final LinkedList<double[]>  dataArrList = new LinkedList();         //raw data list, 0-actual, 1-history(+1), 2-history(+2)...
+    protected int                       width;                                  // width of data (width of array)
+    private final LinkedList<double[]>  dataArrList = new LinkedList<>();       // raw data list, 0-actual, 1-history(+1), 2-history(+2)...
     
-    //constructor (width)
+    // constructor (width)
     public DSdataSocket(int wd){
         width = wd;
     }
     
-    //returns data readiness for read at given history step
+    // returns data readiness for read at given history step
     public boolean isDataReadReady(int h){
-        if(dataArrList.size() > h)
-            if(dataArrList.get(h)!=null)
-                return true;
+        if(dataArrList.size() > h) return dataArrList.get(h)!=null;
         return false;
     }
-    //moves data one Time_Step_Forwad
+
+    // moves data one Time_Step_Forwad
     public void moveDataTSF(){
         dataArrList.addFirst(null);
     }
@@ -37,13 +38,14 @@ public class DSdataSocket {
     }
     
     //************************************************************************** methods reading and writing socket data
+
     //resets DS from given history level to the end (flushes data)
     public void resetFrom(int ix){
         while(dataArrList.size() > ix) dataArrList.removeLast();
     }
 
     //if not ready >> makes data ready at h history & inits with 0
-    protected void makeDataReady(int h){
+    void makeDataReady(int h){
         while(dataArrList.size() < h+1) dataArrList.add(null);
     }
     
@@ -55,6 +57,7 @@ public class DSdataSocket {
 
     //returns data array from history h
     public double[] getD(int h){
-        return dataArrList.get(h).clone();
+        //return Arrays.copyOf(dataArrList.get(h), dataArrList.get(h).length);
+        return dataArrList.get(h);
     }
 }

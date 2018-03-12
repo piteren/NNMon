@@ -10,9 +10,14 @@ package clapri;
  */
 public interface CPFeedback {
 
+    // returns reward
     Double getReward();
 
+    // returns correct classification index
     Integer getCorrClassfIX();
 
-    CPcsfaInfo getMyCPcsfInfo();
+    // returns case specific additional information (or null if not present)
+    default CPcsfaInfo getMyCPcsfaInfo(){
+        return null;
+    }
 }

@@ -1,7 +1,8 @@
-/*
+/**
  * 2017 (c) piteren
  */
-package deepLearn;
+
+package neuralNetwork;
 
 import genX.GXgenXinterface;
 import dataUtilities.DSmultiDataSocket;
@@ -14,36 +15,35 @@ import java.util.List;
 
 /**
  * abstract class for NN layer
+ * layer has nodes and learnable parameters
  */
-public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenXinterface, HistoFace {
+public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace {
     
-    protected DLlayType             lType;                                      // enum layer type
-    protected DLlearnParams         myDLParams;                                 // learning parameters
-    
-    protected DSdataSocket          vIN,                                        // object input FWD data
-                                    vOUT,                                       // object output FWD data
-                                    dIN,                                        // object input BWD data
-                                    dOUT;                                       // object output BWD data
+    NNLayType lType;                                                      // layer type
+    NFtype                            myNFtype;                           // layer activation function type
 
-    protected double[][]            vWeights,                                   // weights array
-                                    dWeights;                                   // weights gradient array
-    protected double[][]                        lmpM,lmpV;                                  // weights update memory parameters
+    protected final NNLearnParams     myDLParams;                         // layer learning parameters
     
-    protected NFtype                            myNFtype;                                   // layer activation function type
+    protected DSdataSocket            vIN,                                // object input FWD data
+                                      vOUT,                               // object output FWD data
+                                      dIN,                                // object input BWD data
+                                      dOUT;                               // object output BWD data
+
+    double[][]                        vWeights,                           // weights array
+                                      dWeights;                           // weights gradient array
+    double[][]                        lmpM,lmpV;                          // weights update memory parameters
+
+    NNodeNormalizer[]                 nodeNorm;                           // node normalization objects
     
-    protected NNnodeNormalizer[]                nodeNorm;                                   // node normalization objects
-    
-    protected List<Histogram>                   myLHistograms = new LinkedList();           // list of histograms
+    List<Histogram>                   myLHistograms = new LinkedList<>(); // list of layer histograms
                                 
-    protected int                               maxMemRecurrency = 0;                       // stores (written during build) maximal level of memory recurency for this object (max vOUT history level teken from this object durring runFWD, for RRN typicaly ==1)
-    protected LinkedList<DLNetworkedObject> 
-                                    prevNetObjects = new LinkedList(),          // list of objects networked PREV to this object
-                                    nextNetObjects = new LinkedList();          // list of objects networked NEXT to this object
-    protected int[]                 prevTimeOffConnection,                      // time offset of prev (incoming) connection
-                                    nextTimeOffConnection;                      // time offset of next (outgoing) connection
-    
+    protected int                     maxMemRecurrence = 0;               // stores (written during build) maximal level of memory recurrence for this object (max vOUT history level taken from this object during runFWD, for RRN typically ==1)
+    private LinkedList<NNLay>         prevNetObjects = new LinkedList<>(),// list of objects networked PREV to this object
+                                      nextNetObjects = new LinkedList<>();// list of objects networked NEXT to this object
+    private int[]                     prevTimeOffConnection,              // time offset of prev (incoming) connection
+                                      nextTimeOffConnection;              // time offset of next (outgoing) connection
     // layer type
-    public enum DLlayType {
+    public enum NNLayType {
         FC,
         PW,
         NET
@@ -58,16 +58,16 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         LRELU,
     }
                     
-    //constructor(parent,width)
-    public DLNetworkedObject(DLlearnParams mDLp, int oW){
+    // constructor(parent, width)
+    NNLay(NNLearnParams mDLp, int oW) {
         myDLParams = mDLp;
         vOUT = new DSdataSocket(oW);                                                //vOUT initialization
         initNNorm(oW);                                                              //node normalization objects init
         initHistograms();                                                           //histograms initialization
     }
     
-    //initializes vIN,dIN,dOUT using networking information    
-    protected void finalizeBuild(){                
+    // inits vIN,dIN,dOUT using networking information
+    protected void finalizeBuild() {
         DSdataSocket tempDS;
         for(int i=0; i<prevNetObjects.size(); i++){                                         //4 every i prev_object
             int cO = prevTimeOffConnection[i];                                              //connection time offset
@@ -94,12 +94,14 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
                         vOUT.setD(j-1, new double[vOUT.getWidth()]);                        //initialize vOUT @prev_history_state_to_offset_value with 0;     
     }
 
-    //inits weights
+    // inits weights
     protected abstract void initWeights();
 
-    //adds next_connection_object to network
-    protected void addNextOC(DLNetworkedObject nO, int tOff){
-        nextNetObjects.add(nO);
+    @Override
+    public void connectWithNext(NNRunAndLearn nextRalObj, int tOff){
+        NNLay nextNNLay = (NNLay)nextRalObj;
+
+        nextNetObjects.add(nextNNLay);
         int[] ntOA;
         if(nextTimeOffConnection!=null){
             ntOA = new int[nextTimeOffConnection.length+1];
@@ -112,35 +114,32 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
             ntOA[0] = tOff;
         }
         nextTimeOffConnection = ntOA;
-        if(tOff > maxMemRecurrency) maxMemRecurrency = tOff;
-    }
-    //adds prev_connection_object to network
+        if(tOff > maxMemRecurrence) maxMemRecurrence = tOff;
 
-    protected void addPrevOC(DLNetworkedObject pO, int tOff){
-        prevNetObjects.add(pO);
+        nextNNLay.prevNetObjects.add(this);
         int[] ptOA;
-        if(prevTimeOffConnection!=null){
-            ptOA = new int[prevTimeOffConnection.length+1];
-            for(int i=0; i<prevTimeOffConnection.length; i++)
-                ptOA[i] = prevTimeOffConnection[i];
-            ptOA[prevTimeOffConnection.length] = tOff;
+        if(nextNNLay.prevTimeOffConnection!=null){
+            ptOA = new int[nextNNLay.prevTimeOffConnection.length+1];
+            for(int i=0; i<nextNNLay.prevTimeOffConnection.length; i++)
+                ptOA[i] = nextNNLay.prevTimeOffConnection[i];
+            ptOA[nextNNLay.prevTimeOffConnection.length] = tOff;
         }
         else{
             ptOA = new int[1];
             ptOA[0] = tOff;
         }
-        prevTimeOffConnection = ptOA;
+        nextNNLay.prevTimeOffConnection = ptOA;
     }
 
-    //restarts (sets to initial values) parameteres of learn method
+    // restarts (sets to initial values) parameteres of learn method
     public abstract void restartLrnMethodParams();
     
     //************************************************************************** methods of running FWD & BWD
 
-    //calculates vOUT_fwd
+    // calculates vOUT_fwd
     abstract protected void calcVout();
 
-    //calculates dIN_bwd
+    // calculates dIN_bwd
     abstract protected void calcDin(int h);
 
     @Override
@@ -152,7 +151,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
             
             if(myLHistograms.get(7).isActive()) myLHistograms.get(7).build(vOUT.getD(0));       //vOUT histogram
             
-            //runs recurently on next net objects
+            //runs recurrently on next net objects
             for(int i=0; i<nextNetObjects.size(); i++)
                 if(nextTimeOffConnection[i]==0)
                     nextNetObjects.get(i).runFWD();                                             
@@ -162,18 +161,18 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
     @Override
     public void runBWD(int h){
         if(dOUT.isDataReadReady(h)){
-            if(myLHistograms.get(8).isActive()) myLHistograms.get(8).build(dOUT.getD(h));       //dOUT histogram
+            if(myLHistograms.get(8).isActive()) myLHistograms.get(8).build(dOUT.getD(h));           //dOUT histogram
 
             calcDin(h);
 
-            //runs recurently on prev net objects
+            //runs recurrently on prev net objects
             for(int i=0; i<prevNetObjects.size(); i++)
                 if(prevTimeOffConnection[i]==0)
                     prevNetObjects.get(i).runBWD(h);                                            
         }
     }
 
-    //returns max abs value of weight gradient
+    // returns max abs value of weight gradient
     public double maxdW(){
         double maxD = 0;
         if(dWeights!=null){
@@ -184,7 +183,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         return maxD;
     }
 
-    //multiplies weight gradients with scl factor
+    // divides weight gradients with scl factor
     public void scaledW(double scl){
         if(dWeights!=null){
             for(int i=0; i<dWeights.length; i++)
@@ -193,7 +192,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         }
     }
 
-    //calculates node function (based on aF type) for given input
+    // calculates node function (based on aF type) for given input
     protected static double nodeFunc(double inV, NFtype nft){
         double out = inV;                                                       //default val for some cases
         switch(nft){
@@ -206,7 +205,7 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         return out;
     }
 
-    //calculates node function derivative (based on aF type) for given output of function
+    // calculates node function derivative (based on aF type) for given output of function
     protected static double nodeDFunc(double oV, NFtype nft){
         double locGrad = 1;                                                     //default val for some cases
         switch(nft){
@@ -219,26 +218,32 @@ public abstract class DLNetworkedObject implements DLrunFBlearnInterface, GXgenX
         return locGrad;        
     }
 
-    //initializes node normalization objects
+    // initializes node normalization objects
     protected void initNNorm(int oW){
-        nodeNorm = new NNnodeNormalizer[oW];
+        nodeNorm = new NNodeNormalizer[oW];
         for(int i= 0; i<nodeNorm.length; i++)
-            nodeNorm[i] = new NNnodeNormalizer(myDLParams);
+            nodeNorm[i] = new NNodeNormalizer(myDLParams);
+    }
+
+    // forces NNorm off
+    protected void forceNNOff(){
+        for(int i= 0; i<nodeNorm.length; i++)
+            nodeNorm[i].forceOff();
     }
     
-    //************************************************************************** methods returning some iformation about object
+    //********************************************************************* methods returning some information about Lay
 
-    public DLlayType getLayType(){
+    public NNLayType getLayType(){
         return lType;
     }
 
-    //returns object number of nodes (nodes are are common features for most object implementations, so such method makes sense)
+    // returns object number of nodes (nodes are are common features for most object implementations, so such method makes sense)
     abstract public int nNodes();
 
-    //returns object number of learnable parameters (usually lernable object has paramters to learn, this method returns number of them)
+    // returns object number of learnable parameters (usually learnable object has parameters to learn, this method returns number of them)
     abstract public int nParam();
 
-    //************************************************************************** HistoFace methods implementation
+    //********************************************************************************* HistoFace methods implementation
 
     @Override
     public final void initHistograms() {

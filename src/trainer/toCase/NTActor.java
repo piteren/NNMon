@@ -1,4 +1,4 @@
-/*
+/**
  * 2017 (c) piteren
  */
 package trainer.toCase;
@@ -16,14 +16,19 @@ import utilities.UArr;
  *  3.prepares feedback for solver
  */
 public interface NTActor {
-    
-    //returns actor AIsolver
+
+    // returns actor AIsolver
     NTaiSolver getMySolver();
 
-    //prepares solver input data array
+    // prepares solver input data array
     double[] prepSolverIN();
 
-    //interprets solver output array, returns decision index
+    // runs actor solver with given input, returns solver output
+    default double[] runMySolver(double[] solverIN){
+        return getMySolver().runFWD(solverIN);
+    }
+
+    // interprets solver output array, returns decision index
     default int intpSolverOUT(double[] solverOUT){
         int aX = UArr.maxVix(solverOUT);
         return aX;
@@ -31,4 +36,6 @@ public interface NTActor {
 
     //prepares complete feedback for solver (for taken decision index)
     NTCaseFeedback prepFeedbackToSolver(int decIX);
+
+    // !! void feedMySolver(double[] solverOUT, int decIX);
 }

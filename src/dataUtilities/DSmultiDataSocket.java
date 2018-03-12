@@ -17,8 +17,8 @@ import java.util.LinkedList;
 public class DSmultiDataSocket extends DSdataSocket {
     
     private final MDStype                   myMDStype;                          //MDS type
-    private final LinkedList<DSdataSocket>  dsSource = new LinkedList();        //list of sockets that makes this MDS
-    private final LinkedList<Integer>       timeOff = new LinkedList();         //time offset of corresponding ds
+    private final LinkedList<DSdataSocket>  dsSource = new LinkedList<>();      //list of sockets that makes this MDS
+    private final LinkedList<Integer>       timeOff = new LinkedList<>();       //time offset of corresponding ds
     
     public enum MDStype{
         SER,                                                                    //serial
@@ -57,6 +57,7 @@ public class DSmultiDataSocket extends DSdataSocket {
         }
         return true;
     }
+
     @Override
     public void moveDataTSF(){
         for(DSdataSocket ds: dsSource) ds.moveDataTSF();
@@ -87,6 +88,7 @@ public class DSmultiDataSocket extends DSdataSocket {
             }
         }
     }
+
     @Override
     public double[] getD(int h){
         DSdataSocket dsi;

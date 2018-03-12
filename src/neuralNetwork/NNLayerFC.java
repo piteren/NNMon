@@ -1,9 +1,9 @@
 /*
  * 2017 (c) piteren
  */
-package deepLearn;
+package neuralNetwork;
 
-import static deepLearn.DLlearnParams.WInitDist.UNIFORM;
+import static neuralNetwork.NNLearnParams.WInitDist.UNIFORM;
 import genX.GXgenXinterface;
 import utilities.UArr;
 import utilities.URand;
@@ -11,15 +11,15 @@ import utilities.URand;
 /**
  * fully-connected layer
  */
-public class NNLayerFC extends DLNetworkedObject {
+public class NNLayerFC extends NNLay {
     
     private double[]        vINarr;                                             //temp array for vIN values
     
     //constructor    
-    public NNLayerFC(DLlearnParams mDLp, int oW, NFtype lNFtp){
+    public NNLayerFC(NNLearnParams mDLp, int oW, NFtype lNFtp){
         super(mDLp,oW);
         myNFtype = lNFtp;
-        lType = DLlayType.FC;
+        lType = NNLayType.FC;
     }
                 
     @Override
@@ -31,6 +31,7 @@ public class NNLayerFC extends DLNetworkedObject {
         lmpV = new double[vIN.getWidth()+1][vOUT.getWidth()];
         restartLrnMethodParams();
     }
+
     @Override   //initializes random weights with Xavier formula
     protected void initWeights(){
         double scale = myDLParams.wIScale.getLinDoubleValue();
@@ -39,11 +40,13 @@ public class NNLayerFC extends DLNetworkedObject {
                 vWeights[i][j] = weigthInVal(scale);
         if(myLHistograms.get(1).isActive()) myLHistograms.get(1).build( UArr.flat(vWeights) );   //weights histogram
     }
+
     //Xavier initialization weight value (Caffe) with scale
     private double weigthInVal(double scale){
         if(myDLParams.wIDist==UNIFORM) return ( URand.one() - 0.5 ) * 3.2 / Math.sqrt(vWeights.length) * scale; //uniform distribution base
         else return URand.gauss() / Math.sqrt(vWeights.length) * scale;                                         //gaussian distribution base
     }
+
     @Override
     public void restartLrnMethodParams(){
         lmpM = new double[vIN.getWidth()+1][vOUT.getWidth()];
@@ -98,6 +101,7 @@ public class NNLayerFC extends DLNetworkedObject {
         
         vOUT.setD(0, vOUTtempArray);                                            //copy vOUTtempArray to vOUT
     }
+
     @Override
     protected void calcDin(int h){
         double[] dNODEtemp = dOUT.getD(h);                                      //temporary array for dNODE values
@@ -129,6 +133,7 @@ public class NNLayerFC extends DLNetworkedObject {
         
         dIN.setD(h,dINtempArray);
     }
+
     @Override
     public void updateLearnableParams(){
         //dWeights histogram
@@ -214,6 +219,7 @@ public class NNLayerFC extends DLNetworkedObject {
     //************************************************************************** methods returning some information about layer
     @Override
     public int nParam(){ return vWeights.length*vWeights[0].length; }
+
     @Override
     public int nNodes(){ return vOUT.getWidth(); }
 }

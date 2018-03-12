@@ -8,6 +8,7 @@ package clapri;
  * Classification Problem case specific feedback additional Information
  * holds actor performance information in case_specific_language
  * implements basic operations like merge, flush, toString
+ * this interface is not obligatory - you may put null instead of class object (= no case_spec_feedback)
  */
 interface CPcsfaInfo {
 

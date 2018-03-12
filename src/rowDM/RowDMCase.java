@@ -76,4 +76,14 @@ public class RowDMCase {
         rowIX++;
         if(rowIX == myRowData.size()) rowIX = 0;
     }
+
+    public static void main(String[] args) {
+        RowDMCase casTest = new RowDMCase("RDMdata/rowData.txt");
+        RowDMActor actTest = new RowDMActor(casTest);
+        for(int i=0; i<100; i++){
+            int dec = actTest.makeDecision(casTest.prepCurrentState());
+            actTest.takeFeedback(casTest.prepFeedback(dec));
+            casTest.moveToNextRow();
+        }
+    }
 }

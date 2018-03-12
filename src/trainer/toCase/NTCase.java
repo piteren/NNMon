@@ -1,4 +1,4 @@
-/*
+/**
  * 2017 (c) piteren
  */
 package trainer.toCase;
@@ -32,7 +32,7 @@ public interface NTCase extends UTRobject{
     // takes list of solvers from trainer
     // >> creates new list of NTactors, for each gives one AIsolver and puts those NTactors to case
     void takeSolvers(LinkedList<NTaiSolver> solvers);
-    
+
     // returns NTactors list
     LinkedList<NTActor> getMyActors();
 
@@ -46,7 +46,7 @@ public interface NTCase extends UTRobject{
             int actDec = 0;
             for(NTActor act: getMyActors()){
                 double[] solverIN = act.prepSolverIN();
-                double[] solverOUT = act.getMySolver().runFWD(solverIN);
+                double[] solverOUT = act.runMySolver(solverIN);
                 actDec = act.intpSolverOUT(solverOUT);
                 
                 NTCaseFeedback caseFeedback = act.prepFeedbackToSolver(actDec);

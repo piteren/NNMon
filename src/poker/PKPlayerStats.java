@@ -1,6 +1,7 @@
 package poker;
 
 public class PKPlayerStats{
+
         //general
         public double WinTot;                                  //total win
         //preflop

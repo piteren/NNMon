@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+import neuralNetwork.NNLearnParams;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,9 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Slider;
 
-import deepLearn.DLlearnParams;
-import deepLearn.DLlearnParams.WUpdAlgorithm;
-import deepLearn.DLlearnParams.WInitDist;
+import neuralNetwork.NNLearnParams.WUpdAlgorithm;
+import neuralNetwork.NNLearnParams.WInitDist;
 
 import java.util.LinkedList;
 import javafx.beans.value.ChangeListener;
@@ -36,7 +36,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
 
 import poker.toTrainer.NTPKTableCase;
-import trainer.trainerWorkers.NTSolversManager.SolvOrder;
+import textPoetry.toTrainer.NTTextPoetryCase;
+import trainer.NetTrainer.SolvOrder;
 import trainer.NetTrainer;
 
 import utilities.ULogDoubleProperty;
@@ -220,7 +221,7 @@ public class TVMainViewController implements Initializable, Observer {
         }
     }
     
-    private void initCandleConroller(){
+    private void initCandleController(){
         //build list of choiceboxes
         LinkedList<ChoiceBox> cSLcbList = new LinkedList();
         cSLcbList.add(cS0LCB);
@@ -251,17 +252,18 @@ public class TVMainViewController implements Initializable, Observer {
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
         //!! choose one trainer
-        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textC.txt"), 1, "NETs/netTXffwd.txt", new DLlearnParams());
-        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textA.txt"), 1, "NETs/netTXrnn.txt", new DLlearnParams());
-        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textA.txt"), 1, "NETs/netTXlstmOLD.txt", new DLlearnParams());
-        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textB.txt"), 1, "NETs/netTXlstmN2L.txt", new DLlearnParams());
-        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textB.txt"), 1, "NETs/netTXlstmREV3L.txt", new DLlearnParams());
+        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textC.txt"), 1, "NETs/netTXffwd.txt", new NNLearnParams());
+        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textA.txt"), 1, "NETs/netTXrnn.txt", new NNLearnParams());
+        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textA.txt"), 1, "NETs/netTXlstmOLD.txt", new NNLearnParams());
+        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textB.txt"), 1, "NETs/netTXlstmN2L.txt", new NNLearnParams());
+        //myTrainer = new NetTrainer(new NTTextPoetryCase("TXTs/textB.txt"), 1, "NETs/netTXlstmREV3L.txt", new NNLearnParams());
 
-        //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new DLlearnParams());
-        //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new DLlearnParams());
+        //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new NNLearnParams());
+        //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new NNLearnParams());
 
-        //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new DLlearnParams());
-        myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new DLlearnParams());
+        //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new NNLearnParams());
+        myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/normTData.txt"), 1, "NETs/netRDMnormTestffwd.txt", new NNLearnParams());
+        //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new NNLearnParams());
 
         
         myTrainer.addObserver(this);
@@ -450,7 +452,7 @@ public class TVMainViewController implements Initializable, Observer {
         leftChartCB.setValue("GLOBAL LOSS");
         rightChartCB.setValue("INTERVAL REWARD");
         
-        initCandleConroller();
+        initCandleController();
         initLogSliderLabelProperty(updCSlider,      updCLabel,      Histogram.getNotfDelayMs(),           2);
         initLogSliderLabelProperty(rangeCSlider,    rangeCLabel,    myCandleController.getRangeCandle(),  0);
     }

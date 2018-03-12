@@ -1,3 +1,7 @@
+/**
+ * 2017 (c) piteren
+ */
+
 package poker.toTrainer;
 
 import java.util.LinkedList;

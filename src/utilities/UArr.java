@@ -16,6 +16,7 @@ public class UArr {
             }
         return maxIX;
     }
+
     //returns one-dimensional array (flattened from two-dimensional)
     public static double[] flat(double[][] arr){
         double[] fArr = new double[arr.length*arr[0].length];

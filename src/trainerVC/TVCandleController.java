@@ -4,15 +4,15 @@
 package trainerVC;
 
 import dataUtilities.Histogram;
-import deepLearn.DLNetworkedObject;
-import deepLearn.DLNetworkedObject.DLlayType;
+import neuralNetwork.NNLay;
+import neuralNetwork.NNLay.NNLayType;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ChoiceBox;
-import trainer.trainerWorkers.NTSolversManager.SolvOrder;
+import trainer.NetTrainer.SolvOrder;
 import trainer.NetTrainer;
 import trainer.NTaiSolver;
 import utilities.ULogDoubleProperty;
@@ -108,7 +108,7 @@ public class TVCandleController {
         //init SOLV/LAY LAY choiceBoxes
         for(ChoiceBox cb: cSLcbList) cb.getItems().add("off");
         int count = 1;
-        for(DLNetworkedObject lay: myTrainer.getSolvers().get(0).getALLsubLayers()){
+        for(NNLay lay: myTrainer.getSolvers().get(0).getALLsubLayers()){
             String layS = String.valueOf(count++)+"."+lay.getLayType().toString();
             for(ChoiceBox cb: cSLcbList) cb.getItems().add(layS);
         }
@@ -213,15 +213,15 @@ public class TVCandleController {
     private void refreshLaySolvLayout(){
         int cLix = cLLayCB.getSelectionModel().getSelectedIndex(),              //lays selection type
             cWix = cLWhatCB.getSelectionModel().getSelectedIndex();             //histogram num (in lay)
-        List<DLNetworkedObject> myTrFIRSTSolvSubLayersList = myTrainer.getSolvers().get(0).getALLsubLayers(); //layers of any solver
+        List<NNLay> myTrFIRSTSolvSubLayersList = myTrainer.getSolvers().get(0).getALLsubLayers(); //layers of any solver
 
         int rowNum = 0;
         for(int i=0; i<myTrFIRSTSolvSubLayersList.size(); i++){                                                     //for every i layer (of first solver)
-            if(cLix==0 && myTrFIRSTSolvSubLayersList.get(i).getLayType()==DLlayType.FC ||                           //check i layer for selection type fitness
+            if(cLix==0 && myTrFIRSTSolvSubLayersList.get(i).getLayType()== NNLayType.FC ||                           //check i layer for selection type fitness
                cLix==1                                                              )                               //...other cases to put here
             {
                 for(int j=0; j<myDispSolvers.size(); j++){                                                          //for every solver
-                    List<DLNetworkedObject> myTrSolvSubLayersList = myDispSolvers.get(j).getALLsubLayers(); //layers list of given solver
+                    List<NNLay> myTrSolvSubLayersList = myDispSolvers.get(j).getALLsubLayers(); //layers list of given solver
                     Histogram myTrSolvSubLayHistogram = myTrSolvSubLayersList.get(i).getHistograms().get(cWix);     //histogram of i layer
                     myCCanvController.setHistogramObs(myTrSolvSubLayHistogram,j,rowNum);                            //put in j column and rowNum row
                 }
@@ -245,7 +245,7 @@ public class TVCandleController {
         if(cLix>0){
             cSWcbList.get(colN).setDisable(false);
             for(int i=0; i<myDispSolvers.size(); i++){
-                DLNetworkedObject myTrSolvSubLayer = myDispSolvers.get(i).getALLsubLayers().get(cLix-1);
+                NNLay myTrSolvSubLayer = myDispSolvers.get(i).getALLsubLayers().get(cLix-1);
                 Histogram myTrSolvSubLayHistogram = myTrSolvSubLayer.getHistograms().get(cWix);
                 myCCanvController.setHistogramObs(myTrSolvSubLayHistogram,colN,i);
             }

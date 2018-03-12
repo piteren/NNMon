@@ -1,7 +1,7 @@
-/*
+/**
  * 2017 (c) piteren
  */
-package deepLearn;
+package neuralNetwork;
 
 /**
  * node normalizer class
@@ -9,15 +9,16 @@ package deepLearn;
  * assumes: target offset = 0
  *          target abscale = learn_params abscale
  */
-public class NNnodeNormalizer {
-    
-    private DLlearnParams       myDLParams;
-    private double              actABS,                                         //actual abscale
+public class NNodeNormalizer {
+
+    private boolean             forcedOff = false;
+    private NNLearnParams       myDLParams;
+    private double              actABS,                                             //actual abscale
                                 nnOff = 0,                                          //nn_offset param
                                 nnScl = 1;                                          //nn_scale param
     
-    //constructor(DLlearnParams)
-    NNnodeNormalizer(DLlearnParams myDLpms){
+    //constructor(NNLearnParams)
+    NNodeNormalizer(NNLearnParams myDLpms){
         myDLParams = myDLpms;
         actABS = myDLParams.nodeNormABScale.getValue();
     }
@@ -27,7 +28,7 @@ public class NNnodeNormalizer {
     protected double processSample(double sample){
             
         //update parameters
-        if(myDLParams.doNodeNorm.getValue()){
+        if(myDLParams.doNodeNorm.getValue() && !forcedOff){
             double  decay = myDLParams.nodeNormUPDecay.getLinDoubleValue(),
                     targetABS = myDLParams.nodeNormABScale.getValue();
 
@@ -49,4 +50,6 @@ public class NNnodeNormalizer {
     protected double getNNscl(){
         return nnScl;
     }
+
+    protected void forceOff(){ forcedOff = true; }
 }

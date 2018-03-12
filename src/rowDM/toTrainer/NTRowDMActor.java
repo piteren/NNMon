@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * trained row data modeling actor
  */
 
-public class NTRowDMActor  extends RowDMActor implements NTActor {
+public class NTRowDMActor extends RowDMActor implements NTActor {
 
     protected final NTaiSolver mySolver;
 

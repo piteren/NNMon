@@ -2,7 +2,7 @@
  * 2018 (c) piteren
  */
 
-package rowDM.oneHotDataCreator;
+package rowDM.sampleDataCreator;
 
 import utilities.UFileOperator;
 
@@ -45,5 +45,9 @@ public class RowDMCharDataCreator {
             lines.add(cLine);
         }
         return lines;
+    }
+
+    public static void main(String[] args) {
+        RowDMCharDataCreator test = new RowDMCharDataCreator("RDMdata/rowData.txt");
     }
 }

@@ -1,14 +1,14 @@
 /*
  * 2017 (c) piteren
  */
-package deepLearn;
+package neuralNetwork;
 
 import genX.GXgenXinterface;
 
 /**
  * pointwise operating layer (and similar...)
  */
-public class NNLayerPW extends DLNetworkedObject{
+public class NNLayerPW extends NNLay {
     
     private final PWlayType pwLayType;                                          //type of layer operation
     
@@ -20,10 +20,10 @@ public class NNLayerPW extends DLNetworkedObject{
         TNH,                    //tanh (scaling)
     }
     
-    public NNLayerPW(DLlearnParams mDLp, int oW, PWlayType tp){
+    public NNLayerPW(NNLearnParams mDLp, int oW, PWlayType tp){
         super(mDLp, oW);
         pwLayType = tp;
-        lType = DLlayType.PW;
+        lType = NNLayType.PW;
     }
     
     @Override

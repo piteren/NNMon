@@ -1,7 +1,7 @@
 /*
  * 2017 (c) piteren
  */
-package deepLearn;
+package neuralNetwork;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -11,7 +11,7 @@ import utilities.ULogDoubleProperty.TSform;
 /**
  * back prop learning parameters
  */
-public class DLlearnParams {
+public class NNLearnParams {
     
     public WInitDist                wIDist = WInitDist.UNIFORM;                                     //weights init distribution
     public ULogDoubleProperty       wIScale = new ULogDoubleProperty(TSform.DBL,0);             //weights init scale
@@ -53,5 +53,5 @@ public class DLlearnParams {
         ADAM
     }
     
-    public DLlearnParams(){}
+    public NNLearnParams(){}
 }

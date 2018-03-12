@@ -12,7 +12,7 @@ import utilities.UArr;
 
 public class NTPKPlayer extends PKPlayer {
     
-    NTaiSolver mySolver;                                                //aiSolver that decides for this player
+    NTaiSolver mySolver;                                                        //aiSolver that decides for this player
     
     //constructor
     public NTPKPlayer(NTaiSolver solver){
