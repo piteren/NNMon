@@ -72,24 +72,14 @@ public class NNLayerFC extends NNLay {
         //vNN histogram
         if(myLHistograms.get(3).isActive())
             myLHistograms.get(3).build(vOUTtempArray);
-        
-        //node norm
-        for(int o=0; o<vOUT.getWidth(); o++)
-            vOUTtempArray[o] = nodeNorm[o].processSample(vOUTtempArray[o]);
+
+        vOUTtempArray = layNorm.processSample(vOUTtempArray);                   //lay norm
         
         //nnOff & nnScl histograms
-        if(myLHistograms.get(4).isActive()){
-            double[] nnOArr = new double[vOUT.getWidth()];
-            for(int o=0; o<vOUT.getWidth(); o++)
-                nnOArr[o] = nodeNorm[o].getNNoff();
-            myLHistograms.get(4).build( nnOArr );
-        }
-        if(myLHistograms.get(5).isActive()){
-            double[] nnSArr = new double[vOUT.getWidth()];
-            for(int o=0; o<vOUT.getWidth(); o++)
-                nnSArr[o] = nodeNorm[o].getNNscl();
-            myLHistograms.get(5).build( nnSArr );
-        }
+        if(myLHistograms.get(4).isActive())
+            myLHistograms.get(4).build( layNorm.getNNoff() );
+        if(myLHistograms.get(5).isActive())
+            myLHistograms.get(5).build( layNorm.getNNscl() );
 
         //vNOD histogram
         if(myLHistograms.get(6).isActive())
@@ -110,10 +100,8 @@ public class NNLayerFC extends NNLay {
         //global gradient at node
         for(int o=0; o<dOUT.getWidth(); o++)
             dNODEtemp[o] = dNODEtemp[o]*nodeDFunc(vout[o], myNFtype);
-        
-        //global gradient at node norm (updated/scaled/ always, even if nnorm turned off)
-        for(int o=0; o<dNODEtemp.length; o++)
-            dNODEtemp[o] *= nodeNorm[o].getNNscl();
+
+        dNODEtemp = layNorm.scale(dNODEtemp);                                   // global gradient at node norm
 
         //push global node gradient to dWeights and inputs
         double[] dINtempArray = new double[dIN.getWidth()];                     // temporary array for dIN values

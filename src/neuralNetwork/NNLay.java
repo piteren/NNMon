@@ -19,29 +19,29 @@ import java.util.List;
  */
 public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace {
     
-    NNLayType lType;                                                      // layer type
-    NFtype                            myNFtype;                           // layer activation function type
+    NNLayType                           lType;                              // layer type
+    NFtype                              myNFtype;                           // layer node function type
 
-    protected final NNLearnParams     myDLParams;                         // layer learning parameters
+    protected final NNLearnParams       myDLParams;                         // layer learning parameters
     
-    protected DSdataSocket            vIN,                                // object input FWD data
-                                      vOUT,                               // object output FWD data
-                                      dIN,                                // object input BWD data
-                                      dOUT;                               // object output BWD data
+    protected DSdataSocket              vIN,                                // object input FWD data
+                                        vOUT,                               // object output FWD data
+                                        dIN,                                // object input BWD data
+                                        dOUT;                               // object output BWD data
 
-    double[][]                        vWeights,                           // weights array
-                                      dWeights;                           // weights gradient array
-    double[][]                        lmpM,lmpV;                          // weights update memory parameters
+    double[][]                          vWeights,                           // weights array
+                                        dWeights;                           // weights gradient array
+    double[][]                          lmpM,lmpV;                          // weights update memory parameters
 
-    NNodeNormalizer[]                 nodeNorm;                           // node normalization objects
+    NNLayerNormalizer                   layNorm;                            // layerNormalizer object
     
-    List<Histogram>                   myLHistograms = new LinkedList<>(); // list of layer histograms
+    List<Histogram>                     myLHistograms = new LinkedList<>(); // list of layer histograms
                                 
-    protected int                     maxMemRecurrence = 0;               // stores (written during build) maximal level of memory recurrence for this object (max vOUT history level taken from this object during runFWD, for RRN typically ==1)
-    private LinkedList<NNLay>         prevNetObjects = new LinkedList<>(),// list of objects networked PREV to this object
-                                      nextNetObjects = new LinkedList<>();// list of objects networked NEXT to this object
-    private int[]                     prevTimeOffConnection,              // time offset of prev (incoming) connection
-                                      nextTimeOffConnection;              // time offset of next (outgoing) connection
+    protected int                       maxMemRecurrence = 0;               // stores (written during build) maximal level of memory recurrence for this object (max vOUT history level taken from this object during runFWD, for RRN typically ==1)
+    private LinkedList<NNLay>           prevNetObjects = new LinkedList<>(),// list of objects networked PREV to this object
+                                        nextNetObjects = new LinkedList<>();// list of objects networked NEXT to this object
+    private int[]                       prevTimeOffConnection,              // time offset of prev (incoming) connection
+                                        nextTimeOffConnection;              // time offset of next (outgoing) connection
     // layer type
     public enum NNLayType {
         FC,
@@ -62,7 +62,7 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
     NNLay(NNLearnParams mDLp, int oW) {
         myDLParams = mDLp;
         vOUT = new DSdataSocket(oW);                                                //vOUT initialization
-        initNNorm(oW);                                                              //node normalization objects init
+        layNorm = new NNLayerNormalizer(mDLp, oW);
         initHistograms();                                                           //histograms initialization
     }
     
@@ -182,12 +182,12 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
         return maxD;
     }
 
-    // divides weight gradients with scl factor
-    public void scaledW(double scl){
+    // divides weight gradients by factor
+    public void scaledW(double factor){
         if(dWeights!=null){
             for(int i=0; i<dWeights.length; i++)
                 for(int j=0; j<dWeights[0].length; j++)
-                    dWeights[i][j] = dWeights[i][j] / scl;
+                    dWeights[i][j] = dWeights[i][j] / factor;
         }
     }
 
@@ -217,18 +217,8 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
         return locGrad;        
     }
 
-    // initializes node normalization objects
-    protected void initNNorm(int oW){
-        nodeNorm = new NNodeNormalizer[oW];
-        for(int i= 0; i<nodeNorm.length; i++)
-            nodeNorm[i] = new NNodeNormalizer(myDLParams);
-    }
-
-    // forces NNorm off
-    protected void forceNNOff(){
-        for(int i= 0; i<nodeNorm.length; i++)
-            nodeNorm[i].forceOff();
-    }
+    // forces layNorm off
+    protected void forceNNOff(){ layNorm.forceOff(); }
     
     //********************************************************************* methods returning some information about Lay
 

@@ -49,20 +49,14 @@ public class NNetwork extends NNLay {
         @Override
         protected void calcVout(){
             double[] vOUTtempArray = vIN.getD(0);
-            
-            //vOUT norm (network input normalization)
-            for(int o=0; o<vOUT.getWidth(); o++)
-                vOUTtempArray[o] = nodeNorm[o].processSample(vOUTtempArray[o]);
-            
+            vOUTtempArray = layNorm.processSample(vOUTtempArray);   // normalization
             vOUT.setD(0, vOUTtempArray); 
         }
 
         @Override
         protected void calcDin(int h){
             double[] dNODEtemp = dOUT.getD(h);
-            for(int o=0; o<dNODEtemp.length; o++)
-                dNODEtemp[o] *= nodeNorm[o].getNNscl();
-
+            dNODEtemp = layNorm.scale(dNODEtemp);
             dIN.setD(h, dNODEtemp);
         }
 
@@ -300,7 +294,9 @@ public class NNetwork extends NNLay {
 
     @Override
     public void updateLearnableParams(){
+        // gradient limiter
         if(myDLParams.doGradL.getValue()){
+            // look 4 max gradient
             double maxD = 0;
             double tempV;
             for(NNLay lay: ALLsubLayers){
@@ -308,23 +304,16 @@ public class NNetwork extends NNLay {
                 if(tempV > maxD) maxD = tempV;
             }
             if(maxD > myDLParams.gradLSize.getLinDoubleValue()){
-                double scale = maxD/myDLParams.gradLSize.getLinDoubleValue();
+                double factor = maxD/myDLParams.gradLSize.getLinDoubleValue();
                 sclCounter++;
-                sclAmount += scale;
+                sclAmount += factor;
                 for(NNLay lay: ALLsubLayers)
-                    lay.scaledW(scale);
+                    lay.scaledW(factor);
             }
         }
             
         for(NNLay lay: ALLsubLayers)
             lay.updateLearnableParams();
-    }
-    
-    //reports scale occurence
-    public void reportScaleOcc(){
-        System.out.print("scaled " + sclCounter + " times");
-        if(sclCounter>0) System.out.print(" with avg scale " + sclAmount/sclCounter);
-        System.out.println();
     }
 
     public long getSclCount() { return sclCounter; }

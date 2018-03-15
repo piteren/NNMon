@@ -21,7 +21,7 @@ public class NNLearnParams {
     public ULogDoubleProperty       batchSize = new ULogDoubleProperty(TSform.INT,0);       //batch size (number of samples in one batch)
     
     public WUpdAlgorithm            myWUpAlg = WUpdAlgorithm.MMNTM;                                //default learning method
-    public SimpleDoubleProperty     mmx = new SimpleDoubleProperty(0.1);                    //momentum factor
+    public SimpleDoubleProperty     mmx = new SimpleDoubleProperty(0.5);                    //momentum factor
     public double                   adamBeta1 = 0.9,                                        //adam parameters
                                     adamBeta2 = 0.999,
                                     adamEps = 0.00000001;
@@ -38,7 +38,7 @@ public class NNLearnParams {
     public double                   offsetSVM = 0.5;                                        //SVM offset parameter
     
     public SimpleBooleanProperty    doNodeNorm = new SimpleBooleanProperty(false);           //marker for node normalization activity
-    public SimpleDoubleProperty     nodeNormABScale = new SimpleDoubleProperty(0.2);        //node normalization abs scale (average of abs)
+    public SimpleDoubleProperty     nodeNormABScale = new SimpleDoubleProperty(0.3);        //node normalization abs scale (average of abs)
     public ULogDoubleProperty       nodeNormUPDecay = new ULogDoubleProperty(TSform.DBL,-4); //node normalization update decay param
 
     // weight initialization distribution
