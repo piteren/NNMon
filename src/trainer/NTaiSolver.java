@@ -5,6 +5,7 @@
 package trainer;
 
 import neuralNetwork.NNLearnParams;
+import neuralNetwork.NNdp;
 import neuralNetwork.NNetwork;
 import dataUtilities.GData;
 import javafx.scene.paint.Color;
@@ -59,7 +60,10 @@ public class NTaiSolver extends NNetwork implements UTRobject{
     // overridden to store Out for further calculations
     @Override
     public double[] runFWD(double[] inV){
-        myLastOut = super.runFWD(inV);
+        double[] myLO = super.runFWD(inV);
+        myLastOut = new double[myLO.length];
+        for(int i=0; i<myLO.length; i++)
+            myLastOut[i] = myLO[i];
         return myLastOut;
     }
 
@@ -80,11 +84,16 @@ public class NTaiSolver extends NNetwork implements UTRobject{
 
         // got correct classification (supervised classification case)
         if(corrCIX!=null){
+            //System.out.print("out  : ");
+            //for(int i=0; i<myLastOut.length; i++) System.out.print(myLastOut[i] + " ");
+            //System.out.println();
+
             errVal = decisionError(myLastOut, corrCIX);
             // store error
             gErrData.add(errVal);
             iErrData.add(errVal);
-            inGradients.addFirst(gradSVM(myLastOut, corrCIX));
+            inGradients.addFirst(NNdp.gradCE(myLastOut, corrCIX));
+            // inGradients.addFirst(NNdp.gradSVM(myLastOut, corrCIX, myDLParams.offsetSVM));
         }
         // got rewards
         if(rewVal!=null){
@@ -93,7 +102,7 @@ public class NTaiSolver extends NNetwork implements UTRobject{
             iRewData.add(rewVal);
             // and still no error calculated >> reinforcement case
             if(errVal==null) {
-                inGradients.addFirst(gradReinforcement(myLastOut, rewVal));
+                inGradients.addFirst(NNdp.gradReinforcement(myLastOut, rewVal));
                 errVal = 1.0;
             }
         }
@@ -104,67 +113,18 @@ public class NTaiSolver extends NNetwork implements UTRobject{
     //********************************************************************************************* solver error methods
 
     //returns decision error of net, SVM version by now
-    public double decisionError(double[] out, int cCix){ return totValLossSVM(out, cCix); }
-
-    //creates loss array 4 SVM loss
-    private double[] arrLossSVM(double[] out, int cCix){
-        double[] loss = new double[out.length];
-        double corrSC = out[cCix];
-        for(int i=0; i<out.length; i++)
-            if(i!=cCix)
-                if(out[i]-corrSC+myDLParams.offsetSVM > 0)
-                    loss[i] = out[i] - corrSC + myDLParams.offsetSVM;
-        return loss;
+    public double decisionError(double[] out, int cCix){
+        return NNdp.lossCE(out, cCix);
+        // return NNdp.lossSVM(out, cCix, myDLParams.offsetSVM);
     }
 
-    //creates grad array 4 SVM loss
-    private double[] gradSVM(double[] out, int cCix){
-        double[] loss = arrLossSVM(out, cCix);
-        double[] gradL = new double[out.length];
-        double rew = valTanhScld(1);
-        for(int i=0; i<loss.length; i++){
-            if(loss[i]>0){
-                gradL[i] = rew;
-                gradL[cCix] += -rew;                                         //set grad 4 proper score
-            }
-        }
-        return gradL;
-    }
-
-    //calculates SVM loss error value
-    private double totValLossSVM(double[] out, int cCix){
-        double totNetLoss = 0;
-        double[] loss = arrLossSVM(out, cCix);
-        for(int i=0; i<loss.length; i++)
-            totNetLoss += loss[i];
-        return totNetLoss;
-    }
-
-    //creates grad array 4 reinforcement case
-    private double[] gradReinforcement(double[] out, double reward){
-        int width = out.length;
-        double[] rFG = new double[width];
-        double rew = valTanhScld(reward);
-        int maxIX = UArr.maxVix(out);
-        for(int i=0; i<width; i++){
-            if(i==maxIX) rFG[i] = -rew;
-            else         rFG[i] = rew/(width-1);
-        }
-        return rFG;
-    }
-
-    //calculates tanh scaled value with range and scale parameters, used to scale initial gradients
-    private double valTanhScld(double val){
-        return Math.tanh(val * myDLParams.tanhRanger.getLinDoubleValue() ) * 1.3130352 * myDLParams.tanhScaler.getLinDoubleValue();
-    }
-
-    protected void resetGData(){
+    protected void resetGGData(){
         gErrData.flush(5);
         gRewData.flush(5);
     }
 
     //flushes all interval data
-    public void resetIData(int newScale){
+    public void resetIGData(int newScale){
         if(iErrData!=null) iErrData.flush(newScale);    // error
         if(iRewData!=null) iRewData.flush(newScale);    // reward
         if(iPosData!=null) iPosData.flush();            // pos

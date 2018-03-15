@@ -68,11 +68,10 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
     
     // inits vIN,dIN,dOUT using networking information
     protected void finalizeBuild() {
-        DSdataSocket tempDS;
         for(int i=0; i<prevNetObjects.size(); i++){                                         //4 every i prev_object
             int cO = prevTimeOffConnection[i];                                              //connection time offset
-            DSdataSocket PvOUTds = prevNetObjects.get(i).vOUT;                              //prev_object vOUT
-            tempDS = new DSdataSocket(PvOUTds.getWidth());                                  //tempDS object common 4 this.dIN and prev_object.dOUT
+            DSdataSocket    PvOUTds = prevNetObjects.get(i).vOUT,                           //prev_object vOUT
+                            tempDS = new DSdataSocket(PvOUTds.getWidth());                  //tempDS object common 4 this.dIN and prev_object.dOUT
             
             //vIN
             if(vIN==null) vIN = new DSmultiDataSocket(PvOUTds,MDStype.SER,cO);              //create vIN with prev_object vOUT
@@ -91,7 +90,7 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
             for(int i=0; i<nextTimeOffConnection.length; i++)
                 if(nextTimeOffConnection[i]>0)    
                     for(int j=nextTimeOffConnection[i]; j>0; j--)
-                        vOUT.setD(j-1, new double[vOUT.getWidth()]);                        //initialize vOUT @prev_history_state_to_offset_value with 0;     
+                        vOUT.setD(j-1, new double[vOUT.getWidth()]);                     //initialize vOUT @prev_history_state_to_offset_value with 0;
     }
 
     // inits weights
@@ -211,7 +210,7 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
         switch(nft){
             case LIN:                                               break;
             case SIGM:              locGrad = (1-oV)*oV;            break;
-            case TANH:              locGrad = (1-oV*oV);            break;
+            case TANH:              locGrad = 1-oV*oV;              break;
             case RELU:  if(oV==0)   locGrad = 0;                    break;
             case LRELU: if(oV<0)    locGrad = 0.01;                 break;
         }        

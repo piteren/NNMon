@@ -230,8 +230,8 @@ public class NetTrainer extends Observable implements UTRobject{
 
         // *************************************************** data processing algorithm prams
         private int                 everyNLoopTP = 10,      // number of loops to perform top_position check
-                numSolvCC = 4,          // number of top solvers to consider in pos calculations
-                fromDataRange = 50;     // calculations data range (number of considered backward data samples)
+                                    numSolvCC = 4,          // number of top solvers to consider in pos calculations
+                                    fromDataRange = 50;     // calculations data range (number of considered backward data samples)
 
         private GData               currTopPosSolvData;     // curr circle top position data
 
@@ -374,9 +374,7 @@ public class NetTrainer extends Observable implements UTRobject{
     public ULogDoubleProperty getGradLSize(){
         return trainerLearnParams.gradLSize;
     }
-    public SimpleBooleanProperty getDoNodeNorm(){
-        return trainerLearnParams.doNodeNorm;
-    }
+    public SimpleBooleanProperty getDoNodeNorm(){ return trainerLearnParams.doNodeNorm; }
     public ULogDoubleProperty getNNormUDecay(){
         return trainerLearnParams.nodeNormUPDecay;
     }
@@ -430,7 +428,7 @@ public class NetTrainer extends Observable implements UTRobject{
     // resets all solvers global GData
     public void resetAllSolvGlobalGData(){
         for(NTaiSolver sol: getSolvers())
-            sol.resetGData();
+            sol.resetGGData();
     }
     
     //reports best solvers
@@ -532,7 +530,7 @@ public class NetTrainer extends Observable implements UTRobject{
             notifyObservers(TrainerMessage.NEW_CIRCLE_STARTED);
             
             for(NTaiSolver solv: getSolvers())
-                solv.resetIData( iGDSolvScale.getValue() );
+                solv.resetIGData( iGDSolvScale.getValue() );
             
             myTopPosInsp.resetPosData(getSolvers());
         }

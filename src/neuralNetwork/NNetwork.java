@@ -176,17 +176,17 @@ public class NNetwork extends NNLay {
             if(lay.maxMemRecurrence > this.maxMemRecurrence)
                 this.maxMemRecurrence = lay.maxMemRecurrence;
 
-        vOUT = LIOlay.vOUT;                                                             //vOUT reference connection
+        vOUT = LIOlay.vOUT;                                                                     //vOUT reference connection
         
         super.finalizeBuild();
         
         //case when this net has no other connected before (is first and gets vIN from envy)
         if(vIN==null){       
             vIN = new DSdataSocket(FIOlay.vOUT.getWidth());
-            FIOlay.dIN = new DSdataSocket(FIOlay.vOUT.getWidth());                      //dIN may left null or: dIN = firstNetLayer.dIN
+            FIOlay.dIN = new DSdataSocket(FIOlay.vOUT.getWidth());                              //dIN may left null or: dIN = firstNetLayer.dIN
         }
-        else FIOlay.dIN = dIN;                                                          //reference connection
-        FIOlay.vIN = vIN;                                                               //vIN reference connection
+        else FIOlay.dIN = dIN;                                                                  //reference connection
+        FIOlay.vIN = vIN;                                                                       //vIN reference connection
         
         //case when this net has no other connected after (is last and gets dOUT from envy)
         if(dOUT==null)       
@@ -216,6 +216,7 @@ public class NNetwork extends NNLay {
         FIOlay.vOUT.moveDataTSF();
         for(NNLay lay: ALLsubLayers) lay.vOUT.moveDataTSF();
         LIOlay.vOUT.moveDataTSF();
+
         FIOlay.runFWD();                                                     //run FWD subnet
     }
 

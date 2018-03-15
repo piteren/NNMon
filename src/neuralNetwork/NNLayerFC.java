@@ -122,7 +122,7 @@ public class NNLayerFC extends NNLay {
         for(int i=0; i<dIN.getWidth(); i++)                                     //for every input grad
             for(int o=0; o<dOUT.getWidth(); o++){                               //for every node grad of this layer
                 globalWeightGradient = dNODEtemp[o] * vin[i];                   //calculate global weight gradient
-                dWeights[i][o] += globalWeightGradient;                         //cummulate (with previous runs value if not reset) global weight gradient
+                dWeights[i][o] += globalWeightGradient;                         //cumulate (with previous runs value if not reset) global weight gradient
                 dINtempArray[i] += globalWeightGradient;                        //calculate global input gradient
             }
         

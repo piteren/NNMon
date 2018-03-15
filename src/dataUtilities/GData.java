@@ -11,6 +11,7 @@ import java.util.Observable;
  * keeps step data, supports additive mode (cumulative), scaling, smoothing
  */
 public class GData extends Observable {
+
     private int                 scale;                      // scale factor, number of data samples scaled to one OUT_sample
     private final boolean       addMode;                    // cumulative data flag
     private int                 maxWidth = 0;               // max size of data, if==0 then unlimited, must be even
@@ -26,12 +27,12 @@ public class GData extends Observable {
     
     //constructor
     public GData(   int scl,                                                    //initial scale
-                    boolean scM,                                                //additive scaling marker
+                    boolean adScM,                                              //additive scaling marker
                     int maxWd,                                                  //max width
                     Color c)                                                    //color     
     {
         scale = scl;
-        addMode = scM;
+        addMode = adScM;
         color = c;
         maxWidth = maxWd + maxWd%2;                                        
     }

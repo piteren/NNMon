@@ -16,13 +16,6 @@ public class NormTestDataCreator {
     public NormTestDataCreator(String pth){
 
         UFileOperator file = new UFileOperator(pth);
-        file.writeFile(textToRowLines(10000));
-    }
-
-    //constructor(file_source, file_target)
-    public NormTestDataCreator(String pthS, String pthT){
-
-        UFileOperator file = new UFileOperator(pthS);
         file.writeFile(textToRowLines(1000));
     }
 
@@ -35,12 +28,12 @@ public class NormTestDataCreator {
         int mark,
             sum = 0;
 
-        int width = 3;
+        int width = 1;
         for(int ix=0; ix<num; ix++){
             double[] data = new double[width];
-            data[0] = URand.gauss() * 10;
-            data[1] = URand.gauss() * 10;
-            data[2] = URand.gauss() * 10;
+            data[0] = URand.gauss();
+            //data[1] = URand.gauss() * 10;
+            //data[2] = URand.gauss() * 10;
             fLine = "";
             for(Double D: data){
                 fLine += Double.toString(Math.tanh(D/15)) + " ";
@@ -48,6 +41,13 @@ public class NormTestDataCreator {
             }
             fLine = fLine.substring(0, fLine.length()-1);
             mark = 0;
+            if(     //data[0] < 10 &&
+                    data[0] > 0.7)
+            {
+                mark = 1;
+                sum++;
+            }
+            /*
             if(     data[0] < 10 &&
                     data[0]*data[1]>-3 &&
                     data[1]>-3 &&
@@ -57,6 +57,7 @@ public class NormTestDataCreator {
                 mark = 1;
                 sum++;
             }
+            */
             cLine = Integer.toString(mark);
             lines.add(fLine);
             lines.add(cLine);
