@@ -111,19 +111,17 @@ public class NNLayerFC extends NNLay {
         for(int o=0; o<dOUT.getWidth(); o++)
             dNODEtemp[o] = dNODEtemp[o]*nodeDFunc(vout[o], myNFtype);
         
-        //global gradient at node norm (update always, even if nnorm turned off)
+        //global gradient at node norm (updated/scaled/ always, even if nnorm turned off)
         for(int o=0; o<dNODEtemp.length; o++)
             dNODEtemp[o] *= nodeNorm[o].getNNscl();
 
         //push global node gradient to dWeights and inputs
-        double[] dINtempArray = new double[dIN.getWidth()];                     //temporary array for dIN values
-        double globalWeightGradient;
-        double[] vin = vIN.getD(h);                                             //temporary array for vIN values
-        for(int i=0; i<dIN.getWidth(); i++)                                     //for every input grad
-            for(int o=0; o<dOUT.getWidth(); o++){                               //for every node grad of this layer
-                globalWeightGradient = dNODEtemp[o] * vin[i];                   //calculate global weight gradient
-                dWeights[i][o] += globalWeightGradient;                         //cumulate (with previous runs value if not reset) global weight gradient
-                dINtempArray[i] += globalWeightGradient;                        //calculate global input gradient
+        double[] dINtempArray = new double[dIN.getWidth()];                     // temporary array for dIN values
+        double[] vin = vIN.getD(h);                                             // temporary array for vIN values
+        for(int i=0; i<dIN.getWidth(); i++)                                     // for every input grad
+            for(int o=0; o<dOUT.getWidth(); o++){                               // for every node grad of this layer
+                dWeights[i][o] += dNODEtemp[o] * vin[i];                        // add global weight gradient
+                dINtempArray[i] += dNODEtemp[o] * vWeights[i][o];               // add global input gradient
             }
         
         //push global node gradient to bias dWeights
@@ -131,7 +129,7 @@ public class NNLayerFC extends NNLay {
         for(int o=0; o<dOUT.getWidth(); o++)
             dWeights[last][o] += dNODEtemp[o];
         
-        dIN.setD(h,dINtempArray);
+        dIN.setD(h, dINtempArray);
     }
 
     @Override

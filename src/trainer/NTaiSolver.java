@@ -60,10 +60,7 @@ public class NTaiSolver extends NNetwork implements UTRobject{
     // overridden to store Out for further calculations
     @Override
     public double[] runFWD(double[] inV){
-        double[] myLO = super.runFWD(inV);
-        myLastOut = new double[myLO.length];
-        for(int i=0; i<myLO.length; i++)
-            myLastOut[i] = myLO[i];
+        myLastOut = super.runFWD(inV);
         return myLastOut;
     }
 

@@ -260,9 +260,8 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new NNLearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new NNLearnParams());
         //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new NNLearnParams());
-        myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/normTData.txt"), 1, "NETs/netRDMnormTestffwd.txt", new NNLearnParams());
-        //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new NNLearnParams());
-
+        //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/normTData.txt"), 1, "NETs/netRDMnormTestffwd.txt", new NNLearnParams());
+        myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new NNLearnParams());
         
         myTrainer.addObserver(this);
         

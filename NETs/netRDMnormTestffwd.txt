@@ -2,12 +2,16 @@
 <desc> FFWD
 
 <laye> 0: IN 1
-<laye> 1: FC 20 TANH
-<laye> 2: FC 20 TANH
-<laye> 3: FC 2 TANH
+<laye> 1: FC 60 TANH
+<laye> 2: FC 50 TANH
+<laye> 3: FC 40 TANH
+<laye> 4: FC 30 TANH
+<laye> 5: FC 2 TANH
 
 <topo> 0: 1
 <topo> 1: 2
 <topo> 2: 3
+<topo> 3: 4
+<topo> 4: 5
 
 <eond>
