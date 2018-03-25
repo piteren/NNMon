@@ -13,7 +13,13 @@ import utilities.URand;
  */
 public class NNLayerFC extends NNLay {
     
+<<<<<<< HEAD
     // constructor
+=======
+    private double[]        vINarr;                                             //temp array for vIN values
+    
+    //constructor    
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     public NNLayerFC(NNLearnParams mDLp, int oW, NFtype lNFtp){
         super(mDLp,oW);
         myNFtype = lNFtp;
@@ -39,7 +45,11 @@ public class NNLayerFC extends NNLay {
         if(myLHistograms.get(1).isActive()) myLHistograms.get(1).build( UArr.flat(vWeights) );   //weights histogram
     }
 
+<<<<<<< HEAD
     // Xavier initialization weight value (Caffe) with scale
+=======
+    //Xavier initialization weight value (Caffe) with scale
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     private double weigthInVal(double scale){
         if(myDLParams.wIDist==UNIFORM) return ( URand.one() - 0.5 ) * 3.2 / Math.sqrt(vWeights.length) * scale; //uniform distribution base
         else return URand.gauss() / Math.sqrt(vWeights.length) * scale;                                         //gaussian distribution base
@@ -47,7 +57,10 @@ public class NNLayerFC extends NNLay {
 
     @Override
     public void restartLrnMethodParams(){
+<<<<<<< HEAD
 
+=======
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         lmpM = new double[vIN.getWidth()+1][vOUT.getWidth()];
         lmpV = new double[vIN.getWidth()+1][vOUT.getWidth()];
     }
@@ -55,6 +68,7 @@ public class NNLayerFC extends NNLay {
     //************************************************************************** NNrunFBinterface
     @Override
     protected void calcVout(){
+<<<<<<< HEAD
 
         double[] vINtempArray = vIN.getD(0);                                 // get vIN values
         double[] vOUTtempArray = new double[vOUT.getWidth()];                   // temporary array for vOUT values
@@ -68,12 +82,30 @@ public class NNLayerFC extends NNLay {
         int last = vIN.getWidth();
         for(int o=0; o<vOUT.getWidth(); o++)                                    // for every output node
             vOUTtempArray[o] += vWeights[last][o];                              // calculate & add bias part
+=======
+        vINarr = vIN.getD(0);                                                   //get vIN values
+        double[] vOUTtempArray = new double[vOUT.getWidth()];                   //temporary array for vOUT values
+        
+        //calculate W*vIN;
+        for(int i=0; i<vIN.getWidth(); i++)                                     //for every input value
+            for(int o=0; o<vOUT.getWidth(); o++)                                //for every output node
+                vOUTtempArray[o] += vINarr[i] * vWeights[i][o];                 //calculate & add output part
+        
+        //add bias (W*1)
+        int last = vIN.getWidth();
+        for(int o=0; o<vOUT.getWidth(); o++)                                    //for every output node
+            vOUTtempArray[o] += vWeights[last][o];                              //calculate & add bias part
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         
         //vNN histogram
         if(myLHistograms.get(3).isActive())
             myLHistograms.get(3).build(vOUTtempArray);
 
+<<<<<<< HEAD
         vOUTtempArray = layNorm.processSample(vOUTtempArray);                   // lay norm
+=======
+        vOUTtempArray = layNorm.processSample(vOUTtempArray);                   //lay norm
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         
         //nnOff & nnScl histograms
         if(myLHistograms.get(4).isActive())
@@ -138,11 +170,14 @@ public class NNLayerFC extends NNLay {
         if(myDLParams.doL2reg.getValue()) L2regS = myDLParams.L2regSize.getLinDoubleValue();
 
         switch(myDLParams.myWUpAlg){
+<<<<<<< HEAD
             case CLASS:
                 for(int i=0; i<dWeights.length; i++)
                     for(int o=0; o<dWeights[0].length; o++)
                         vWeights[i][o] += -lR * dWeights[i][o];
                 break;
+=======
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
             case MMNTM:
                 for(int i=0; i<dWeights.length; i++)
                     for(int o=0; o<dWeights[0].length; o++){

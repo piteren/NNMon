@@ -13,7 +13,11 @@ import java.util.LinkedList;
  */
 public class DSdataSocket {
     
+<<<<<<< HEAD
     int                                 width;                                  // width of data (width of array)
+=======
+    protected int                       width;                                  // width of data (width of array)
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     private final LinkedList<double[]>  dataArrList = new LinkedList<>();       // raw data list, 0-actual, 1-history(+1), 2-history(+2)...
     
     // constructor (width)
@@ -35,13 +39,22 @@ public class DSdataSocket {
     public int getWidth(){
         return width;
     }
+<<<<<<< HEAD
+=======
+    
+    //************************************************************************** methods reading and writing socket data
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
 
     //resets DS from given history level to the end (flushes data)
     public void resetFrom(int ix){
         while(dataArrList.size() > ix) dataArrList.removeLast();
     }
 
+<<<<<<< HEAD
     //if not ready >> makes data ready at h history
+=======
+    //if not ready >> makes data ready at h history & inits with 0
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     void makeDataReady(int h){
         while(dataArrList.size() < h+1) dataArrList.add(null);
     }
@@ -53,5 +66,12 @@ public class DSdataSocket {
     }
 
     //returns data array from history h
+<<<<<<< HEAD
     public double[] getD(int h){ return dataArrList.get(h); }
+=======
+    public double[] getD(int h){
+        //return Arrays.copyOf(dataArrList.get(h), dataArrList.get(h).length);
+        return dataArrList.get(h);
+    }
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
 }

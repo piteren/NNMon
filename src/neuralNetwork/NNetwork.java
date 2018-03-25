@@ -189,8 +189,13 @@ public class NNetwork extends NNLay {
         
         //lastNetLayer dOUT   !! it wont work PROBABLY with dOUT==MDS
         if(LIOlay.dOUT==null)
+<<<<<<< HEAD
             LIOlay.dOUT = new DSmultiDataSocket(DSmultiDataSocket.MDStype.PAR,0);           //initialize with net_dOUT
         ((DSmultiDataSocket)LIOlay.dOUT).addDS(dOUT,0);                                     //add net_dOUT
+=======
+            LIOlay.dOUT = new DSmultiDataSocket(dOUT,DSmultiDataSocket.MDStype.PAR,0);  //initialize with net_dOUT
+        else ((DSmultiDataSocket)LIOlay.dOUT).addDS(dOUT,0);                            //or add net_dOUT
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     }
 
     @Override
@@ -265,7 +270,10 @@ public class NNetwork extends NNLay {
 
     // sets dOUT of net with given gradients list
     private void dOUTset(LinkedList<double[]> grList){
+<<<<<<< HEAD
 
+=======
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         // prepare complete list (replace nulls with divided gradients)
         int widthOfGrad = grList.get(0).length;                                             // zero indexed grList always has gradient array
         double[] pomArr;
@@ -295,7 +303,10 @@ public class NNetwork extends NNLay {
 
     @Override
     public void updateLearnableParams(){
+<<<<<<< HEAD
 
+=======
+>>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         // gradient limiter
         if(myDLParams.doGradL.getValue()){
             // look 4 max gradient
