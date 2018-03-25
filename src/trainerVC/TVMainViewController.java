@@ -260,14 +260,9 @@ public class TVMainViewController implements Initializable, Observer {
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKffwd.txt", new NNLearnParams());
         //myTrainer = new NetTrainer(new NTPKTableCase(3), 1, "NETs/netPKlstm.txt", new NNLearnParams());
         //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/rowData.txt"), 1, "NETs/netRDMffwd.txt", new NNLearnParams());
-<<<<<<< HEAD
         //myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/normTData.txt"), 1, "NETs/netRDMnormTestffwd.txt", new NNLearnParams());
         //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new NNLearnParams());
         myTrainer = new NetTrainer(new NTRowDMCase("../_Gdata/spaces/cvProperties.txt"), 1, "NETs/netRDMspacesR.txt", new NNLearnParams());
-=======
-        myTrainer = new NetTrainer(new NTRowDMCase("RDMdata/normTData.txt"), 1, "NETs/netRDMnormTestffwd.txt", new NNLearnParams());
-        //myTrainer = new NetTrainer(new NTRowDMCase("/home/p.niewinski/teraspace/R&D_projects/spacesModel/_workingFiles/FR_001sample/cvProperties.txt"), 1, "NETs/netRDMspacesFFWD.txt", new NNLearnParams());
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         
         myTrainer.addObserver(this);
         
@@ -366,17 +361,13 @@ public class TVMainViewController implements Initializable, Observer {
         initLogSliderLabelProperty(batchSSlider,    batchSLabel,    myTrainer.getBatchSize(),     0);
         
         //update method CB & mmx slider
-<<<<<<< HEAD
         wUpdMethCB.getItems().add("CLASS");
-=======
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         wUpdMethCB.getItems().add("MMNTM");
         wUpdMethCB.getItems().add("ADAM");
         wUpdMethCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
             @Override
             public void changed(ObservableValue ov, Number pVal, Number nVal){
                 switch((int)nVal){
-<<<<<<< HEAD
                     case 0: myTrainer.setLearnMeth(WUpdAlgorithm.CLASS);            //CLASSIC
                             break;
                     case 1: myTrainer.setLearnMeth(WUpdAlgorithm.MMNTM);            //MOMENTUM
@@ -387,16 +378,6 @@ public class TVMainViewController implements Initializable, Observer {
             }
         });
         wUpdMethCB.setValue("CLASS");
-=======
-                    case 0: myTrainer.setLearnMeth(WUpdAlgorithm.MMNTM);            //MOMENTUM
-                            break;
-                    case 1: myTrainer.setLearnMeth(WUpdAlgorithm.ADAM);             //ADAM
-                            break;
-                }
-            }
-        });
-        wUpdMethCB.setValue("MMNTM");
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         mxSlider.valueProperty().bindBidirectional( myTrainer.getMmx() );
         mxLabel.textProperty().bind(mxSlider.valueProperty().asString("%1.2f"));
         

@@ -28,30 +28,36 @@ public class NormTestDataCreator {
         int mark,
             sum = 0;
 
-        int width = 3;
+        int width = 1;
         for(int ix=0; ix<num; ix++){
             double[] data = new double[width];
             data[0] = URand.gauss();
-            data[1] = URand.gauss();
-            data[2] = URand.gauss();
+            //data[1] = URand.gauss() * 10;
+            //data[2] = URand.gauss() * 10;
             fLine = "";
             for(Double D: data){
-                //fLine += Double.toString(Math.tanh(D/15)) + " ";
-                fLine += Double.toString(D) + " ";
+                fLine += Double.toString(Math.tanh(D/15)) + " ";
+                //fLine += Double.toString(D) + " ";
             }
             fLine = fLine.substring(0, fLine.length()-1);
             mark = 0;
-            ///*
-            if(     data[0] < 0.1 &&
-                    data[0]*data[1]>-0.3 &&
-                    //data[1]>-0.3 &&
-                    data[2]>-0.8 &&
-                    data[2]<0.7)
+            if(     //data[0] < 10 &&
+                    data[0] > 0.7)
             {
                 mark = 1;
                 sum++;
             }
-            //*/
+            /*
+            if(     data[0] < 10 &&
+                    data[0]*data[1]>-3 &&
+                    data[1]>-3 &&
+                    data[2]>-10 &&
+                    data[2]<7)
+            {
+                mark = 1;
+                sum++;
+            }
+            */
             cLine = Integer.toString(mark);
             lines.add(fLine);
             lines.add(cLine);

@@ -15,8 +15,8 @@ public class NNLayerNormalizer {
     private boolean             forcedOff = false;
     private NNLearnParams       myDLParams;
     private double[]            actABS,                     // actual abscale
-                                nnOff,                      // nn_offset param (distance of samples average from target offset /0 )
-                                nnScl;                      // nn_scale param (abs scale of samples [nnOff subtracted])
+            nnOff,                      // nn_offset param (distance of samples average from target offset /0 )
+            nnScl;                      // nn_scale param (abs scale of samples [nnOff subtracted])
 
     // constructor(NNLearnParams)
     NNLayerNormalizer(NNLearnParams myDLpms, int width){

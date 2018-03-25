@@ -27,12 +27,8 @@ public class NNLayerPW extends NNLay {
     }
     
     @Override
-<<<<<<< HEAD
     protected void initWeights(){}
 
-=======
-    protected void initWeights(){}    
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     @Override
     public void restartLrnMethodParams(){}
     

@@ -13,11 +13,7 @@ import utilities.ULogDoubleProperty.TSform;
  */
 public class NNLearnParams {
     
-<<<<<<< HEAD
     public WInitDist                wIDist = WInitDist.GAUSSIAN;                                     //weights init distribution
-=======
-    public WInitDist                wIDist = WInitDist.UNIFORM;                                     //weights init distribution
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     public ULogDoubleProperty       wIScale = new ULogDoubleProperty(TSform.DBL,0);             //weights init scale
     
     public SimpleBooleanProperty    doBackprop = new SimpleBooleanProperty(true);           //marker for learning activity (classic backprop or reinforcement)
@@ -31,11 +27,7 @@ public class NNLearnParams {
                                     adamEps = 0.00000001;
     
     public SimpleBooleanProperty    doL2reg = new SimpleBooleanProperty(false);              //marker for L2reg activity
-<<<<<<< HEAD
     public ULogDoubleProperty       L2regSize = new ULogDoubleProperty(TSform.DBL,-10);     //size of L2reg parameter
-=======
-    public ULogDoubleProperty       L2regSize = new ULogDoubleProperty(TSform.DBL,-10);     //size of L2reg parameter (0 -> there is no L2 reg)
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     
     public SimpleBooleanProperty    doGradL = new SimpleBooleanProperty(false);              //marker for gradient Limit
     public ULogDoubleProperty       gradLSize = new ULogDoubleProperty(TSform.DBL,1);       //size of gradient limit bound
@@ -57,10 +49,7 @@ public class NNLearnParams {
 
     // weight update algorithm
     public enum WUpdAlgorithm {
-<<<<<<< HEAD
         CLASS,
-=======
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         MMNTM,
         ADAM
     }

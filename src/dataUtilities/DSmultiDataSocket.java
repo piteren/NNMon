@@ -16,7 +16,6 @@ import java.util.LinkedList;
  */
 public class DSmultiDataSocket extends DSdataSocket {
     
-<<<<<<< HEAD
     private final MDStype                   myMDStype;                          // MDS type
     private final LinkedList<DSdataSocket>  dsSource = new LinkedList<>();      // list of sockets that makes this MDS
     private final LinkedList<Integer>       timeOff = new LinkedList<>();       // time offset of corresponding ds
@@ -29,21 +28,6 @@ public class DSmultiDataSocket extends DSdataSocket {
     //constructor (socket, type, time_offset)
     public DSmultiDataSocket(MDStype tp, int tmO){
         super(0);
-=======
-    private final MDStype                   myMDStype;                          //MDS type
-    private final LinkedList<DSdataSocket>  dsSource = new LinkedList<>();      //list of sockets that makes this MDS
-    private final LinkedList<Integer>       timeOff = new LinkedList<>();       //time offset of corresponding ds
-    
-    public enum MDStype{
-        SER,                                                                    //serial
-        PAR                                                                     //parallel
-    }
-    
-    //constructor (socket, type, time_offset)
-    public DSmultiDataSocket(DSdataSocket ds, MDStype tp, int tmO){
-        super(ds.width);
-        dsSource.add(ds);
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         myMDStype = tp;
         timeOff.add(tmO);
     }
@@ -52,10 +36,7 @@ public class DSmultiDataSocket extends DSdataSocket {
     public void addDS(DSdataSocket ds, int tmO){
         dsSource.add(ds);
         if(myMDStype==MDStype.SER) width += ds.width;
-<<<<<<< HEAD
         else width = ds.width;
-=======
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
         timeOff.add(tmO);
     }
     
@@ -81,12 +62,7 @@ public class DSmultiDataSocket extends DSdataSocket {
     public void moveDataTSF(){
         for(DSdataSocket ds: dsSource) ds.moveDataTSF();
     }
-<<<<<<< HEAD
 
-=======
-    
-    //************************************************************************** methods reading and writing socket data
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
     @Override
     public void resetFrom(int ix){
         for(DSdataSocket ds: dsSource) ds.resetFrom(ix);

@@ -473,7 +473,7 @@ public class NetTrainer extends Observable implements UTRobject{
         }
     }
 
-    // calculates and updates avgWinRateOfCycle
+    //calculates and updates avgWinRateOfCycle
     private double cycleAvgWinR(){
         double totIR = 0;
         for(int i=0; i<mySolvMan.solvNum(); i++)
@@ -483,7 +483,7 @@ public class NetTrainer extends Observable implements UTRobject{
 
     //************************************************************************** training circle main logic methods
 
-    // puts solvers to cases
+    //puts solvers to cases
     private void putSolversToCases(List<NTaiSolver> allSolv){
         int solCounter = 0;
         for(int i=0; i<myCases.size(); i++){
@@ -495,7 +495,7 @@ public class NetTrainer extends Observable implements UTRobject{
         }
     }
     
-    // runs cases num times
+    //runs cases num times
     private void runThCases(int numRep) throws InterruptedException{
         LinkedList<UThreadRun> threadRunners = new LinkedList();
         //start case threads
@@ -508,7 +508,7 @@ public class NetTrainer extends Observable implements UTRobject{
             threadRunners.get(i).join();
     }
 
-    // runs all solvers backprop
+    //runs all solvers backprop
     private void runThSolversBackprop() throws InterruptedException{
         LinkedList<UThreadRun> threadRunners = new LinkedList();
         //start backprop threads
@@ -521,9 +521,9 @@ public class NetTrainer extends Observable implements UTRobject{
             threadRunners.get(i).join();
     }
     
-    // one loop algorithm
+    //one loop algorithm
     private void doOneLoop() throws InterruptedException{
-        // first loop in circle >> some preparation
+        //first loop in circle >> some preparation
         if(trLoopCounter.getValue()==0){
             startCircleTimeMS=System.currentTimeMillis();
             setChanged();
@@ -540,15 +540,15 @@ public class NetTrainer extends Observable implements UTRobject{
         putSolversToCases(getSolvers(SolvOrder.RANDOMIZED));
         runThCases(caseRepeatNum.getValue());
         
-        // time for backpropagation
+        //time for backpropagation
         if(trainerLearnParams.doBackprop.getValue())
             if(trLoopCounter.getValue()%getBatchSize().getLinIntegerValue()==0)
                 runThSolversBackprop();                                             
        
-        // parents check
+        //parents check
         myTopPosInsp.parentsCheck(trLoopCounter.getValue(), getSolvers(SolvOrder.SORTED));
         
-        // time for post circle revision >> last loop in circle
+        //time for post circle revision >> last loop in circle
         if(trLoopCounter.getValue()%loopAM.getValue()==0){
             trLoopCounter.setValue(0);
             trainingCircleCounter++;
