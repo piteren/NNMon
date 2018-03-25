@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="690.0" prefWidth="1400.0" stylesheets="@TVlook.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trainerVC.TVMainViewController">
+    <children>
+      <ChoiceBox fx:id="leftChartCB" layoutX="44.0" layoutY="10.0" prefHeight="20.0" prefWidth="130.0" />
+      <ChoiceBox fx:id="rightChartCB" layoutX="634.0" layoutY="10.0" prefHeight="20.0" prefWidth="130.0" />
+      <CheckBox fx:id="udRCB" layoutX="1001.0" layoutY="293.0" mnemonicParsing="false" scaleX="0.8" scaleY="0.8" text="udR" />
+      <Label layoutX="1006.0" layoutY="310.0" text="max solv" textFill="#4a4a4a">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
+      <Slider fx:id="maxSCSlider" blockIncrement="0.1" layoutX="1041.0" layoutY="297.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="24.0" prefWidth="129.0" scaleX="0.8" scaleY="0.8" showTickLabels="true" snapToTicks="true" value="10.0" />
+      <ToggleButton id="round-red" fx:id="resetGlobButton" layoutX="899.0" layoutY="295.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="reset global" textAlignment="CENTER" />
+            <LineChart fx:id="globErrChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="590.0" verticalGridLinesVisible="false">
+                <xAxis>
+                    <NumberAxis minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" />
+                </yAxis>
+            </LineChart>
+          <LineChart fx:id="intErrChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="590.0" verticalGridLinesVisible="false" visible="false">
+             <xAxis>
+                <NumberAxis fx:id="iECxAxis" minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+             </xAxis>
+             <yAxis>
+                <NumberAxis side="LEFT" />
+             </yAxis>
+          </LineChart>
+          <LineChart fx:id="globPerChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutX="590.0" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="585.0" verticalGridLinesVisible="false">
+             <xAxis>
+                <NumberAxis minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+             </xAxis>
+             <yAxis>
+                <NumberAxis side="LEFT" />
+             </yAxis>
+          </LineChart>
+          <LineChart fx:id="intPerChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" layoutX="590.0" layoutY="30.0" legendVisible="false" prefHeight="275.0" prefWidth="585.0" verticalGridLinesVisible="false" visible="false">
+             <xAxis>
+                <NumberAxis fx:id="iPCxAxis" minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+             </xAxis>
+             <yAxis>
+                <NumberAxis side="LEFT" />
+             </yAxis>
+          </LineChart>
+      <TabPane layoutY="330.0" prefHeight="360.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="range">
+               <content>
+                  <AnchorPane layoutX="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="291.0" prefWidth="1175.0">
+                     <children>
+                        <Canvas fx:id="myCandleCanvas" height="285.0" layoutX="110.0" layoutY="55.0" width="1060.0" />
+                        <ChoiceBox fx:id="cLLayCB" layoutX="5.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cLWhatCB" layoutX="5.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="candPresetCB" layoutX="5.0" layoutY="70.0" prefHeight="20.0" prefWidth="90.0" />
+                        <ChoiceBox fx:id="cS0LCB" layoutX="125.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS0WCB" layoutX="125.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS1LCB" layoutX="230.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS1WCB" layoutX="230.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS2LCB" layoutX="335.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS2WCB" layoutX="335.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS3LCB" layoutX="440.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS3WCB" layoutX="440.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS4LCB" layoutX="545.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS4WCB" layoutX="545.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS5LCB" layoutX="650.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS5WCB" layoutX="650.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS6LCB" layoutX="755.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS6WCB" layoutX="755.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS7LCB" layoutX="860.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS7WCB" layoutX="860.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS8LCB" layoutX="965.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS8WCB" layoutX="965.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS9LCB" layoutX="1070.0" layoutY="5.0" prefHeight="20.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="cS9WCB" layoutX="1070.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" />
+                        <Label layoutX="106.0" layoutY="81.0" text="1." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="106.0" text="2." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="131.0" text="3." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="156.0" text="4." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="181.0" text="5." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="206.0" text="6." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="231.0" text="7." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="256.0" text="8." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="106.0" layoutY="281.0" text="9." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="101.0" layoutY="306.0" text="10." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="215.0" layoutY="56.0" text="1." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="320.0" layoutY="56.0" text="2." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="425.0" layoutY="56.0" text="3." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="530.0" layoutY="56.0" text="4." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="635.0" layoutY="56.0" text="5." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="740.0" layoutY="56.0" text="6." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="845.0" layoutY="56.0" text="7." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="950.0" layoutY="56.0" text="8." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="1055.0" layoutY="56.0" text="9." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="1155.0" layoutY="56.0" text="10." textAlignment="RIGHT" textFill="#838383">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutY="251.0" prefHeight="75.0" prefWidth="102.0">
+                           <children>
+                              <Label layoutX="7.0" layoutY="17.0" text="upd ms" textAlignment="RIGHT" textFill="#515151">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="updCLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="44.0" layoutY="17.0" prefHeight="15.0" prefWidth="51.0" text="100" textAlignment="RIGHT" textFill="#515151">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Slider fx:id="updCSlider" blockIncrement="0.1" layoutX="-17.0" layoutY="28.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="4" prefHeight="14.0" prefWidth="136.0" scaleX="0.7" scaleY="0.7" value="2.0" />
+                              <Label layoutX="7.0" layoutY="42.0" text="rng" textAlignment="RIGHT" textFill="#515151">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="rangeCLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="44.0" layoutY="42.0" prefHeight="15.0" prefWidth="51.0" text="1,6e+00" textAlignment="RIGHT" textFill="#515151">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Slider fx:id="rangeCSlider" blockIncrement="0.05" layoutX="-17.0" layoutY="53.0" majorTickUnit="1.0" max="2.0" min="-3.0" minorTickCount="4" prefHeight="14.0" prefWidth="136.0" scaleX="0.7" scaleY="0.7" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="parent">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="genXChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" legendVisible="false" prefHeight="341.0" prefWidth="1180.0" title="genX parents" verticalGridLinesVisible="false">
+                           <xAxis>
+                              <NumberAxis minorTickVisible="false" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <TabPane fx:id="preRUNtabPane" layoutX="1180.0" prefHeight="690.0" prefWidth="220.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="pre">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="176.0">
+                     <children>
+                        <ChoiceBox fx:id="wInDistCB" layoutX="14.0" layoutY="20.0" prefHeight="20.0" prefWidth="118.0" />
+                        <Button id="round-red" fx:id="resetButton" layoutX="143.0" layoutY="17.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="RESET" />
+                        <Label layoutX="14.0" layoutY="50.0" text="wghtScale" textFill="#d02a00">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="weightSLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="69.0" layoutY="49.0" minHeight="16" minWidth="30.0" prefHeight="17.0" prefWidth="65.0" text="1.0e+10" textAlignment="RIGHT" textFill="#d02a00">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="weightSSlider" blockIncrement="0.1" layoutX="15.0" layoutY="61.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="115.0" />
+                        <ToggleButton id="round-red" fx:id="tryButton" layoutX="162.0" layoutY="52.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="47.0" text="try" textAlignment="CENTER" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="RUN">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="220.0">
+                     <children>
+                          <ToggleButton id="round-red" fx:id="runButton" layoutX="9.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="RUN" textAlignment="CENTER" />
+                        <Button id="round-red" fx:id="runOnceButton" layoutX="173.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="39.0" text="1L" />
+                        <ProgressBar fx:id="loopsPgBar" layoutX="8.0" layoutY="46.0" prefHeight="18.0" prefWidth="204.0" progress="0.0" scaleY="0.5" />
+                          <Label layoutX="9.0" layoutY="65.0" text="loopAM" textFill="#d02a00">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                          <Label fx:id="lAMLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="58.0" layoutY="65.0" minHeight="16" minWidth="69" text="100" textAlignment="RIGHT" textFill="#d02a00">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                          <Slider fx:id="lAMSlider" blockIncrement="0.1" layoutX="9.0" layoutY="75.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" prefHeight="24.0" prefWidth="123.0" />
+                          <Label layoutX="135.0" layoutY="65.0" text="envRep" textFill="#d02a00">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>    
+                          <Label fx:id="eRLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="181.0" layoutY="65.0" minHeight="16" minWidth="30.0" prefHeight="17.0" prefWidth="30.0" text="10" textAlignment="RIGHT" textFill="#d02a00">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                          <Slider fx:id="eRSlider" blockIncrement="0.1" layoutX="134.0" layoutY="75.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="24.0" prefWidth="80.0" value="1.0" />
+                        <CheckBox fx:id="doSTestCB" layoutX="8.0" layoutY="98.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" text="sTestEL" textFill="#d02a00" />
+                        <Separator layoutX="12.0" layoutY="617.0" prefWidth="200.0" />
+                          <CheckBox fx:id="doLearnCB" layoutX="8.0" layoutY="144.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="doLearn" textFill="#00a2c6" />
+                          <Label layoutX="9.0" layoutY="164.0" text="lrning rate" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                          <Label fx:id="lrLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="164.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="57.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                          <Slider fx:id="lrSlider" blockIncrement="0.25" layoutX="9.0" layoutY="174.0" majorTickUnit="1.0" max="-2.0" min="-20.0" minorTickCount="0" prefHeight="24.0" prefWidth="123.0" value="-20.0" />
+                          <Label layoutX="134.0" layoutY="164.0" text="batchS" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                          <Label fx:id="batchSLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="176.0" layoutY="164.0" minHeight="16" minWidth="23.0" prefHeight="17.0" prefWidth="33.0" text="10" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                          <Slider fx:id="batchSSlider" blockIncrement="0.05" layoutX="134.0" layoutY="174.0" majorTickUnit="1.0" max="4.0" minorTickCount="0" prefHeight="24.0" prefWidth="80.0" />
+                        <Label layoutX="11.0" layoutY="205.0" text="upd" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="wUpdMethCB" layoutX="33.0" layoutY="201.0" prefHeight="20.0" prefWidth="95.0" />
+                        <Label layoutX="134.0" layoutY="192.0" text="mmx" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="mxLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="176.0" layoutY="192.0" minHeight="16" minWidth="23.0" prefHeight="17.0" prefWidth="33.0" text="0.50" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="mxSlider" blockIncrement="0.01" layoutX="134.0" layoutY="202.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" prefHeight="24.0" prefWidth="80.0" value="0.5" />
+                        <CheckBox fx:id="L2regCB" layoutX="8.0" layoutY="227.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="L2rg" textFill="#00a2c6" />
+                        <Slider fx:id="L2regSlider" blockIncrement="0.25" layoutX="60.0" layoutY="224.0" majorTickUnit="1.0" max="-1.0" min="-20.0" minorTickCount="0" prefHeight="24.0" prefWidth="100.0" value="-20.0" />
+                        <Label fx:id="L2regLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="153.0" layoutY="226.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="55.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <CheckBox fx:id="gradLCB" layoutX="8.0" layoutY="248.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="grdL" textFill="#00a2c6" />
+                        <Slider fx:id="gradLSlider" blockIncrement="0.1" layoutX="60.0" layoutY="245.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="24.0" prefWidth="100.0" value="1.0" />
+                        <Label fx:id="gradLLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="154.0" layoutY="247.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="54.0" text="1,0e-06" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <CheckBox fx:id="nnormCB" layoutX="8.0" layoutY="295.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" selected="true" text="nodeNorm" textFill="#00a2c6" />
+                        <Label layoutX="9.0" layoutY="314.0" text="decay" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nnDecayLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="73.0" layoutY="314.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="55.0" text="1,0e-05" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="nnDecaySlider" blockIncrement="0.25" layoutX="9.0" layoutY="324.0" majorTickUnit="1.0" max="-2.0" min="-20.0" minorTickCount="0" prefHeight="24.0" prefWidth="123.0" value="-20.0" />
+                        <Label layoutX="134.0" layoutY="314.0" text="sd scl" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nnScaleLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="176.0" layoutY="314.0" minHeight="16" minWidth="23.0" prefHeight="17.0" prefWidth="33.0" text="0.30" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="nnScaleSlider" blockIncrement="0.01" layoutX="134.0" layoutY="324.0" majorTickUnit="1.0" max="1.0" min="0.05" minorTickCount="0" prefHeight="24.0" prefWidth="80.0" value="0.3" />
+                        <Label layoutX="9.0" layoutY="372.0" text="REW: rng" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="tanhRLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="71.0" layoutY="372.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="56.0" text="1,0e-00" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="tanhRSlider" blockIncrement="0.1" layoutX="9.0" layoutY="383.0" majorTickUnit="1.0" max="3.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="123.0" />
+                        <Label layoutX="134.0" layoutY="374.0" text="scl" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="tanhVLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="151.0" layoutY="372.0" minHeight="16" minWidth="23.0" prefHeight="17.0" prefWidth="58.0" text="1,0e+00" textAlignment="RIGHT" textFill="#00a2c6">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="tanhVSlider" blockIncrement="0.05" layoutX="134.0" layoutY="383.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="80.0" />
+                        <Separator layoutX="12.0" layoutY="127.0" prefWidth="200.0" />
+                        <CheckBox fx:id="genXCB" layoutX="11.0" layoutY="630.0" mnemonicParsing="false" text="genX" textFill="#019d3f" />
+                        <Label fx:id="gXrLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="169.0" layoutY="630.0" minHeight="16" minWidth="42.0" prefHeight="17.0" prefWidth="42.0" text="25" textAlignment="RIGHT" textFill="#019d3f">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="gXrSlider" blockIncrement="1.0" layoutX="71.0" layoutY="628.0" majorTickUnit="1.0" max="50.0" minorTickCount="0" prefHeight="24.0" prefWidth="100.0" value="25.0" />
+                        <Separator layoutX="12.0" layoutY="281.0" prefWidth="200.0" />
+                        <Separator layoutX="12.0" layoutY="359.0" prefWidth="200.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+    </children>
+</AnchorPane>

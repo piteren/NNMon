@@ -1,0 +1,72 @@
+<name> net
+<desc> LSTM in. mem. out.
+
+<laye> 0: IN 91
+
+<laye> 1: FC 480 SIGM
+<laye> 2: PW 480 REV
+<laye> 3: FC 480 TANH
+<laye> 4: FC 480 SIGM
+<laye> 5: PW 480 MUL
+<laye> 6: PW 480 MUL
+<laye> 7: PW 480 ADD
+<laye> 8: PW 480 TNH
+<laye> 9: PW 480 MUL
+
+<laye> 10: FC 480 SIGM
+<laye> 11: PW 480 REV
+<laye> 12: FC 480 TANH
+<laye> 13: FC 480 SIGM
+<laye> 14: PW 480 MUL
+<laye> 15: PW 480 MUL
+<laye> 16: PW 480 ADD
+<laye> 17: PW 480 TNH
+<laye> 18: PW 480 MUL
+
+<laye> 19: FC 480 SIGM
+<laye> 20: PW 480 REV
+<laye> 21: FC 480 TANH
+<laye> 22: FC 480 SIGM
+<laye> 23: PW 480 MUL
+<laye> 24: PW 480 MUL
+<laye> 25: PW 480 ADD
+<laye> 26: PW 480 TNH
+<laye> 27: PW 480 MUL
+
+<laye> 28: FC 91 TANH
+
+
+<topo> 0: 1 3 4
+
+<topo> 1: 2 5
+<topo> 2: 6
+<topo> 3: 6
+<topo> 4: 9
+<topo> 5: 7
+<topo> 6: 7
+<topo> 7: 5 8
+<topo> 8: 9
+<topo> 9: 1 3 4 10 12 13
+
+<topo> 10: 11 14
+<topo> 11: 15
+<topo> 12: 15
+<topo> 13: 18
+<topo> 14: 16
+<topo> 15: 16
+<topo> 16: 14 17
+<topo> 17: 18
+<topo> 18: 10 12 13 19 21 22
+
+<topo> 19: 20 23
+<topo> 20: 24
+<topo> 21: 24
+<topo> 22: 27
+<topo> 23: 25
+<topo> 24: 25
+<topo> 25: 23 26
+<topo> 26: 27
+<topo> 27: 19 21 22 28
+
+
+<eond> endOND

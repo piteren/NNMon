@@ -1,0 +1,11 @@
+<name> net
+<desc> FFWD
+
+<laye> 0: IN 16
+<laye> 1: FC 199 TANH
+<laye> 2: FC 4 TANH
+
+<topo> 0: 1
+<topo> 1: 2
+
+<eond> endOND

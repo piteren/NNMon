@@ -1,0 +1,26 @@
+<name> net
+<desc> LSTM tanh
+
+<laye> 0: IN 10
+<laye> 1: FC 90 2
+<laye> 2: FC 90 2
+<laye> 3: FC 90 2
+<laye> 4: FC 10 2
+<laye> 5: PW 90 1
+<laye> 6: PW 90 1
+<laye> 7: PW 90 0
+<laye> 8: FC 10 2
+<laye> 9: PW 10 1
+
+<topo> 0: 1 2 3 4
+<topo> 1: 5
+<topo> 2: 6
+<topo> 3: 6
+<topo> 4: 9
+<topo> 5: 7
+<topo> 6: 7
+<topo> 7: 5 8
+<topo> 8: 9
+<topo> 9: 1 2 3 4
+
+<eond> endOND

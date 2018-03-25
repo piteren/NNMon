@@ -1,0 +1,27 @@
+<name> net
+<desc> LSTM in. mem. out.
+
+<laye> 0: IN 16
+<laye> 1: FC 180 SIGM
+<laye> 2: FC 180 SIGM
+<laye> 3: FC 180 TANH
+<laye> 4: FC 180 SIGM
+<laye> 5: PW 180 MUL
+<laye> 6: PW 180 MUL
+<laye> 7: PW 180 ADD
+<laye> 8: PW 180 TNH
+<laye> 9: PW 180 MUL
+<laye> 10: FC 4 TANH
+
+<topo> 0: 1 2 3 4
+<topo> 1: 5
+<topo> 2: 6
+<topo> 3: 6
+<topo> 4: 9
+<topo> 5: 7
+<topo> 6: 7
+<topo> 7: 5 8
+<topo> 8: 9
+<topo> 9: 1 2 3 4 10
+
+<eond> endOND

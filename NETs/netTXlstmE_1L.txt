@@ -1,0 +1,29 @@
+<name> net
+<desc> LSTM in. mem. out.
+
+<laye> 0: IN 91
+<laye> 1: FC 15 TANH
+<laye> 2: FC 1080 SIGM
+<laye> 3: FC 1080 SIGM
+<laye> 4: FC 1080 TANH
+<laye> 5: FC 1080 SIGM
+<laye> 6: PW 1080 MUL
+<laye> 7: PW 1080 MUL
+<laye> 8: PW 1080 ADD
+<laye> 9: PW 1080 TNH
+<laye> 10: PW 1080 MUL
+<laye> 11: FC 91 TANH
+
+<topo> 0: 1
+<topo> 1: 2 3 4 5
+<topo> 2: 6
+<topo> 3: 7
+<topo> 4: 7
+<topo> 5: 10
+<topo> 6: 8
+<topo> 7: 8
+<topo> 8: 6 9
+<topo> 9: 10
+<topo> 10: 2 3 4 5 11
+
+<eond> endOND

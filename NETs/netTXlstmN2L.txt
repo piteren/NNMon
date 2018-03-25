@@ -1,0 +1,50 @@
+<name> net
+<desc> LSTM in. mem. out.
+
+<laye> 0: IN 91
+
+<laye> 1: FC 330 SIGM
+<laye> 2: FC 330 SIGM
+<laye> 3: FC 330 TANH
+<laye> 4: FC 330 SIGM
+<laye> 5: PW 330 MUL
+<laye> 6: PW 330 MUL
+<laye> 7: PW 330 ADD
+<laye> 8: PW 330 TNH
+<laye> 9: PW 330 MUL
+
+<laye> 10: FC 330 SIGM
+<laye> 11: FC 330 SIGM
+<laye> 12: FC 330 TANH
+<laye> 13: FC 330 SIGM
+<laye> 14: PW 330 MUL
+<laye> 15: PW 330 MUL
+<laye> 16: PW 330 ADD
+<laye> 17: PW 330 TNH
+<laye> 18: PW 330 MUL
+
+<laye> 19: FC 91 TANH
+
+<topo> 0: 1 2 3 4
+
+<topo> 1: 5
+<topo> 2: 6
+<topo> 3: 6
+<topo> 4: 9
+<topo> 5: 7
+<topo> 6: 7
+<topo> 7: 5 8
+<topo> 8: 9
+<topo> 9: 1 2 3 4 10 11 12 13
+
+<topo> 10: 14
+<topo> 11: 15
+<topo> 12: 15
+<topo> 13: 18
+<topo> 14: 16
+<topo> 15: 16
+<topo> 16: 14 17
+<topo> 17: 18
+<topo> 18: 10 11 12 13 19
+
+<eond> endOND
