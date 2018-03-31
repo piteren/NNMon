@@ -8,7 +8,7 @@ import poker.PKPlayer;
 import poker.PKPlayerStats;
 import trainer.NTaiSolver;
 import trainer.NTCaseFeedback;
-import utilities.UArr;
+import diffUtils.UArr;
 
 public class NTPKPlayer extends PKPlayer {
     

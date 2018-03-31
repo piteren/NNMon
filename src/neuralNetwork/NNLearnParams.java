@@ -5,8 +5,8 @@ package neuralNetwork;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import utilities.ULogDoubleProperty;
-import utilities.ULogDoubleProperty.TSform;
+import diffUtils.ULogDoubleProperty;
+import diffUtils.ULogDoubleProperty.TSform;
 
 /**
  * back prop learning parameters

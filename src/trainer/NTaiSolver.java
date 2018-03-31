@@ -4,15 +4,14 @@
 
 package trainer;
 
+import neuralNetwork.NNDataProcessing;
 import neuralNetwork.NNLearnParams;
-import neuralNetwork.NNdp;
 import neuralNetwork.NNetwork;
 import dataUtilities.GData;
 import javafx.scene.paint.Color;
-import utilities.UArr;
-import utilities.URand;
+import diffUtils.URand;
 import trainer.toCase.NTCaseSpecificFeedback;
-import utilities.threadRun.UTRobject;
+import threadUtils.UTRobject;
 
 import java.util.LinkedList;
 
@@ -89,8 +88,8 @@ public class NTaiSolver extends NNetwork implements UTRobject{
             // store error
             gErrData.add(errVal);
             iErrData.add(errVal);
-            inGradients.addFirst(NNdp.gradCE(myLastOut, corrCIX));
-            // inGradients.addFirst(NNdp.gradSVM(myLastOut, corrCIX, myDLParams.offsetSVM));
+            inGradients.addFirst(NNDataProcessing.gradCE(myLastOut, corrCIX));
+            // inGradients.addFirst(NNDataProcessing.gradSVM(myLastOut, corrCIX, myDLParams.offsetSVM));
         }
         // got rewards
         if(rewVal!=null){
@@ -99,7 +98,7 @@ public class NTaiSolver extends NNetwork implements UTRobject{
             iRewData.add(rewVal);
             // and still no error calculated >> reinforcement case
             if(errVal==null) {
-                inGradients.addFirst(NNdp.gradReinforcement(myLastOut, rewVal));
+                inGradients.addFirst(NNDataProcessing.gradReinforcement(myLastOut, rewVal));
                 errVal = 1.0;
             }
         }
@@ -111,8 +110,8 @@ public class NTaiSolver extends NNetwork implements UTRobject{
 
     //returns decision error of net, SVM version by now
     public double decisionError(double[] out, int cCix){
-        return NNdp.lossCE(out, cCix);
-        // return NNdp.lossSVM(out, cCix, myDLParams.offsetSVM);
+        return NNDataProcessing.lossCE(out, cCix);
+        // return NNDataProcessing.lossSVM(out, cCix, myDLParams.offsetSVM);
     }
 
     protected void resetGGData(){

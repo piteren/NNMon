@@ -5,7 +5,7 @@ package trainer.toCase;
 
 import trainer.NTaiSolver;
 import trainer.NTCaseFeedback;
-import utilities.UArr;
+import diffUtils.UArr;
 
 /**
  * trained actor interface

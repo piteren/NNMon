@@ -12,8 +12,8 @@ import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import utilities.ULogDoubleProperty;
-import utilities.ULogDoubleProperty.TSform;
+import diffUtils.ULogDoubleProperty;
+import diffUtils.ULogDoubleProperty.TSform;
 
 /**
  * controls candle canvas, displays candle graphs of observed histograms

@@ -1,7 +1,7 @@
 package poker;
 
 import java.util.ArrayList;
-import utilities.URand;
+import diffUtils.URand;
 
 public class PKDeck {
     public ArrayList<PKCard> deckCards;                                                //list of cards

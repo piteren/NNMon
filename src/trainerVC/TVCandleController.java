@@ -15,7 +15,7 @@ import javafx.scene.control.ChoiceBox;
 import trainer.NetTrainer.SolvOrder;
 import trainer.NetTrainer;
 import trainer.NTaiSolver;
-import utilities.ULogDoubleProperty;
+import diffUtils.ULogDoubleProperty;
 
 /**
  * controls candle feature,

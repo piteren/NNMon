@@ -14,10 +14,10 @@ import java.util.LinkedList;
  *  SER - serial
  *  PAR - parallel
  */
-public class DSmultiDataSocket extends DSdataSocket {
+public class DSmultiDataSocket extends DSDataSocket {
     
     private final MDStype                   myMDStype;                          // MDS type
-    private final LinkedList<DSdataSocket>  dsSource = new LinkedList<>();      // list of sockets that makes this MDS
+    private final LinkedList<DSDataSocket>  dsSource = new LinkedList<>();      // list of sockets that makes this MDS
     private final LinkedList<Integer>       timeOff = new LinkedList<>();       // time offset of corresponding ds
     
     public enum MDStype{
@@ -33,7 +33,7 @@ public class DSmultiDataSocket extends DSdataSocket {
     }
     
     //adds DS to MDS
-    public void addDS(DSdataSocket ds, int tmO){
+    public void addDS(DSDataSocket ds, int tmO){
         dsSource.add(ds);
         if(myMDStype==MDStype.SER) width += ds.width;
         else width = ds.width;
@@ -60,12 +60,12 @@ public class DSmultiDataSocket extends DSdataSocket {
 
     @Override
     public void moveDataTSF(){
-        for(DSdataSocket ds: dsSource) ds.moveDataTSF();
+        for(DSDataSocket ds: dsSource) ds.moveDataTSF();
     }
 
     @Override
     public void resetFrom(int ix){
-        for(DSdataSocket ds: dsSource) ds.resetFrom(ix);
+        for(DSDataSocket ds: dsSource) ds.resetFrom(ix);
     }
     
     @Override
@@ -73,7 +73,7 @@ public class DSmultiDataSocket extends DSdataSocket {
         if(myMDStype==MDStype.SER){
             int counter = 0;
             double[] partArr;
-            DSdataSocket dsi;
+            DSDataSocket dsi;
             
             //for every DS from MDS
             for(int i=0; i<dsSource.size(); i++){
@@ -90,13 +90,13 @@ public class DSmultiDataSocket extends DSdataSocket {
 
     @Override
     public double[] getD(int h){
-        DSdataSocket dsi;
+        DSDataSocket dsi;
         double[] outArr = new double[width];
         
         switch(myMDStype){
             case SER:
                 int counter = 0;
-                //for every DS from MDS
+                // for every DS from MDS
                 for(int i=0; i<dsSource.size(); i++){
                     dsi = dsSource.get(i);
                     System.arraycopy(dsi.getD(h + timeOff.get(i)), 0, outArr, counter, dsi.width);
@@ -106,7 +106,7 @@ public class DSmultiDataSocket extends DSdataSocket {
             case PAR:
                 double[] tempArr;
                 int tOff;
-                //for every DS from MDS
+                // for every DS from MDS
                 for(int i=0; i<dsSource.size(); i++){
                     dsi = dsSource.get(i);
                     tOff =  h - timeOff.get(i);

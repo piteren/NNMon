@@ -6,8 +6,8 @@ package dataUtilities;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
-import utilities.ULogDoubleProperty;
-import utilities.ULogDoubleProperty.TSform;
+import diffUtils.ULogDoubleProperty;
+import diffUtils.ULogDoubleProperty.TSform;
 /**
  * histogram like object (basic), turns set of data into some statistical info (mean, sDev, min, max)
  */

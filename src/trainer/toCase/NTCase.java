@@ -6,7 +6,7 @@ package trainer.toCase;
 import java.util.LinkedList;
 import trainer.NTaiSolver;
 import trainer.NTCaseFeedback;
-import utilities.threadRun.UTRobject;
+import threadUtils.UTRobject;
 
 /**
  * interface of case that communicates with trainer (trainer runs case) and NTactor

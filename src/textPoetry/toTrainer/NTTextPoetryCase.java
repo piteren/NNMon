@@ -7,7 +7,7 @@ import textPoetry.TextPoetryCase;
 import trainer.NTaiSolver;
 import trainer.toCase.NTActor;
 import trainer.toCase.NTCase;
-import utilities.UFileOperator;
+import diffUtils.UFileOperator;
 
 /**
  * trained text poetry case

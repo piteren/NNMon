@@ -4,7 +4,7 @@
 
 package rowDM;
 
-import utilities.URand;
+import diffUtils.URand;
 import java.util.LinkedList;
 
 public class RowDMActor {

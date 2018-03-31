@@ -6,15 +6,13 @@ package neuralNetwork;
 
 import genX.GXgenXinterface;
 import dataUtilities.DSmultiDataSocket;
-import dataUtilities.DSdataSocket;
+import dataUtilities.DSDataSocket;
 import neuralNetwork.NNLayerPW.PWlayType;
 
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.LinkedList;
-import utilities.UArr;
 
-import utilities.UFileOperator;
+import diffUtils.UFileOperator;
 
 /**
  * network class, has subnetwork,
@@ -176,15 +174,15 @@ public class NNetwork extends NNLay {
         
         //case when this net has no other connected before (is first and gets vIN from envy)
         if(vIN==null){       
-            vIN = new DSdataSocket(FIOlay.vOUT.getWidth());
-            FIOlay.dIN = new DSdataSocket(FIOlay.vOUT.getWidth());                              //dIN may left null or: dIN = firstNetLayer.dIN
+            vIN = new DSDataSocket(FIOlay.vOUT.getWidth());
+            FIOlay.dIN = new DSDataSocket(FIOlay.vOUT.getWidth());                              //dIN may left null or: dIN = firstNetLayer.dIN
         }
         else FIOlay.dIN = dIN;                                                                  //reference connection
         FIOlay.vIN = vIN;                                                                       //vIN reference connection
         
         //case when this net has no other connected after (is last and gets dOUT from envy)
         if(dOUT==null)       
-            dOUT = new DSdataSocket(LIOlay.vOUT.getWidth());
+            dOUT = new DSDataSocket(LIOlay.vOUT.getWidth());
         else LIOlay.dOUT = dOUT;
         
         //lastNetLayer dOUT   !! it wont work PROBABLY with dOUT==MDS

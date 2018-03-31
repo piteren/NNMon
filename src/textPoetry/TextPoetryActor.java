@@ -5,7 +5,7 @@
 package textPoetry;
 
 import java.util.LinkedList;
-import utilities.URand;
+import diffUtils.URand;
 
 /**
  * text poetry actor - decider

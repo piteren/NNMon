@@ -17,10 +17,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 
-import utilities.URand;
-import utilities.threadRun.UTRobject;
-import utilities.threadRun.UThreadRun;
-import utilities.ULogDoubleProperty;
+import diffUtils.URand;
+import threadUtils.UTRobject;
+import threadUtils.UThreadRun;
+import diffUtils.ULogDoubleProperty;
 
 /**
  * manages training of solvers @cases

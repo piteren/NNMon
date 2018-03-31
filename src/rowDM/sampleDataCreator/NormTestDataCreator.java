@@ -4,8 +4,8 @@
 
 package rowDM.sampleDataCreator;
 
-import utilities.UFileOperator;
-import utilities.URand;
+import diffUtils.UFileOperator;
+import diffUtils.URand;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,21 +28,19 @@ public class NormTestDataCreator {
         int mark,
             sum = 0;
 
-        int width = 1;
+        int width = 3;
         for(int ix=0; ix<num; ix++){
             double[] data = new double[width];
-            data[0] = URand.gauss();
-            //data[1] = URand.gauss() * 10;
-            //data[2] = URand.gauss() * 10;
+            for(int z=0; z<width; z++)
+                data[z] = URand.gauss();
             fLine = "";
-            for(Double D: data){
-                fLine += Double.toString(Math.tanh(D/15)) + " ";
-                //fLine += Double.toString(D) + " ";
-            }
+            for(Double D: data)
+                fLine += Double.toString(Math.tanh(D)) + " ";
             fLine = fLine.substring(0, fLine.length()-1);
             mark = 0;
-            if(     //data[0] < 10 &&
-                    data[0] > 0.7)
+            if(     //data[0] <  0.3 &&
+                    //data[0] > -0.2 &&
+                    data[0]*data[1]*data[2] > 0)
             {
                 mark = 1;
                 sum++;

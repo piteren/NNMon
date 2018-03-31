@@ -11,13 +11,13 @@ import java.util.LinkedList;
  * keeps list of double arrays
  * list index keeps previous (historical) samples of data
  */
-public class DSdataSocket {
+public class DSDataSocket {
     
     int                                 width;                                  // width of data (width of array)
     private final LinkedList<double[]>  dataArrList = new LinkedList<>();       // raw data list, 0-actual, 1-history(+1), 2-history(+2)...
     
     // constructor (width)
-    public DSdataSocket(int wd){
+    public DSDataSocket(int wd){
         width = wd;
     }
     

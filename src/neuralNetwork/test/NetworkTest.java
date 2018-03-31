@@ -4,10 +4,10 @@
 
 package neuralNetwork.test;
 
+import neuralNetwork.NNDataProcessing;
 import neuralNetwork.NNLearnParams;
-import neuralNetwork.NNdp;
 import neuralNetwork.NNetwork;
-import utilities.UFileOperator;
+import diffUtils.UFileOperator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,9 +15,6 @@ import java.util.List;
 /**
  * Network testing class
  */
-
-
-
 public class NetworkTest {
 
 
@@ -68,8 +65,8 @@ public class NetworkTest {
             double[] datIn = dat.getData();
             double[] netOut = net.runFWD(datIn);
 
-            System.out.println(NNdp.lossSVM(netOut, dat.getFlag(), 0.1));
-            double[] gradSVM = NNdp.gradSVM(netOut, dat.getFlag(), 0.1);
+            System.out.println(NNDataProcessing.lossSVM(netOut, dat.getFlag(), 0.1));
+            double[] gradSVM = NNDataProcessing.gradSVM(netOut, dat.getFlag(), 0.1);
 
             LinkedList<double[]> grList = new LinkedList<>();
             grList.add(gradSVM);

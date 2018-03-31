@@ -4,12 +4,12 @@
 
 package neuralNetwork;
 
-import utilities.UArr;
+import diffUtils.UArr;
 
 /**
  * NN data processing class
  */
-public class NNdp {
+public class NNDataProcessing {
 
     // creates loss array 4 SVM loss
     public static double[] arrLossSVM(double[] out, int cCix, double offS){

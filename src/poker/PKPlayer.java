@@ -6,7 +6,7 @@ package poker;
 
 import java.util.LinkedList;
 
-import utilities.URand;
+import diffUtils.URand;
 
 /**
  * poker player, keeps hand cards and stack

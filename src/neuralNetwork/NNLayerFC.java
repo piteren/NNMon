@@ -5,8 +5,8 @@ package neuralNetwork;
 
 import static neuralNetwork.NNLearnParams.WInitDist.UNIFORM;
 import genX.GXgenXinterface;
-import utilities.UArr;
-import utilities.URand;
+import diffUtils.UArr;
+import diffUtils.URand;
 
 /**
  * fully-connected layer
@@ -36,6 +36,9 @@ public class NNLayerFC extends NNLay {
         for(int i=0; i<vWeights.length; i++)
             for(int j=0; j<vWeights[0].length; j++)
                 vWeights[i][j] = weigthInVal(scale);
+        // bias weights == 0
+        for(int j=0; j<vWeights[0].length; j++)
+            vWeights[vWeights.length-1][j] = 0;
         if(myLHistograms.get(1).isActive()) myLHistograms.get(1).build( UArr.flat(vWeights) );   //weights histogram
     }
 

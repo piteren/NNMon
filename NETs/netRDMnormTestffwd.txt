@@ -1,37 +1,11 @@
 <name> net
 <desc> FFWD
 
-<<<<<<< HEAD
 <laye> 0: IN 3
-<<<<<<< HEAD
-<laye> 1: FC 100 TANH
-<laye> 2: FC 100 TANH
-<laye> 3: FC 2 LIN
-=======
-<laye> 1: FC 160 TANH
-<laye> 2: FC 110 TANH
-<laye> 3: FC 90 TANH
-<laye> 4: FC 2 LIN
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
-=======
-<laye> 0: IN 1
-<laye> 1: FC 60 TANH
-<laye> 2: FC 50 TANH
-<laye> 3: FC 40 TANH
-<laye> 4: FC 30 TANH
-<laye> 5: FC 2 TANH
->>>>>>> parent of c93a836... layerNormalizer class implemented
+<laye> 1: FC 10 TANH
+<laye> 2: FC 2 LIN
 
 <topo> 0: 1
 <topo> 1: 2
-<topo> 2: 3
-<<<<<<< HEAD
-=======
-<topo> 3: 4
-<<<<<<< HEAD
->>>>>>> c93a836729b2d88c6b6ab3ec1b564746c052410c
-=======
-<topo> 4: 5
->>>>>>> parent of c93a836... layerNormalizer class implemented
 
 <eond>

@@ -12,7 +12,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.paint.Color;
-import utilities.UColor;
+import diffUtils.UColor;
 
 /**
  * observes GData from trainer and solvers, noticed on change decides about / performs view update

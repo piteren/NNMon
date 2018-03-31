@@ -6,7 +6,7 @@ package neuralNetwork;
 
 import genX.GXgenXinterface;
 import dataUtilities.DSmultiDataSocket;
-import dataUtilities.DSdataSocket;
+import dataUtilities.DSDataSocket;
 import dataUtilities.DSmultiDataSocket.MDStype;
 import dataUtilities.HistoFace;
 import dataUtilities.Histogram;
@@ -24,7 +24,7 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
 
     final NNLearnParams                 myDLParams;                         // layer learning parameters
     
-    DSdataSocket                        vIN,                                // object input FWD data
+    DSDataSocket vIN,                                // object input FWD data
                                         vOUT,                               // object output FWD data (MDS SER)
                                         dIN,                                // object input BWD data (MDS SER)
                                         dOUT;                               // object output BWD data (MDS PAR)
@@ -62,7 +62,7 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
     // constructor(parent, width)
     NNLay(NNLearnParams mDLp, int oW) {
         myDLParams = mDLp;
-        vOUT = new DSdataSocket(oW);                                                //vOUT initialization
+        vOUT = new DSDataSocket(oW);                                                //vOUT initialization
         layNorm = new NNLayerNormalizer(mDLp, oW);
         initHistograms();                                                           //histograms initialization
     }
@@ -70,11 +70,11 @@ public abstract class NNLay implements NNRunAndLearn, GXgenXinterface, HistoFace
     // inits vIN,dIN,dOUT using networking information
     protected void finalizeBuild() {
 
-        DSdataSocket pvOUT, tempDS;
+        DSDataSocket pvOUT, tempDS;
         for(int i=0; i<prevNetObjects.size(); i++){                                         // 4 every i prev_object
             int cO = prevTOffConn.get(i);                                                   // connection time offset
             pvOUT = prevNetObjects.get(i).vOUT;                                             // prev_object vOUT
-            tempDS = new DSdataSocket(pvOUT.getWidth());                                    // tempDS object common 4 this.dIN and prev_object.dOUT
+            tempDS = new DSDataSocket(pvOUT.getWidth());                                    // tempDS object common 4 this.dIN and prev_object.dOUT
             
             //vIN
             if(vIN==null) vIN = new DSmultiDataSocket(MDStype.SER, cO);
